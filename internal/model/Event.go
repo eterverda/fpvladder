@@ -5,16 +5,16 @@ type Organizer struct {
 	Link Link   `yaml:"link,omitempty"`
 }
 
-type PoilotEntry struct {
+type PilotEntry struct {
 	Position int    `yaml:"position"`
 	Id       Id     `yaml:"id"`
 	Name     string `yaml:"name,omitempty"`
 }
 
 type Stage struct {
-	Name   string        `yaml:"name"`  // "Квалификация", "Финал"
-	Class  Class         `yaml:"class"` // drone-racing :: 75mm :: individual
-	Pilots []PoilotEntry `yaml:"pilots"`
+	Name   string       `yaml:"name"`  // "Квалификация", "Финал"
+	Class  Class        `yaml:"class"` // drone-racing :: 75mm :: individual
+	Pilots []PilotEntry `yaml:"pilots"`
 }
 
 type Event struct {
