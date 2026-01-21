@@ -1,3 +1,13 @@
 id: 2025/12-28/14
 name: Сойгалов Степан
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 1370
+      origin_id: 2025/12-28/1
+      date: 2025-12-28
+      qty: 2
+    - class: drone-racing
+      value: 1370
+      origin_id: 2025/12-28/1
+      date: 2025-12-28
+      qty: 2

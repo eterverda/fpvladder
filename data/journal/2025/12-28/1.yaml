@@ -1,0 +1,517 @@
+event_id: 2025/12-28/1
+description: Пересчет рейтингов по системе Elo по результатам события Фан-Кон ёлка 2026
+date: 2025-12-28
+pilots:
+    - id: 2025/12-28/11
+      name: Садовников Матвей
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 150
+          new_value: 1350
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 150
+          new_value: 1350
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1350
+          algorithm:
+            name: elo
+          delta: 140
+          new_value: 1490
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1350
+          algorithm:
+            name: elo
+          delta: 140
+          new_value: 1490
+    - id: 2025/12-28/17
+      name: Фомина Алёна
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 90
+          new_value: 1290
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 90
+          new_value: 1290
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1290
+          algorithm:
+            name: elo
+          delta: -8
+          new_value: 1282
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1290
+          algorithm:
+            name: elo
+          delta: -8
+          new_value: 1282
+    - id: 2025/12-28/13
+      name: Саламатов Марк
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 60
+          new_value: 1260
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 60
+          new_value: 1260
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1260
+          algorithm:
+            name: elo
+          delta: 99
+          new_value: 1359
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1260
+          algorithm:
+            name: elo
+          delta: 99
+          new_value: 1359
+    - id: 2025/12-28/8
+      name: Котоман Семен
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 30
+          new_value: 1230
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 30
+          new_value: 1230
+    - id: 2025/12-28/4
+      name: Богинский Никита
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -60
+          new_value: 1140
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -60
+          new_value: 1140
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1140
+          algorithm:
+            name: elo
+          delta: 19
+          new_value: 1159
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1140
+          algorithm:
+            name: elo
+          delta: 19
+          new_value: 1159
+    - id: 2025/12-28/2
+      name: Асанов Александр
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -90
+          new_value: 1110
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -90
+          new_value: 1110
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1110
+          algorithm:
+            name: elo
+          delta: -24
+          new_value: 1086
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1110
+          algorithm:
+            name: elo
+          delta: -24
+          new_value: 1086
+    - id: 2025/12-28/7
+      name: Елисеев Степан
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -120
+          new_value: 1080
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -120
+          new_value: 1080
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1080
+          algorithm:
+            name: elo
+          delta: -98
+          new_value: 982
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1080
+          algorithm:
+            name: elo
+          delta: -98
+          new_value: 982
+    - id: 2025/12-28/15
+      name: Старостенков Антон
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -210
+          new_value: 990
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -210
+          new_value: 990
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 990
+          algorithm:
+            name: elo
+          delta: -82
+          new_value: 908
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 990
+          algorithm:
+            name: elo
+          delta: -82
+          new_value: 908
+    - id: 2025/12-28/10
+      name: Руденко Владимир
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 180
+          new_value: 1380
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 180
+          new_value: 1380
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1380
+          algorithm:
+            name: elo
+          delta: 64
+          new_value: 1444
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1380
+          algorithm:
+            name: elo
+          delta: 64
+          new_value: 1444
+    - id: 2025/12-28/5
+      name: Губанов Илья
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 120
+          new_value: 1320
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 120
+          new_value: 1320
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1320
+          algorithm:
+            name: elo
+          delta: 35
+          new_value: 1355
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1320
+          algorithm:
+            name: elo
+          delta: 35
+          new_value: 1355
+    - id: 2025/12-28/12
+      name: Саламатов Александр
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -240
+          new_value: 960
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -240
+          new_value: 960
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 960
+          algorithm:
+            name: elo
+          delta: -8
+          new_value: 952
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 960
+          algorithm:
+            name: elo
+          delta: -8
+          new_value: 952
+    - id: 2025/12-28/9
+      name: Костин Егор
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 240
+          new_value: 1440
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 240
+          new_value: 1440
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1440
+          algorithm:
+            name: elo
+          delta: 66
+          new_value: 1506
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1440
+          algorithm:
+            name: elo
+          delta: 66
+          new_value: 1506
+    - id: 2025/12-28/14
+      name: Сойгалов Степан
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 210
+          new_value: 1410
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 210
+          new_value: 1410
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1410
+          algorithm:
+            name: elo
+          delta: -40
+          new_value: 1370
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1410
+          algorithm:
+            name: elo
+          delta: -40
+          new_value: 1370
+    - id: 2025/12-28/6
+      name: Егоров Дмитрий
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 0
+          new_value: 1200
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 0
+          new_value: 1200
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 14
+          new_value: 1214
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: 14
+          new_value: 1214
+    - id: 2025/12-28/1
+      name: Аверин Дмитрий
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -30
+          new_value: 1170
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -30
+          new_value: 1170
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1170
+          algorithm:
+            name: elo
+          delta: -29
+          new_value: 1141
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1170
+          algorithm:
+            name: elo
+          delta: -29
+          new_value: 1141
+    - id: 2025/12-28/16
+      name: Формагей Виктория
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -150
+          new_value: 1050
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -150
+          new_value: 1050
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1050
+          algorithm:
+            name: elo
+          delta: -22
+          new_value: 1028
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1050
+          algorithm:
+            name: elo
+          delta: -22
+          new_value: 1028
+    - id: 2025/12-28/3
+      name: Асанов Петр
+      ratings:
+        - class: drone-racing > 75mm
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -180
+          new_value: 1020
+        - class: drone-racing
+          stage_name: Квалификация
+          old_value: 1200
+          algorithm:
+            name: elo
+          delta: -180
+          new_value: 1020
+        - class: drone-racing > 75mm
+          stage_name: Финалы
+          old_value: 1020
+          algorithm:
+            name: elo
+          delta: -126
+          new_value: 894
+        - class: drone-racing
+          stage_name: Финалы
+          old_value: 1020
+          algorithm:
+            name: elo
+          delta: -126
+          new_value: 894

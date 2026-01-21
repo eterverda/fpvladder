@@ -1,0 +1,111 @@
+id: 2025/12-28/1
+date: 2025-12-28
+name: Фан-Кон ёлка 2026
+organizer:
+  name: Вуп-Трек
+stages:
+  - name: Квалификация
+    class: drone-racing > 75mm
+    pilots:
+      - position: 1
+        id: 2025/12-28/9
+        name: Костин Егор
+      - position: 2
+        id: 2025/12-28/14
+        name: Сойгалов Степан
+      - position: 3
+        id: 2025/12-28/10
+        name: Руденко Владимир
+      - position: 4
+        id: 2025/12-28/11
+        name: Садовников Матвей
+      - position: 5
+        id: 2025/12-28/5
+        name: Губанов Илья
+      - position: 6
+        id: 2025/12-28/17
+        name: Фомина Алёна
+      - position: 7
+        id: 2025/12-28/13
+        name: Саламатов Марк
+      - position: 8
+        id: 2025/12-28/8
+        name: Котоман Семен
+      - position: 9
+        id: 2025/12-28/6
+        name: Егоров Дмитрий
+      - position: 10
+        id: 2025/12-28/1
+        name: Аверин Дмитрий
+      - position: 11
+        id: 2025/12-28/4
+        name: Богинский Никита
+      - position: 12
+        id: 2025/12-28/2
+        name: Асанов Александр
+      - position: 13
+        id: 2025/12-28/7
+        name: Елисеев Степан
+      - position: 14
+        id: 2025/12-28/16
+        name: Формагей Виктория
+      - position: 15
+        id: 2025/12-28/3
+        name: Асанов Петр
+      - position: 16
+        id: 2025/12-28/15
+        name: Старостенков Антон
+      - position: 17
+        id: 2025/12-28/12
+        name: Саламатов Александр
+  - name: Финалы
+    class: drone-racing > 75mm
+    pilots:
+      - position: 1
+        id: 2025/12-28/11
+        name: Садовников Матвей
+      - position: 2
+        id: 2025/12-28/9
+        name: Костин Егор
+      - position: 3
+        id: 2025/12-28/10
+        name: Руденко Владимир
+      - position: 4
+        id: 2025/12-28/13
+        name: Саламатов Марк
+      - position: 5
+        id: 2025/12-28/5
+        name: Губанов Илья
+      - position: 6
+        id: 2025/12-28/14
+        name: Сойгалов Степан
+      - position: 7
+        id: 2025/12-28/17
+        name: Фомина Алёна
+      - position: 8
+        id: 2025/12-28/6
+        name: Егоров Дмитрий
+      - position: 9
+        id: 2025/12-28/4
+        name: Богинский Никита
+      - position: 10
+        id: 2025/12-28/1
+        name: Аверин Дмитрий
+      - position: 11
+        id: 2025/12-28/2
+        name: Асанов Александр
+      - position: 12
+        id: 2025/12-28/16
+        name: Формагей Виктория
+      - position: 13
+        id: 2025/12-28/12
+        name: Саламатов Александр
+      - position: 14
+        id: 2025/12-28/7
+        name: Елисеев Степан
+      - position: 15
+        id: 2025/12-28/15
+        name: Старостенков Антон
+      - position: 16
+        id: 2025/12-28/3
+        name: Асанов Петр
