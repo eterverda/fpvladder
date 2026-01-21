@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -26,13 +27,23 @@ func main() {
 		Short: "Работа с эвентами",
 	}
 
-	// Подкоманда pilot add
+	// Подкоманда event draft
 	var eventDraftCmd = &cobra.Command{
 		Use:   "draft [file_path]",
 		Short: "Интерактивное создание черновика эвента",
 		Args:  cobra.ExactArgs(1),
 		Run:   func(cmd *cobra.Command, args []string) { handleDraft(cmd, args, date) },
 	}
+
+	// Подкоманда event install
+	var eventInstallCmd = &cobra.Command{
+		Use:   "install [file_path]",
+		Short: "Добавить событие в БД и пересчитать все рейтинги",
+		Args:  cobra.ExactArgs(1),
+		Run:   handleInstall,
+	}
+
+	eventCmd.AddCommand(eventInstallCmd)
 
 	// Добавляем флаг --date (или короткий -d)
 	eventDraftCmd.Flags().StringVarP(&date, "date", "d", model.Today().String(), "Дата проведения эвента (формат YYYY-MM-DD)")
@@ -119,6 +130,197 @@ func createPilotFile(path string, id model.Id, name string) error {
 		return err
 	}
 	return err
+}
+
+func handleInstall(cmd *cobra.Command, args []string) {
+	path := args[0]
+
+	err := validateEvent(path)
+	if err != nil {
+		log.Fatalf("[✕] Файл невалиден и не готов к работе: %s\n", err)
+	}
+
+	event, err := readEvent(path)
+	if err != nil {
+		log.Fatalf("[✕] Не удалось прочитать эвент: %s\n", err)
+	}
+
+	presumedId, err := db.GenerateNextId(DBPath, "event", event.Date)
+	if event.Id != presumedId {
+		log.Fatalln("[✕] Неверный Id")
+	}
+	targetPath := db.ResolveIdPath(DBPath, "event", event.Id)
+
+	// 3. Скопировали файл
+	err = copyFile(path, targetPath)
+	if err != nil {
+		log.Fatalln("[✕] Не получилось скопировать файл")
+	}
+
+	err = recalculateRatings(*event)
+	if err != nil {
+		log.Fatalln("[✕] Не удалось пересчитать рейтинги")
+	}
+}
+
+func recalculateRatings(event model.Event) error {
+	var pilots = make(map[model.Id]*model.Pilot)
+	var records = make(map[model.Id]*model.PilotRecord)
+
+	for _, stage := range event.Stages {
+		class := stage.Class
+
+		for _, entry := range stage.Pilots {
+			id := entry.Id
+			if _, ok := pilots[id]; !ok {
+				pilot, err := readPilot(id)
+				if err != nil {
+					return err
+				}
+				pilots[id] = pilot
+				records[id] = &model.PilotRecord{
+					Id:   pilot.Id,
+					Name: pilot.Name,
+				}
+			}
+		}
+
+		for class != "" {
+			fmt.Printf("[ ] Обработка этапа \"%s\" для класса %s\n", stage.Name, string(class))
+
+			var inputs = make([]pilotInput, 0, len(stage.Pilots))
+			var originIds = make([]model.Id, 0, len(stage.Pilots))
+			for _, entry := range stage.Pilots {
+				pilot := pilots[entry.Id]
+				oldRatingValue := 1200
+				var originId model.Id
+				for _, summary := range pilot.Ratings {
+					if class == summary.Class {
+						oldRatingValue = summary.Value
+						originId = summary.OriginId
+					}
+				}
+				input := pilotInput{position: entry.Position, oldRatingValue: oldRatingValue}
+				inputs = append(inputs, input)
+				originIds = append(originIds, originId)
+			}
+
+			for i, entry := range stage.Pilots {
+				input := inputs[i]
+
+				record := records[entry.Id]
+				pilot := pilots[entry.Id]
+
+				delta := recalculateRating(inputs, i)
+
+				newRatingValue := input.oldRatingValue + delta
+
+				var originId model.Id
+				if len(record.Ratings) == 0 {
+					originId = originIds[i]
+				}
+
+				rating := model.RatingAssignment{
+					Class:     class,
+					StageName: stage.Name,
+					OriginId:  originId,
+					OldValue:  input.oldRatingValue,
+					Algorithm: model.Algorithm{Name: "elo"},
+					Delta:     delta,
+					NewValue:  newRatingValue,
+				}
+				record.Ratings = append(record.Ratings, rating)
+
+				summary := model.RatingSummary{
+					Class:    rating.Class,
+					Value:    rating.NewValue,
+					OriginId: event.Id,
+					Date:     event.Date,
+					Qty:      1,
+				}
+
+				var updatedSummary = false
+				for j, oldSummary := range pilot.Ratings {
+					if summary.Class == oldSummary.Class {
+						summary.Qty += oldSummary.Qty
+						pilot.Ratings[j] = summary
+						updatedSummary = true
+					}
+				}
+				if !updatedSummary {
+					pilot.Ratings = append(pilot.Ratings, summary)
+				}
+
+				fmt.Printf("    %s -> %v\n", pilot.Name, newRatingValue)
+			}
+
+			class = class.Parent()
+		}
+	}
+
+	journal := &model.Journal{
+		EventId:     event.Id,
+		Description: fmt.Sprintf("Пересчет рейтингов по системе Elo по результатам события %s", event.Name),
+		Date:        event.Date,
+	}
+	for _, record := range records {
+		journal.Pilots = append(journal.Pilots, *record)
+	}
+	journalData, _ := yaml.Marshal(journal)
+	journalFile := db.ResolveIdPath(DBPath, "journal", journal.EventId)
+
+	err := os.MkdirAll(filepath.Dir(journalFile), 0755)
+	if err != nil {
+		return err
+	}
+
+	err = os.WriteFile(journalFile, journalData, 0644)
+	if err != nil {
+		return err
+	}
+
+	for _, pilot := range pilots {
+		pilotData, _ := yaml.Marshal(pilot)
+		pilotFile := db.ResolveIdPath(DBPath, "pilot", pilot.Id)
+
+		err = os.WriteFile(pilotFile, pilotData, 0644)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func copyFile(src, dst string) error {
+	// 0. Создали иерархию папок (0755 - стандартные права)
+	err := os.MkdirAll(filepath.Dir(dst), 0755)
+	if err != nil {
+		return fmt.Errorf("не удалось создать папки: %w", err)
+	}
+
+	// 1. Открываем исходный файл
+	sourceFile, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer sourceFile.Close()
+
+	// 2. Создаем целевой файл (или перезаписываем существующий)
+	destFile, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer destFile.Close()
+
+	// 3. Копируем содержимое
+	_, err = io.Copy(destFile, sourceFile)
+	if err != nil {
+		return err
+	}
+
+	// 4. Фиксируем запись на диске
+	return destFile.Sync()
 }
 
 func handleDraft(cmd *cobra.Command, args []string, date string) {
@@ -216,16 +418,26 @@ func runEditLoop(path string) {
 	}
 }
 
-// validateEvent проверяет файл на соответствие модели Event
-func validateEvent(path string) error {
+func readEvent(path string) (*model.Event, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
-		return fmt.Errorf("не удалось прочитать файл: %w", err)
+		return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
 	}
 
 	var event model.Event
 	if err := yaml.Unmarshal(data, &event); err != nil {
-		return fmt.Errorf("ошибка синтаксиса YAML: %w", err)
+		return nil, fmt.Errorf("ошибка синтаксиса YAML: %w", err)
+	}
+
+	return &event, nil
+}
+
+// validateEvent проверяет файл на соответствие модели Event
+func validateEvent(path string) error {
+
+	event, err := readEvent(path)
+	if err != nil {
+		return err
 	}
 
 	// 1. Базовая проверка заголовка
@@ -296,22 +508,10 @@ func validateEvent(path string) error {
 	// --- ЦИКЛ 2: Верификация пилотов по внешней базе данных ---
 
 	for id, p := range allUniquePilots {
-		// Используем твой метод для получения пути к файлу пилота
-		pilotPath := db.ResolveIdPath(DBPath, "pilot", model.Id(id))
-
-		pData, err := os.ReadFile(pilotPath)
+		dbPilot, err := readPilot(model.Id(id))
 		if err != nil {
-			if os.IsNotExist(err) {
-				return fmt.Errorf("пилот [%s] не найден в БД (путь: %s)", id, pilotPath)
-			}
-			return fmt.Errorf("ошибка доступа к БД пилотов: %w", err)
+			return err
 		}
-
-		var dbPilot model.Pilot
-		if err := yaml.Unmarshal(pData, &dbPilot); err != nil {
-			return fmt.Errorf("ошибка структуры файла пилота %s: %w", id, err)
-		}
-
 		// Сверка имен (предупреждение, если не совпадают)
 		if !strings.EqualFold(dbPilot.Name, p.Name) {
 			fmt.Printf("[!] Расхождение имен для ID %s:, %s vs %s\n", id, dbPilot.Name, p.Name)
@@ -319,4 +519,23 @@ func validateEvent(path string) error {
 	}
 
 	return nil
+}
+
+func readPilot(id model.Id) (*model.Pilot, error) {
+	// Используем твой метод для получения пути к файлу пилота
+	pilotPath := db.ResolveIdPath(DBPath, "pilot", model.Id(id))
+
+	pData, err := os.ReadFile(pilotPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf("пилот [%s] не найден в БД (путь: %s)", id, pilotPath)
+		}
+		return nil, fmt.Errorf("ошибка доступа к БД пилотов: %w", err)
+	}
+
+	var dbPilot model.Pilot
+	if err := yaml.Unmarshal(pData, &dbPilot); err != nil {
+		return nil, fmt.Errorf("ошибка структуры файла пилота %s: %w", id, err)
+	}
+	return &dbPilot, nil
 }
