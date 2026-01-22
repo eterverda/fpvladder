@@ -1,8 +1,6 @@
 package model
 
-type Algorithm struct {
-	Name string `yaml:"name"`
-}
+type Algorithm string
 
 // Journal — верхнеуровневый документ (файл в data/rating/...)
 type Journal struct {
