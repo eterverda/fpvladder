@@ -14,7 +14,7 @@ import (
 // FindLatestId находит самый свежий Id для заданного типа данных (event, rating, pilot).
 // Ищет сначала самый большой год, затем самую позднюю дату, затем максимальный номер.
 func FindLatestId(baseDir string, dataType string) (model.Id, error) {
-	typeDir := filepath.Join(baseDir, dataType)
+	typeDir := ResolveTypePath(baseDir, dataType)
 
 	// Ищем последнюю папку года
 	year := lastDirEntry(typeDir)
@@ -74,11 +74,15 @@ func GenerateNextId(baseDir string, dataType string, date model.Date) (model.Id,
 	return model.FormatId(date, nextSeq), nil
 }
 
+func ResolveTypePath(baseDir string, dataType string) string {
+	return filepath.Join(baseDir, dataType)
+}
+
 // ResolveIdPath превращает Id в полный путь к файлу.
 // Если файл уже существует (с любым расширением), возвращает путь к нему.
 // Если файла нет, возвращает путь с дефолтным расширением .yaml.
 func ResolveIdPath(baseDir string, dataType string, id model.Id) string {
-	fullPathWithoutExt := filepath.Join(baseDir, dataType, string(id))
+	fullPathWithoutExt := filepath.Join(ResolveTypePath(baseDir, dataType), string(id))
 
 	// Проверяем наличие файла с любым расширением через Glob
 	matches, _ := filepath.Glob(fullPathWithoutExt + ".*")

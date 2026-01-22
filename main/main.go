@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -21,6 +22,7 @@ const DBPath = "./data"
 func main() {
 	var rootCmd = &cobra.Command{Use: "droon"}
 	var date string
+	var class string
 
 	var eventCmd = &cobra.Command{
 		Use:   "event",
@@ -67,7 +69,24 @@ func main() {
 	pilotAddCmd.Flags().StringVarP(&date, "date", "d", model.Today().String(), "Дата регистрации пилота (формат YYYY-MM-DD)")
 
 	pilotCmd.AddCommand(pilotAddCmd)
-	rootCmd.AddCommand(eventCmd, pilotCmd)
+
+	var exportCmd = &cobra.Command{
+		Use:   "export",
+		Short: "Экспорт данных",
+	}
+
+	var exportCsvCmd = &cobra.Command{
+		Use:   "csv [filename]",
+		Short: "Экспорт рейтингов в csv",
+		Args:  cobra.ExactArgs(1),
+		Run:   func(cmd *cobra.Command, args []string) { handleExportCsv(cmd, args, class) },
+	}
+
+	exportCsvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
+
+	exportCmd.AddCommand(exportCsvCmd)
+
+	rootCmd.AddCommand(eventCmd, pilotCmd, exportCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
@@ -538,4 +557,81 @@ func readPilot(id model.Id) (*model.Pilot, error) {
 		return nil, fmt.Errorf("ошибка структуры файла пилота %s: %w", id, err)
 	}
 	return &dbPilot, nil
+}
+
+func handleExportCsv(cmd *cobra.Command, args []string, class string) {
+	// 1. Собираем данные
+	type record struct {
+		Name   string
+		Rating int
+	}
+	var results []record
+
+	// Рекурсивно обходим папку с пилотами
+	pilotDir := db.ResolveTypePath(DBPath, "pilot")
+	err := filepath.Walk(pilotDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() || filepath.Ext(path) != ".yaml" {
+			return nil
+		}
+
+		// Читаем файл пилота
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return nil
+		} // Пропускаем битые файлы
+
+		var pilot struct {
+			Name    string `yaml:"name"`
+			Ratings []struct {
+				Class string `yaml:"class"`
+				Value int    `yaml:"value"`
+			} `yaml:"ratings"`
+		}
+
+		if err := yaml.Unmarshal(data, &pilot); err != nil {
+			return nil
+		}
+
+		// Ищем нужный класс в карточке пилота
+		for _, r := range pilot.Ratings {
+			if string(r.Class) == class {
+				results = append(results, record{Name: pilot.Name, Rating: r.Value})
+				break
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		log.Fatalf("[✕] Ошибка при чтении файлов: %v", err)
+	}
+
+	// 2. Сортируем по рейтингу (от большего к меньшему)
+	sort.Slice(results, func(i, j int) bool {
+		return results[i].Rating > results[j].Rating
+	})
+
+	dest, err := os.Create(args[0])
+	if err != nil {
+		log.Fatalf("[✕] Ошибка при создании файла: %v", err)
+	}
+	defer dest.Close()
+
+	// 3. Выводим в CSV
+
+	// Заголовки (без мест, как ты и просил)
+	_, err = fmt.Fprintf(dest, "name, result\n")
+	if err != nil {
+		log.Fatalf("[✕] Ошибка при записи файла: %v", err)
+	}
+
+	for _, res := range results {
+		_, err = fmt.Fprintf(dest, "%s, %v\n", res.Name, res.Rating)
+		if err != nil {
+			log.Fatalf("[✕] Ошибка при записи файла: %v", err)
+		}
+	}
 }
