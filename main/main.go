@@ -583,16 +583,9 @@ func handleExportCsv(cmd *cobra.Command, args []string, class string) {
 			return nil
 		} // Пропускаем битые файлы
 
-		var pilot struct {
-			Name    string `yaml:"name"`
-			Ratings []struct {
-				Class string `yaml:"class"`
-				Value int    `yaml:"value"`
-			} `yaml:"ratings"`
-		}
-
+		var pilot model.Pilot
 		if err := yaml.Unmarshal(data, &pilot); err != nil {
-			return nil
+			log.Fatalf("[✕] Ошибка при чтении файлов: %v", err)
 		}
 
 		// Ищем нужный класс в карточке пилота
