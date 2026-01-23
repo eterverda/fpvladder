@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/eterverda/fpvladder/internal/db"
+	"github.com/eterverda/fpvladder/internal/elo"
 	"github.com/eterverda/fpvladder/internal/model"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
@@ -207,9 +208,10 @@ func recalculateRatings(event model.Event) error {
 		for class != "" {
 			fmt.Printf("[ ] Обработка этапа \"%s\" для класса %s\n", stage.Name, string(class))
 
-			var inputs = make([]pilotInput, 0, len(stage.Pilots))
-			var originIds = make([]model.Id, 0, len(stage.Pilots))
-			for _, entry := range stage.Pilots {
+			// сначала собираем все данные
+			var inputs = make([]elo.Input, len(stage.Pilots))
+			var originIds = make([]model.Id, len(stage.Pilots))
+			for i, entry := range stage.Pilots {
 				pilot := pilots[entry.Id]
 				oldRatingValue := 1200
 				var originId model.Id
@@ -217,22 +219,25 @@ func recalculateRatings(event model.Event) error {
 					if class == summary.Class {
 						oldRatingValue = summary.Value
 						originId = summary.OriginId
+						break
 					}
 				}
-				input := pilotInput{position: entry.Position, oldRatingValue: oldRatingValue}
-				inputs = append(inputs, input)
-				originIds = append(originIds, originId)
+				inputs[i] = elo.Input{Position: entry.Position, Rating: oldRatingValue}
+				originIds[i] = originId
 			}
 
+			// потом пересчитываем пакетно
+			deltas := elo.GroupKCalc(inputs)
+
+			// потом раскладываем выходные данные
 			for i, entry := range stage.Pilots {
 				input := inputs[i]
+				delta := deltas[i]
 
 				record := records[entry.Id]
 				pilot := pilots[entry.Id]
 
-				delta := recalculateRating(inputs, i)
-
-				newRatingValue := input.oldRatingValue + delta
+				newRatingValue := input.Rating + delta
 
 				var originId model.Id
 				if len(record.Ratings) == 0 {
@@ -243,7 +248,7 @@ func recalculateRatings(event model.Event) error {
 					Class:     class,
 					StageName: stage.Name,
 					OriginId:  originId,
-					OldValue:  input.oldRatingValue,
+					OldValue:  input.Rating,
 					Algorithm: model.Algorithm("elo > k-30"),
 					Delta:     delta,
 					NewValue:  newRatingValue,
@@ -251,8 +256,8 @@ func recalculateRatings(event model.Event) error {
 				record.Ratings = append(record.Ratings, rating)
 
 				summary := model.RatingSummary{
-					Class:    rating.Class,
-					Value:    rating.NewValue,
+					Class:    class,
+					Value:    newRatingValue,
 					OriginId: event.Id,
 					Date:     event.Date,
 					Qty:      1,
@@ -264,6 +269,7 @@ func recalculateRatings(event model.Event) error {
 						summary.Qty += oldSummary.Qty
 						pilot.Ratings[j] = summary
 						updatedSummary = true
+						break
 					}
 				}
 				if !updatedSummary {
@@ -616,13 +622,13 @@ func handleExportCsv(cmd *cobra.Command, args []string, class string) {
 	// 3. Выводим в CSV
 
 	// Заголовки (без мест, как ты и просил)
-	_, err = fmt.Fprintf(dest, "name, result\n")
+	_, err = fmt.Fprintf(dest, "rank, name, result\n")
 	if err != nil {
 		log.Fatalf("[✕] Ошибка при записи файла: %v", err)
 	}
 
-	for _, res := range results {
-		_, err = fmt.Fprintf(dest, "%s, %v\n", res.Name, res.Rating)
+	for i, res := range results {
+		_, err = fmt.Fprintf(dest, "%v, %s, %v\n", i+1, res.Name, res.Rating)
 		if err != nil {
 			log.Fatalf("[✕] Ошибка при записи файла: %v", err)
 		}
