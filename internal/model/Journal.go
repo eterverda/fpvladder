@@ -20,7 +20,6 @@ type PilotRecord struct {
 // RatingAssignment — начисление баллов по конкретному классу
 type RatingAssignment struct {
 	Class     Class     `yaml:"class"`
-	StageName string    `yaml:"stage_name"`
 	OriginId  Id        `yaml:"origin_id,omitempty"` // Ссылка на предыдущий Journal
 	OldValue  int       `yaml:"old_value"`
 	Algorithm Algorithm `yaml:"algorithm"`

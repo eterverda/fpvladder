@@ -187,100 +187,97 @@ func recalculateRatings(event model.Event) error {
 	var pilots = make(map[model.Id]*model.Pilot)
 	var records = make(map[model.Id]*model.PilotRecord)
 
-	for _, stage := range event.Stages {
-		class := stage.Class
+	class := event.Class
 
-		for _, entry := range stage.Pilots {
-			id := entry.Id
-			if _, ok := pilots[id]; !ok {
-				pilot, err := readPilot(id)
-				if err != nil {
-					return err
-				}
-				pilots[id] = pilot
-				records[id] = &model.PilotRecord{
-					Id:   pilot.Id,
-					Name: pilot.Name,
-				}
+	for _, entry := range event.Pilots {
+		id := entry.Id
+		if _, ok := pilots[id]; !ok {
+			pilot, err := readPilot(id)
+			if err != nil {
+				return err
+			}
+			pilots[id] = pilot
+			records[id] = &model.PilotRecord{
+				Id:   pilot.Id,
+				Name: pilot.Name,
 			}
 		}
+	}
 
-		for class != "" {
-			fmt.Printf("[ ] Обработка этапа \"%s\" для класса %s\n", stage.Name, string(class))
+	for class != "" {
+		fmt.Printf("[ ] Обработка этапа класса %s\n", string(class))
 
-			// сначала собираем все данные
-			var inputs = make([]elo.Input, len(stage.Pilots))
-			var originIds = make([]model.Id, len(stage.Pilots))
-			for i, entry := range stage.Pilots {
-				pilot := pilots[entry.Id]
-				oldRatingValue := 1200
-				var originId model.Id
-				for _, summary := range pilot.Ratings {
-					if class == summary.Class {
-						oldRatingValue = summary.Value
-						originId = summary.OriginId
-						break
-					}
+		// сначала собираем все данные
+		var inputs = make([]elo.Input, len(event.Pilots))
+		var originIds = make([]model.Id, len(event.Pilots))
+		for i, entry := range event.Pilots {
+			pilot := pilots[entry.Id]
+			oldRatingValue := 1200
+			var originId model.Id
+			for _, summary := range pilot.Ratings {
+				if class == summary.Class {
+					oldRatingValue = summary.Value
+					originId = summary.OriginId
+					break
 				}
-				inputs[i] = elo.Input{Position: entry.Position, Rating: oldRatingValue}
-				originIds[i] = originId
 			}
-
-			// потом пересчитываем пакетно
-			deltas := elo.GroupKCalc(inputs)
-
-			// потом раскладываем выходные данные
-			for i, entry := range stage.Pilots {
-				input := inputs[i]
-				delta := deltas[i]
-
-				record := records[entry.Id]
-				pilot := pilots[entry.Id]
-
-				newRatingValue := input.Rating + delta
-
-				var originId model.Id
-				if len(record.Ratings) == 0 {
-					originId = originIds[i]
-				}
-
-				rating := model.RatingAssignment{
-					Class:     class,
-					StageName: stage.Name,
-					OriginId:  originId,
-					OldValue:  input.Rating,
-					Algorithm: model.Algorithm("elo > k-30"),
-					Delta:     delta,
-					NewValue:  newRatingValue,
-				}
-				record.Ratings = append(record.Ratings, rating)
-
-				summary := model.RatingSummary{
-					Class:    class,
-					Value:    newRatingValue,
-					OriginId: event.Id,
-					Date:     event.Date,
-					Qty:      1,
-				}
-
-				var updatedSummary = false
-				for j, oldSummary := range pilot.Ratings {
-					if summary.Class == oldSummary.Class {
-						summary.Qty += oldSummary.Qty
-						pilot.Ratings[j] = summary
-						updatedSummary = true
-						break
-					}
-				}
-				if !updatedSummary {
-					pilot.Ratings = append(pilot.Ratings, summary)
-				}
-
-				fmt.Printf("    %s -> %v\n", pilot.Name, newRatingValue)
-			}
-
-			class = class.Parent()
+			inputs[i] = elo.Input{Position: entry.Position, Rating: oldRatingValue}
+			originIds[i] = originId
 		}
+
+		// потом пересчитываем пакетно
+		deltas := elo.GroupKCalc(inputs)
+
+		// потом раскладываем выходные данные
+		for i, entry := range event.Pilots {
+			input := inputs[i]
+			delta := deltas[i]
+
+			record := records[entry.Id]
+			pilot := pilots[entry.Id]
+
+			newRatingValue := input.Rating + delta
+
+			var originId model.Id
+			if len(record.Ratings) == 0 {
+				originId = originIds[i]
+			}
+
+			rating := model.RatingAssignment{
+				Class:     class,
+				OriginId:  originId,
+				OldValue:  input.Rating,
+				Algorithm: model.Algorithm("elo > k-30"),
+				Delta:     delta,
+				NewValue:  newRatingValue,
+			}
+			record.Ratings = append(record.Ratings, rating)
+
+			summary := model.RatingSummary{
+				Class:    class,
+				Value:    newRatingValue,
+				OriginId: event.Id,
+				Date:     event.Date,
+				Qty:      1,
+			}
+
+			var updatedSummary = false
+			for j, oldSummary := range pilot.Ratings {
+				if summary.Class == oldSummary.Class {
+					summary.Qty += oldSummary.Qty
+					pilot.Ratings[j] = summary
+					updatedSummary = true
+					break
+				}
+			}
+			if !updatedSummary {
+				pilot.Ratings = append(pilot.Ratings, summary)
+			}
+
+			fmt.Printf("    %s -> %v\n", pilot.Name, newRatingValue)
+		}
+
+		class = class.Parent()
 	}
 
 	journal := &model.Journal{
@@ -474,59 +471,52 @@ func validateEvent(path string) error {
 	// Нужна для второго цикла верификации по файловой базе
 	allUniquePilots := make(map[string]model.PilotEntry)
 
-	// --- ЦИКЛ 1: Внутренняя логика этапов ---
-	for _, stage := range event.Stages {
-		if len(stage.Pilots) == 0 {
-			continue
+	posCounts := make(map[int]int)
+	maxPos := 0
+
+	// Карта для проверки уникальности пилотов в рамках ОДНОГО эвента
+	eventPilotIds := make(map[string]bool)
+
+	for _, p := range event.Pilots {
+		// А. Проверка наличия ID (Обязательно по твоему требованию)
+		idStr := string(p.Id)
+		if idStr == "" || idStr == "~" {
+			return fmt.Errorf("у пилота '%s' не указан ID (id обязателен)", p.Name)
 		}
 
-		posCounts := make(map[int]int)
-		maxPos := 0
-
-		// Карта для проверки уникальности пилотов в рамках ОДНОГО этапа
-		stagePilotIds := make(map[string]bool)
-
-		for _, p := range stage.Pilots {
-			// А. Проверка наличия ID (Обязательно по твоему требованию)
-			idStr := string(p.Id)
-			if idStr == "" || idStr == "~" {
-				return fmt.Errorf("этап '%s': у пилота '%s' не указан ID (id обязателен)", stage.Name, p.Name)
-			}
-
-			// Б. Уникальность ID внутри этапа
-			if stagePilotIds[idStr] {
-				return fmt.Errorf("этап '%s': дубликат пилота с ID %s", stage.Name, idStr)
-			}
-			stagePilotIds[idStr] = true
-
-			// Собираем для верификации по базе (общий список по всему файлу)
-			allUniquePilots[idStr] = p
-
-			// В. Сбор данных по позициям
-			if p.Position <= 0 {
-				return fmt.Errorf("этап '%s': позиция пилота %s должна быть > 0", stage.Name, p.Name)
-			}
-			posCounts[p.Position]++
-			if p.Position > maxPos {
-				maxPos = p.Position
-			}
+		// Б. Уникальность ID внутри этапа
+		if eventPilotIds[idStr] {
+			return fmt.Errorf("дубликат пилота с ID %s", idStr)
 		}
+		eventPilotIds[idStr] = true
 
-		// Г. Логика "командности" и последовательности мест
-		teamSize := posCounts[1]
-		if teamSize == 0 {
-			return fmt.Errorf("этап '%s': отсутствует 1-е место", stage.Name)
+		// Собираем для верификации по базе (общий список по всему файлу)
+		allUniquePilots[idStr] = p
+
+		// В. Сбор данных по позициям
+		if p.Position <= 0 {
+			return fmt.Errorf("позиция пилота %s должна быть > 0", p.Name)
 		}
+		posCounts[p.Position]++
+		if p.Position > maxPos {
+			maxPos = p.Position
+		}
+	}
 
-		for i := 1; i <= maxPos; i++ {
-			count, ok := posCounts[i]
-			if !ok {
-				return fmt.Errorf("этап '%s': пропущено место %d (последовательность прервана)", stage.Name, i)
-			}
-			if count != teamSize {
-				return fmt.Errorf("этап '%s': неровные составы. На 1-м месте %d чел, а на %d-м — %d",
-					stage.Name, teamSize, i, count)
-			}
+	// Г. Логика "командности" и последовательности мест
+	teamSize := posCounts[1]
+	if teamSize == 0 {
+		return fmt.Errorf("отсутствует 1-е место")
+	}
+
+	for i := 1; i <= maxPos; i++ {
+		count, ok := posCounts[i]
+		if !ok {
+			return fmt.Errorf("пропущено место %d (последовательность прервана)", i)
+		}
+		if count != teamSize {
+			return fmt.Errorf("неровные составы. На 1-м месте %d чел, а на %d-м — %d",
+				teamSize, i, count)
 		}
 	}
 
