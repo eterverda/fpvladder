@@ -244,7 +244,7 @@ func recalculateRatings(event model.Event) error {
 					StageName: stage.Name,
 					OriginId:  originId,
 					OldValue:  input.oldRatingValue,
-					Algorithm: model.Algorithm("elo > k30"),
+					Algorithm: model.Algorithm("elo > k-30"),
 					Delta:     delta,
 					NewValue:  newRatingValue,
 				}
