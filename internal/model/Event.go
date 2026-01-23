@@ -5,10 +5,23 @@ type Organizer struct {
 	Link Link   `yaml:"link,omitempty"`
 }
 
+type Algorithm string
+
+// RatingAssignment — начисление баллов по конкретному классу
+type RatingAssignment struct {
+	Class     Class     `yaml:"class"`
+	OriginId  Id        `yaml:"origin_id,omitempty"` // Ссылка на предыдущий Journal
+	OldValue  int       `yaml:"old_value"`
+	Algorithm Algorithm `yaml:"algorithm"`
+	Delta     int       `yaml:"delta"`
+	NewValue  int       `yaml:"new_value"`
+}
+
 type PilotEntry struct {
-	Position int    `yaml:"position"`
-	Id       Id     `yaml:"id"`
-	Name     string `yaml:"name,omitempty"`
+	Position int                `yaml:"position"`
+	Id       Id                 `yaml:"id"`
+	Name     string             `yaml:"name,omitempty"`
+	Ratings  []RatingAssignment `yaml:"ratings,omitempty"`
 }
 
 type Event struct {

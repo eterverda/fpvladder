@@ -177,31 +177,25 @@ func handleInstall(cmd *cobra.Command, args []string) {
 		log.Fatalln("[✕] Не получилось скопировать файл")
 	}
 
-	err = recalculateRatings(*event)
+	err = recalculateRatings(event)
 	if err != nil {
 		log.Fatalln("[✕] Не удалось пересчитать рейтинги")
 	}
+
 }
 
-func recalculateRatings(event model.Event) error {
-	var pilots = make(map[model.Id]*model.Pilot)
-	var records = make(map[model.Id]*model.PilotRecord)
+func recalculateRatings(event *model.Event) error {
+	var pilots = make([]*model.Pilot, len(event.Pilots))
 
 	class := event.Class
 
-	for _, entry := range event.Pilots {
+	for i, entry := range event.Pilots {
 		id := entry.Id
-		if _, ok := pilots[id]; !ok {
-			pilot, err := readPilot(id)
-			if err != nil {
-				return err
-			}
-			pilots[id] = pilot
-			records[id] = &model.PilotRecord{
-				Id:   pilot.Id,
-				Name: pilot.Name,
-			}
+		pilot, err := readPilot(id)
+		if err != nil {
+			return err
 		}
+		pilots[i] = pilot
 	}
 
 	for class != "" {
@@ -211,7 +205,7 @@ func recalculateRatings(event model.Event) error {
 		var inputs = make([]elo.Input, len(event.Pilots))
 		var originIds = make([]model.Id, len(event.Pilots))
 		for i, entry := range event.Pilots {
-			pilot := pilots[entry.Id]
+			pilot := pilots[i]
 			oldRatingValue := 1200
 			var originId model.Id
 			for _, summary := range pilot.Ratings {
@@ -229,17 +223,16 @@ func recalculateRatings(event model.Event) error {
 		deltas := elo.GroupKCalc(inputs)
 
 		// потом раскладываем выходные данные
-		for i, entry := range event.Pilots {
+		for i := range event.Pilots {
 			input := inputs[i]
 			delta := deltas[i]
 
-			record := records[entry.Id]
-			pilot := pilots[entry.Id]
+			pilot := pilots[i]
 
 			newRatingValue := input.Rating + delta
 
 			var originId model.Id
-			if len(record.Ratings) == 0 {
+			if len(pilot.Ratings) == 0 {
 				originId = originIds[i]
 			}
 
@@ -251,7 +244,7 @@ func recalculateRatings(event model.Event) error {
 				Delta:     delta,
 				NewValue:  newRatingValue,
 			}
-			record.Ratings = append(record.Ratings, rating)
+			event.Pilots[i].Ratings = append(event.Pilots[i].Ratings, rating)
 
 			summary := model.RatingSummary{
 				Class:    class,
@@ -280,23 +273,15 @@ func recalculateRatings(event model.Event) error {
 		class = class.Parent()
 	}
 
-	journal := &model.Journal{
-		EventId:     event.Id,
-		Description: fmt.Sprintf("Пересчет рейтингов по системе Elo по результатам события %s", event.Name),
-		Date:        event.Date,
-	}
-	for _, record := range records {
-		journal.Pilots = append(journal.Pilots, *record)
-	}
-	journalData, _ := yaml.Marshal(journal)
-	journalFile := db.ResolveIdPath(DBPath, "journal", journal.EventId)
+	eventData, _ := yaml.Marshal(event)
+	eventFile := db.ResolveIdPath(DBPath, "event", event.Id)
 
-	err := os.MkdirAll(filepath.Dir(journalFile), 0755)
+	err := os.MkdirAll(filepath.Dir(eventFile), 0755)
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile(journalFile, journalData, 0644)
+	err = os.WriteFile(eventFile, eventData, 0644)
 	if err != nil {
 		return err
 	}
