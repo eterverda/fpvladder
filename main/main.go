@@ -229,7 +229,8 @@ func recalculateRatings(event *model.Event) error {
 
 			pilot := pilots[i]
 
-			newRatingValue := input.Rating + delta
+			oldRatingValue := input.Rating
+			newRatingValue := oldRatingValue + delta
 
 			var originId model.Id
 			if len(pilot.Ratings) == 0 {
@@ -267,7 +268,7 @@ func recalculateRatings(event *model.Event) error {
 				pilot.Ratings = append(pilot.Ratings, summary)
 			}
 
-			fmt.Printf("    %s -> %v\n", pilot.Name, newRatingValue)
+			fmt.Printf("    %s: %v -> %v\n", pilot.Name, oldRatingValue, newRatingValue)
 		}
 
 		class = class.Parent()
@@ -514,7 +515,7 @@ func validateEvent(path string) error {
 		}
 		// Сверка имен (предупреждение, если не совпадают)
 		if !strings.EqualFold(dbPilot.Name, p.Name) {
-			fmt.Printf("[!] Расхождение имен для ID %s:, %s vs %s\n", id, dbPilot.Name, p.Name)
+			fmt.Printf("[!] Расхождение имен для ID %s: %s vs %s\n", id, dbPilot.Name, p.Name)
 		}
 	}
 
