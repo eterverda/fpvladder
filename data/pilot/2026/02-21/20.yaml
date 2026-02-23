@@ -1,3 +1,13 @@
 id: 2026/02-21/20
 name: Воробьев Артем
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 1002
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1
+    - class: drone-racing
+      value: 1002
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1

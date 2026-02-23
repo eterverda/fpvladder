@@ -1,3 +1,13 @@
 id: 2026/02-21/29
 name: Петренко Игорь
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 1322
+      origin_id: 2026/02-21/4
+      date: 2026-02-21
+      qty: 2
+    - class: drone-racing
+      value: 1322
+      origin_id: 2026/02-21/4
+      date: 2026-02-21
+      qty: 2

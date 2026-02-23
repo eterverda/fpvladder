@@ -1,3 +1,13 @@
 id: 2026/02-21/37
 name: Ткачёв Роман
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 922
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1
+    - class: drone-racing
+      value: 922
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1

@@ -1,3 +1,13 @@
 id: 2026/02-21/19
 name: Березкин Константин
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 1162
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1
+    - class: drone-racing
+      value: 1162
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1

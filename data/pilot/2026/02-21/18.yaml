@@ -1,3 +1,13 @@
 id: 2026/02-21/18
 name: Баев Платон
-ratings: []
+ratings:
+    - class: drone-racing > 75mm
+      value: 962
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1
+    - class: drone-racing
+      value: 962
+      origin_id: 2026/02-21/3
+      date: 2026-02-21
+      qty: 1
