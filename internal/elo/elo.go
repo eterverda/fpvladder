@@ -1,9 +1,16 @@
 package elo
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 const (
-	K = 30.0
+	K = 20.0
+)
+
+var (
+	Algorithm = fmt.Sprintf("elo > k-%v", K)
 )
 
 type Input struct {
