@@ -1,13 +1,71 @@
 id: 2025/12-28/15
 name: Старостенков Антон
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1124
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 4
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 16/17
+          delta: -210
+          value: 990
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 15/16
+          delta: -82
+          value: 908
+        - num: 3
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 16/33
+          delta: 240
+          value: 1148
+        - num: 4
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 14/16
+          delta: -24
+          value: 1124
     - class: drone-racing
-      value: 1124
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 4
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 16/17
+          delta: -210
+          value: 990
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 15/16
+          delta: -82
+          value: 908
+        - num: 3
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 16/33
+          delta: 240
+          value: 1148
+        - num: 4
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 14/16
+          delta: -24
+          value: 1124

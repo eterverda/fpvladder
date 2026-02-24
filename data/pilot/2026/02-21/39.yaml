@@ -1,13 +1,23 @@
 id: 2026/02-21/39
 name: Цызов Павел
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1082
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 23/33
+          delta: -118
+          value: 1082
     - class: drone-racing
-      value: 1082
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 23/33
+          delta: -118
+          value: 1082

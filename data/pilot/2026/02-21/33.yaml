@@ -1,13 +1,39 @@
 id: 2026/02-21/33
 name: Смирнов Дмитрий
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1484
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 5/33
+          delta: 242
+          value: 1442
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 5/16
+          delta: 42
+          value: 1484
     - class: drone-racing
-      value: 1484
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 5/33
+          delta: 242
+          value: 1442
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 5/16
+          delta: 42
+          value: 1484

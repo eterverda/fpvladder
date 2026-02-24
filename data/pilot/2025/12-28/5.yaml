@@ -1,13 +1,71 @@
 id: 2025/12-28/5
 name: Губанов Илья
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1583
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 4
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 5/17
+          delta: 120
+          value: 1320
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 5/16
+          delta: 35
+          value: 1355
+        - num: 3
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 3/33
+          delta: 151
+          value: 1506
+        - num: 4
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 2/16
+          delta: 77
+          value: 1583
     - class: drone-racing
-      value: 1583
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 4
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 5/17
+          delta: 120
+          value: 1320
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 5/16
+          delta: 35
+          value: 1355
+        - num: 3
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 3/33
+          delta: 151
+          value: 1506
+        - num: 4
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 2/16
+          delta: 77
+          value: 1583

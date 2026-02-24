@@ -1,13 +1,39 @@
 id: 2026/02-21/22
 name: Дойников Дмитрий
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1306
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 15/33
+          delta: 42
+          value: 1242
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 8/16
+          delta: 64
+          value: 1306
     - class: drone-racing
-      value: 1306
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 15/33
+          delta: 42
+          value: 1242
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 8/16
+          delta: 64
+          value: 1306

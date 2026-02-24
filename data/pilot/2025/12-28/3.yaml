@@ -1,13 +1,39 @@
 id: 2025/12-28/3
 name: Асанов Петр
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 894
-      origin_id: 2025/12-28/2
-      date: 2025-12-28
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 15/17
+          delta: -180
+          value: 1020
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 16/16
+          delta: -126
+          value: 894
     - class: drone-racing
-      value: 894
-      origin_id: 2025/12-28/2
-      date: 2025-12-28
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2025/12-28/1
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Квалификации
+          position: 15/17
+          delta: -180
+          value: 1020
+        - num: 2
+          event:
+            id: 2025/12-28/2
+            date: 2025-12-28
+            name: Фан-Кон ёлка 2026 > Финалы
+          position: 16/16
+          delta: -126
+          value: 894

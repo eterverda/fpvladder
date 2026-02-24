@@ -11,7 +11,7 @@ type Algorithm string
 type RatingAssignment struct {
 	Class     Class     `yaml:"class"`
 	OriginId  Id        `yaml:"origin_id,omitempty"` // Ссылка на предыдущий Journal
-	OldValue  int       `yaml:"old_value"`
+	OldValue  int       `yaml:"old_value,omitempty"`
 	Algorithm Algorithm `yaml:"algorithm"`
 	Delta     int       `yaml:"delta"`
 	NewValue  int       `yaml:"new_value"`
@@ -30,7 +30,7 @@ type Event struct {
 	Name        string       `yaml:"name"`
 	Description string       `yaml:"description,omitempty"`
 	Link        Link         `yaml:"link,omitempty"`
-	Organizer   Organizer    `yaml:"organizer"`
-	Class       Class        `yaml:"class"` // drone-racing :: 75mm :: individual
-	Pilots      []PilotEntry `yaml:"pilots"`
+	Organizer   Organizer    `yaml:"organizer,omitempty"`
+	Class       Class        `yaml:"class,omitempty"` // drone-racing :: 75mm :: individual
+	Pilots      []PilotEntry `yaml:"pilots,omitempty"`
 }

@@ -1,13 +1,23 @@
 id: 2026/02-21/38
 name: Фомин Денис
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1022
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 26/33
+          delta: -178
+          value: 1022
     - class: drone-racing
-      value: 1022
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 26/33
+          delta: -178
+          value: 1022

@@ -1,13 +1,23 @@
 id: 2026/02-21/36
 name: Титоренко Сергей
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 902
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 32/33
+          delta: -298
+          value: 902
     - class: drone-racing
-      value: 902
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 32/33
+          delta: -298
+          value: 902

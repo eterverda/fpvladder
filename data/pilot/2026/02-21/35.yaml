@@ -1,13 +1,23 @@
 id: 2026/02-21/35
 name: Титов Антон
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1062
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 24/33
+          delta: -138
+          value: 1062
     - class: drone-racing
-      value: 1062
-      origin_id: 2026/02-21/3
-      date: 2026-02-21
-      qty: 1
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 24/33
+          delta: -138
+          value: 1062

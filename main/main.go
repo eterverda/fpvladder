@@ -101,7 +101,7 @@ func createPilotFile(path string, id model.Id, name string) error {
 	newPilot := model.Pilot{
 		Id:      model.Id(id),
 		Name:    name,
-		Ratings: []model.RatingSummary{}, // Пустой слайс превратится в []
+		Careers: []model.Career{}, // Пустой слайс превратится в []
 	}
 
 	// Маршалим в YAML
@@ -150,6 +150,12 @@ func handleInstall(cmd *cobra.Command, args []string) {
 }
 
 func recalculateRatings(event *model.Event) error {
+	var simpleEvent = model.Event{
+		Id:   event.Id,
+		Date: event.Date,
+		Name: event.Name,
+	}
+
 	var pilots = make([]*model.Pilot, len(event.Pilots))
 
 	class := event.Class
@@ -173,10 +179,11 @@ func recalculateRatings(event *model.Event) error {
 			pilot := pilots[i]
 			oldRatingValue := 1200
 			var originId model.Id
-			for _, summary := range pilot.Ratings {
-				if class == summary.Class {
-					oldRatingValue = summary.Value
-					originId = summary.OriginId
+			for _, career := range pilot.Careers {
+				if class == career.Class {
+					lastRating := career.Ratings[len(career.Ratings)-1]
+					oldRatingValue = lastRating.Value
+					originId = lastRating.Event.Id
 					break
 				}
 			}
@@ -190,22 +197,21 @@ func recalculateRatings(event *model.Event) error {
 		// потом раскладываем выходные данные
 		for i := range event.Pilots {
 			input := inputs[i]
+			originId := originIds[i]
 			delta := deltas[i]
 
 			pilot := pilots[i]
 
 			oldRatingValue := input.Rating
-			newRatingValue := oldRatingValue + delta
-
-			var originId model.Id
-			if len(pilot.Ratings) == 0 {
-				originId = originIds[i]
+			if originId == "" {
+				oldRatingValue = 0
 			}
+			newRatingValue := input.Rating + delta
 
 			rating := model.RatingAssignment{
 				Class:     class,
 				OriginId:  originId,
-				OldValue:  input.Rating,
+				OldValue:  oldRatingValue,
 				Algorithm: model.Algorithm(elo.Algorithm),
 				Delta:     delta,
 				NewValue:  newRatingValue,
@@ -213,27 +219,34 @@ func recalculateRatings(event *model.Event) error {
 			event.Pilots[i].Ratings = append(event.Pilots[i].Ratings, rating)
 
 			summary := model.RatingSummary{
-				Class:    class,
-				Value:    newRatingValue,
-				OriginId: event.Id,
-				Date:     event.Date,
-				Qty:      1,
+				Num:   1,
+				Event: simpleEvent,
+				Position: model.Position{
+					Numerator:   inputs[i].Position,
+					Denominator: len(event.Pilots),
+				},
+				Delta: delta,
+				Value: newRatingValue,
 			}
 
 			var updatedSummary = false
-			for j, oldSummary := range pilot.Ratings {
-				if summary.Class == oldSummary.Class {
-					summary.Qty += oldSummary.Qty
-					pilot.Ratings[j] = summary
+			for j, career := range pilot.Careers {
+				if career.Class == class {
+					summary.Num += career.Ratings[len(career.Ratings)-1].Num
+					pilot.Careers[j].Ratings = append(career.Ratings, summary)
 					updatedSummary = true
 					break
 				}
 			}
 			if !updatedSummary {
-				pilot.Ratings = append(pilot.Ratings, summary)
+				career := model.Career{
+					Class:   class,
+					Ratings: []model.RatingSummary{summary},
+				}
+				pilot.Careers = append(pilot.Careers, career)
 			}
 
-			fmt.Printf("    %s: %v -> %v\n", pilot.Name, oldRatingValue, newRatingValue)
+			fmt.Printf("    %s: %v -> %v\n", pilot.Name, input.Rating, newRatingValue)
 		}
 
 		class = class.Parent()
@@ -441,9 +454,9 @@ func handleExportCsv(cmd *cobra.Command, args []string, class string) {
 		}
 
 		// Ищем нужный класс в карточке пилота
-		for _, r := range pilot.Ratings {
+		for _, r := range pilot.Careers {
 			if string(r.Class) == class {
-				results = append(results, record{Name: pilot.Name, Rating: r.Value})
+				results = append(results, record{Name: pilot.Name, Rating: r.Ratings[len(r.Ratings)-1].Value})
 				break
 			}
 		}

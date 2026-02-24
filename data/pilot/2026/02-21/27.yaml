@@ -1,13 +1,39 @@
 id: 2026/02-21/27
 name: Мельников Егор
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1158
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 14/33
+          delta: 62
+          value: 1262
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 16/16
+          delta: -104
+          value: 1158
     - class: drone-racing
-      value: 1158
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 14/33
+          delta: 62
+          value: 1262
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 16/16
+          delta: -104
+          value: 1158

@@ -1,13 +1,39 @@
 id: 2026/02-21/26
 name: Ковцур Павел
-ratings:
+careers:
     - class: drone-racing > 75mm
-      value: 1326
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 10/33
+          delta: 142
+          value: 1342
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 10/16
+          delta: -16
+          value: 1326
     - class: drone-racing
-      value: 1326
-      origin_id: 2026/02-21/4
-      date: 2026-02-21
-      qty: 2
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-21/3
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Квалификации
+          position: 10/33
+          delta: 142
+          value: 1342
+        - num: 2
+          event:
+            id: 2026/02-21/4
+            date: 2026-02-21
+            name: Гонка ГУАП 75 ЛЗ > Финалы
+          position: 10/16
+          delta: -16
+          value: 1326
