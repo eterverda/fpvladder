@@ -5,7 +5,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -25,69 +24,35 @@ func main() {
 	var date string
 	var class string
 
-	var eventCmd = &cobra.Command{
-		Use:   "event",
-		Short: "Работа с эвентами",
-	}
-
-	// Подкоманда event draft
-	var eventDraftCmd = &cobra.Command{
-		Use:   "draft [file_path]",
-		Short: "Интерактивное создание черновика эвента",
-		Args:  cobra.ExactArgs(1),
-		Run:   func(cmd *cobra.Command, args []string) { handleDraft(cmd, args, date) },
-	}
-
-	// Подкоманда event install
-	var eventInstallCmd = &cobra.Command{
+	// Kоманда install
+	var installCmd = &cobra.Command{
 		Use:   "install [file_path]",
 		Short: "Добавить событие в БД и пересчитать все рейтинги",
 		Args:  cobra.ExactArgs(1),
 		Run:   handleInstall,
 	}
 
-	eventCmd.AddCommand(eventInstallCmd)
-
-	// Добавляем флаг --date (или короткий -d)
-	eventDraftCmd.Flags().StringVarP(&date, "date", "d", model.Today().String(), "Дата проведения эвента (формат YYYY-MM-DD)")
-
-	eventCmd.AddCommand(eventDraftCmd)
-
+	// Kоманда pilot
 	var pilotCmd = &cobra.Command{
-		Use:   "pilot",
-		Short: "Работа с пилотами",
-	}
-
-	// Подкоманда pilot add
-	var pilotAddCmd = &cobra.Command{
-		Use:   "add [name]",
+		Use:   "pilot [name]",
 		Short: "Создать карточку нового пилота",
 		Args:  cobra.ExactArgs(1),
 		Run:   func(cmd *cobra.Command, args []string) { handlePilotAdd(cmd, args, date) },
 	}
 
 	// Добавляем флаг --date (или короткий -d)
-	pilotAddCmd.Flags().StringVarP(&date, "date", "d", model.Today().String(), "Дата регистрации пилота (формат YYYY-MM-DD)")
+	pilotCmd.Flags().StringVarP(&date, "date", "d", model.Today().String(), "Дата регистрации пилота (формат YYYY-MM-DD)")
 
-	pilotCmd.AddCommand(pilotAddCmd)
-
-	var exportCmd = &cobra.Command{
-		Use:   "export",
-		Short: "Экспорт данных",
-	}
-
-	var exportCsvCmd = &cobra.Command{
+	var csvCmd = &cobra.Command{
 		Use:   "csv [filename]",
 		Short: "Экспорт рейтингов в csv",
 		Args:  cobra.ExactArgs(1),
 		Run:   func(cmd *cobra.Command, args []string) { handleExportCsv(cmd, args, class) },
 	}
 
-	exportCsvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
+	csvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
 
-	exportCmd.AddCommand(exportCsvCmd)
-
-	rootCmd.AddCommand(eventCmd, pilotCmd, exportCmd)
+	rootCmd.AddCommand(installCmd, pilotCmd, csvCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
@@ -329,101 +294,6 @@ func copyFile(src, dst string) error {
 
 	// 4. Фиксируем запись на диске
 	return destFile.Sync()
-}
-
-func handleDraft(cmd *cobra.Command, args []string, date string) {
-	targetPath := args[0]
-
-	targetDate := model.Today()
-	if date != "" {
-		parsedDate, err := time.Parse("2006-01-02", date)
-		if err != nil {
-			log.Fatalf("[✕] Ошибка: дата должна быть в формате YYYY-MM-DD (получено: %s)", date)
-		}
-		targetDate = model.Date(parsedDate)
-	}
-
-	// 1. Инициализация файла, если его нет
-	if _, err := os.Stat(targetPath); os.IsNotExist(err) {
-		// Генерируем новый ID через твой пакет db
-		newId, err := db.GenerateNextId(DBPath, "event", targetDate)
-		if err != nil {
-			log.Fatalf("[✕] Ошибка вычисления ID: %v", err)
-		}
-
-		if err := initializeEventFile(targetPath, newId, targetDate); err != nil {
-			log.Fatalf("[✕] Ошибка создания файла: %v", err)
-		}
-		fmt.Printf("[✓] Создан новый черновик события с ID: %s\n", newId)
-	}
-
-	// 2. Цикл редактирования
-	runEditLoop(targetPath)
-}
-
-func initializeEventFile(path string, id model.Id, date model.Date) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-		return err
-	}
-
-	// Твой шаблон с комментариями
-	template := fmt.Sprintf(
-		`# Заполните данные о мероприятии
-id: %s # id мероприятия (присваивается автоматически)
-date: %s # дата проведения мероприятия
-name: ~ # название мероприятия
-organizer:
-  name: ~ # имя организатора или название организации
-stages:
-  - name: Главный этап # Название этапа
-    class: drone-racing > 75mm > individual # класс гонки
-    pilots:
-      - position: 1
-        id: ~ # id пилота
-        name: Иван Иванов # имя пилота
-      - position: 2
-        id: ~ # id пилота
-        name: Иван Петров-Сидоров # имя пилота
-`,
-		id, date.String(),
-	)
-
-	return os.WriteFile(path, []byte(template), 0644)
-}
-
-func runEditLoop(path string) {
-	editor := os.Getenv("VISUAL")
-	if editor == "" {
-		editor = "vim"
-	}
-
-	for {
-		editCmd := exec.Command(editor, path)
-		editCmd.Stdin = os.Stdin
-		editCmd.Stdout = os.Stdout
-		editCmd.Stderr = os.Stderr
-
-		if err := editCmd.Run(); err != nil {
-			log.Printf("[!] Предупреждение: Редактор закрылся с ошибкой: %v", err)
-		}
-
-		// 3. Валидация прямо здесь
-		err := validateEvent(path)
-		if err == nil {
-			fmt.Println("[✓] Файл валиден и готов к работе.")
-			break
-		}
-
-		fmt.Printf("\n[✕] Ошибка в структуре эвента: %v\n", err)
-		fmt.Print("[?] Вернуться в редактор для исправления? (Y/n): ")
-
-		var input string
-		fmt.Scanln(&input)
-		if strings.ToLower(input) == "n" {
-			fmt.Println("[!] Файл сохранен с ошибками и может не работать.")
-			break
-		}
-	}
 }
 
 func readEvent(path string) (*model.Event, error) {
