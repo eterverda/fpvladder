@@ -10,12 +10,10 @@ pilots:
       name: Костин Егор
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 240
           new_value: 1440
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 240
           new_value: 1440
@@ -24,12 +22,10 @@ pilots:
       name: Сойгалов Степан
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 210
           new_value: 1410
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 210
           new_value: 1410
@@ -38,12 +34,10 @@ pilots:
       name: Руденко Владимир
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 180
           new_value: 1380
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 180
           new_value: 1380
@@ -52,12 +46,10 @@ pilots:
       name: Садовников Матвей
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 150
           new_value: 1350
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 150
           new_value: 1350
@@ -66,12 +58,10 @@ pilots:
       name: Губанов Илья
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 120
           new_value: 1320
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 120
           new_value: 1320
@@ -80,12 +70,10 @@ pilots:
       name: Фомина Алёна
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 90
           new_value: 1290
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 90
           new_value: 1290
@@ -94,12 +82,10 @@ pilots:
       name: Саламатов Марк
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 60
           new_value: 1260
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 60
           new_value: 1260
@@ -108,12 +94,10 @@ pilots:
       name: Котоман Семен
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 30
           new_value: 1230
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 30
           new_value: 1230
@@ -122,12 +106,10 @@ pilots:
       name: Егоров Дмитрий
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: 0
           new_value: 1200
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: 0
           new_value: 1200
@@ -136,12 +118,10 @@ pilots:
       name: Аверин Дмитрий
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -30
           new_value: 1170
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -30
           new_value: 1170
@@ -150,12 +130,10 @@ pilots:
       name: Богинский Никита
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -60
           new_value: 1140
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -60
           new_value: 1140
@@ -164,12 +142,10 @@ pilots:
       name: Асанов Александр
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -90
           new_value: 1110
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -90
           new_value: 1110
@@ -178,12 +154,10 @@ pilots:
       name: Елисеев Степан
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -120
           new_value: 1080
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -120
           new_value: 1080
@@ -192,12 +166,10 @@ pilots:
       name: Формагей Виктория
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -150
           new_value: 1050
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -150
           new_value: 1050
@@ -206,12 +178,10 @@ pilots:
       name: Асанов Петр
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -180
           new_value: 1020
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -180
           new_value: 1020
@@ -220,12 +190,10 @@ pilots:
       name: Старостенков Антон
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -210
           new_value: 990
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -210
           new_value: 990
@@ -234,12 +202,10 @@ pilots:
       name: Саламатов Александр
       ratings:
         - class: drone-racing > 75mm
-          old_value: 1200
           algorithm: elo > k-30
           delta: -240
           new_value: 960
         - class: drone-racing
-          old_value: 1200
           algorithm: elo > k-30
           delta: -240
           new_value: 960
