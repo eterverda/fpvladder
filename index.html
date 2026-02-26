@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drone-racing &gt; 75mm</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #2d3436;
+            --muted: #b2bec3;
+            --line: #eee;
+            --hover-bg: #fcfcfc;
+            --input-border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 400;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+         
+        .search-wrapper {
+            margin-bottom: 20px;
+             
+            margin-left: 30px; 
+			margin-right: 30px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--muted);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 38px;
+            font-size: 0.9rem;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--muted);
+        }
+
+        .pilot-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pilot-row {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .pilot-row[hidden] { display: none; }
+
+        .pilot-row:hover { background-color: var(--hover-bg); }
+
+        .pilot-row td { padding: 10px 15px; }
+
+         
+        .col-position {
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--muted);
+            width: 30px;  
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .pilot-row:hover .col-position { opacity: 1; }
+
+        .col-name { font-weight: 400; font-size: 1rem; width: auto; }
+
+        .col-rating {
+            text-align: right;
+            font-weight: 600;
+            width: 70px;
+        }
+
+        .pilot-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>drone-racing &gt; 75mm</h1>
+        
+        <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+            <input type="text" 
+                   id="pilotSearch" 
+                   class="search-input" 
+                   placeholder="Поиск"
+                   autocomplete="off">
+        </div>
+
+        <table class="pilot-table">
+            <tbody id="pilotTableBody">
+                
+                <tr class="pilot-row">
+                    <td class="col-position">1</td>
+                    <td class="col-name">Садовников Матвей</td>
+                    <td class="col-rating">1661</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">2</td>
+                    <td class="col-name">Губанов Илья</td>
+                    <td class="col-rating">1583</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">3</td>
+                    <td class="col-name">Сойгалов Степан</td>
+                    <td class="col-rating">1558</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">4</td>
+                    <td class="col-name">Саламатов Марк</td>
+                    <td class="col-rating">1527</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">5</td>
+                    <td class="col-name">Костин Егор</td>
+                    <td class="col-rating">1506</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">6</td>
+                    <td class="col-name">Смирнов Дмитрий</td>
+                    <td class="col-rating">1484</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">7</td>
+                    <td class="col-name">Прончаков Георгий</td>
+                    <td class="col-rating">1476</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">8</td>
+                    <td class="col-name">Руденко Владимир</td>
+                    <td class="col-rating">1444</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">9</td>
+                    <td class="col-name">Аверин Дмитрий</td>
+                    <td class="col-rating">1417</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">10</td>
+                    <td class="col-name">Ковцур Павел</td>
+                    <td class="col-rating">1326</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">11</td>
+                    <td class="col-name">Петренко Игорь</td>
+                    <td class="col-rating">1322</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">12</td>
+                    <td class="col-name">Асанов Александр</td>
+                    <td class="col-rating">1320</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">13</td>
+                    <td class="col-name">Дойников Дмитрий</td>
+                    <td class="col-rating">1306</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">14</td>
+                    <td class="col-name">Казаков Игорь</td>
+                    <td class="col-rating">1297</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">15</td>
+                    <td class="col-name">Фомина Алёна</td>
+                    <td class="col-rating">1282</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">16</td>
+                    <td class="col-name">Жбанов Андрей</td>
+                    <td class="col-rating">1230</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">16</td>
+                    <td class="col-name">Котоман Семен</td>
+                    <td class="col-rating">1230</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">18</td>
+                    <td class="col-name">Егоров Дмитрий</td>
+                    <td class="col-rating">1214</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">19</td>
+                    <td class="col-name">Богинский Никита</td>
+                    <td class="col-rating">1212</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">20</td>
+                    <td class="col-name">Смирнов Алексей</td>
+                    <td class="col-rating">1202</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">21</td>
+                    <td class="col-name">Смирнова Анна</td>
+                    <td class="col-rating">1182</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">22</td>
+                    <td class="col-name">Березкин Константин</td>
+                    <td class="col-rating">1162</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">23</td>
+                    <td class="col-name">Мельников Егор</td>
+                    <td class="col-rating">1158</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">24</td>
+                    <td class="col-name">Панарин Кирилл</td>
+                    <td class="col-rating">1142</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">25</td>
+                    <td class="col-name">Старостенков Антон</td>
+                    <td class="col-rating">1124</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">26</td>
+                    <td class="col-name">Сафонов Всеволод</td>
+                    <td class="col-rating">1122</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">27</td>
+                    <td class="col-name">Цызов Павел</td>
+                    <td class="col-rating">1082</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">28</td>
+                    <td class="col-name">Формагей Виктория</td>
+                    <td class="col-rating">1074</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">29</td>
+                    <td class="col-name">Титов Антон</td>
+                    <td class="col-rating">1062</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">30</td>
+                    <td class="col-name">Эйнтроп Евгений</td>
+                    <td class="col-rating">1042</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">31</td>
+                    <td class="col-name">Фомин Денис</td>
+                    <td class="col-rating">1022</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">32</td>
+                    <td class="col-name">Воробьев Артем</td>
+                    <td class="col-rating">1002</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">33</td>
+                    <td class="col-name">Елисеев Степан</td>
+                    <td class="col-rating">982</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">33</td>
+                    <td class="col-name">Сараев Евгений</td>
+                    <td class="col-rating">982</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">35</td>
+                    <td class="col-name">Баев Платон</td>
+                    <td class="col-rating">962</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">36</td>
+                    <td class="col-name">Саламатов Александр</td>
+                    <td class="col-rating">952</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">37</td>
+                    <td class="col-name">Кайманов Леонард</td>
+                    <td class="col-rating">942</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">38</td>
+                    <td class="col-name">Ткачёв Роман</td>
+                    <td class="col-rating">922</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">39</td>
+                    <td class="col-name">Титоренко Сергей</td>
+                    <td class="col-rating">902</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">40</td>
+                    <td class="col-name">Асанов Петр</td>
+                    <td class="col-rating">894</td>
+                </tr>
+                
+                <tr class="pilot-row">
+                    <td class="col-position">41</td>
+                    <td class="col-name">Дерюгин Константин</td>
+                    <td class="col-rating">882</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('pilotSearch');
+        const rows = document.querySelectorAll('.pilot-row');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            rows.forEach(row => {
+                const name = row.querySelector('.col-name').textContent.toLowerCase();
+                row.hidden = !name.includes(query);
+            });
+        });
+    </script>
+</body>
+</html>
