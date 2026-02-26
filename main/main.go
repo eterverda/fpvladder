@@ -13,11 +13,15 @@ import (
 	"github.com/eterverda/fpvladder/internal/db"
 	"github.com/eterverda/fpvladder/internal/elo"
 	"github.com/eterverda/fpvladder/internal/model"
+	"github.com/eterverda/fpvladder/internal/site"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
 
-const DBPath = "./data"
+const (
+	DBPath   = "./data"
+	SitePath = "./site"
+)
 
 func main() {
 	var rootCmd = &cobra.Command{Use: "droon"}
@@ -50,9 +54,16 @@ func main() {
 		Run:   func(cmd *cobra.Command, args []string) { handleExportCsv(cmd, args, class) },
 	}
 
+	var genCmd = &cobra.Command{
+		Use:   "generate",
+		Short: "Сгенерировать сайт",
+		Args:  cobra.NoArgs,
+		RunE:  func(cmd *cobra.Command, args []string) error { return site.Generate(DBPath, SitePath) },
+	}
+
 	csvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
 
-	rootCmd.AddCommand(installCmd, pilotCmd, csvCmd)
+	rootCmd.AddCommand(installCmd, pilotCmd, csvCmd, genCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
@@ -125,7 +136,7 @@ func handleInstall(cmd *cobra.Command, args []string) {
 		log.Fatalf("[✕] Файл невалиден и не готов к работе: %s\n", err)
 	}
 
-	event, err := readEvent(path)
+	event, err := db.ReadEventPath(path)
 	if err != nil {
 		log.Fatalf("[✕] Не удалось прочитать эвент: %s\n", err)
 	}
@@ -162,7 +173,7 @@ func recalculateRatings(event *model.Event) error {
 
 	for i, entry := range event.Pilots {
 		id := entry.Id
-		pilot, err := readPilot(id)
+		pilot, err := db.ReadPilot(DBPath, id)
 		if err != nil {
 			return err
 		}
@@ -309,24 +320,10 @@ func copyFile(src, dst string) error {
 	return destFile.Sync()
 }
 
-func readEvent(path string) (*model.Event, error) {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
-	}
-
-	var event model.Event
-	if err := yaml.Unmarshal(data, &event); err != nil {
-		return nil, fmt.Errorf("ошибка синтаксиса YAML: %w", err)
-	}
-
-	return &event, nil
-}
-
 // validateEvent проверяет файл на соответствие модели Event
 func validateEvent(path string) error {
 
-	event, err := readEvent(path)
+	event, err := db.ReadEventPath(path)
 	if err != nil {
 		return err
 	}
@@ -392,7 +389,7 @@ func validateEvent(path string) error {
 	// --- ЦИКЛ 2: Верификация пилотов по внешней базе данных ---
 
 	for id, p := range allUniquePilots {
-		dbPilot, err := readPilot(model.Id(id))
+		dbPilot, err := db.ReadPilot(DBPath, model.Id(id))
 		if err != nil {
 			return err
 		}
@@ -403,25 +400,6 @@ func validateEvent(path string) error {
 	}
 
 	return nil
-}
-
-func readPilot(id model.Id) (*model.Pilot, error) {
-	// Используем твой метод для получения пути к файлу пилота
-	pilotPath := db.ResolveIdPath(DBPath, "pilot", model.Id(id))
-
-	pData, err := os.ReadFile(pilotPath)
-	if err != nil {
-		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("пилот [%s] не найден в БД (путь: %s)", id, pilotPath)
-		}
-		return nil, fmt.Errorf("ошибка доступа к БД пилотов: %w", err)
-	}
-
-	var dbPilot model.Pilot
-	if err := yaml.Unmarshal(pData, &dbPilot); err != nil {
-		return nil, fmt.Errorf("ошибка структуры файла пилота %s: %w", id, err)
-	}
-	return &dbPilot, nil
 }
 
 func handleExportCsv(cmd *cobra.Command, args []string, class string) {

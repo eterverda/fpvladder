@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #2d3436;
+            --muted: #b2bec3;
+            --line: #eee;
+            --hover-bg: #fcfcfc;
+            --input-border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 400;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+        /* Блок поиска */
+        .search-wrapper {
+            margin-bottom: 20px;
+            /* Выравнивание по колонке имени: позиция (45px) + padding (15px) */
+            margin-left: 30px; 
+			margin-right: 30px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--muted);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 38px;
+            font-size: 0.9rem;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--muted);
+        }
+
+        .pilot-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pilot-row {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .pilot-row[hidden] { display: none; }
+
+        .pilot-row:hover { background-color: var(--hover-bg); }
+
+        .pilot-row td { padding: 10px 15px; }
+
+        /* Позиция: максимально компактная */
+        .col-position {
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--muted);
+            width: 30px; /* Уменьшили ширину */
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .pilot-row:hover .col-position { opacity: 1; }
+
+        .col-name { font-weight: 400; font-size: 1rem; width: auto; }
+
+        .col-rating {
+            text-align: right;
+            font-weight: 600;
+            width: 70px;
+        }
+
+        .pilot-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ .Title }}</h1>
+        
+        <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+            <input type="text" 
+                   id="pilotSearch" 
+                   class="search-input" 
+                   placeholder="Поиск"
+                   autocomplete="off">
+        </div>
+
+        <table class="pilot-table">
+            <tbody id="pilotTableBody">
+                {{ range .Pilots }}
+                <tr class="pilot-row">
+                    <td class="col-position">{{ .Position }}</td>
+                    <td class="col-name">{{ .Name }}</td>
+                    <td class="col-rating">{{ .Rating }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('pilotSearch');
+        const rows = document.querySelectorAll('.pilot-row');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            rows.forEach(row => {
+                const name = row.querySelector('.col-name').textContent.toLowerCase();
+                row.hidden = !name.includes(query);
+            });
+        });
+    </script>
+</body>
+</html>

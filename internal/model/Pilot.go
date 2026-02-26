@@ -53,3 +53,12 @@ type Pilot struct {
 	Name    string   `yaml:"name"`
 	Careers []Career `yaml:"careers"`
 }
+
+func (p *Pilot) RatingForClass(class Class) *RatingSummary {
+	for _, career := range p.Careers {
+		if career.Class == class {
+			return &career.Ratings[len(career.Ratings)-1]
+		}
+	}
+	return nil
+}

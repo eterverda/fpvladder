@@ -113,3 +113,37 @@ func lastDirEntry(path string) string {
 	sort.Strings(dirs)
 	return dirs[len(dirs)-1]
 }
+
+func ListIds(baseDir, dataType string) ([]model.Id, error) {
+	var ids []model.Id
+
+	typeDir := ResolveTypePath(baseDir, dataType)
+
+	err := filepath.WalkDir(
+		typeDir,
+		func(path string, d os.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+
+			// Пропускаем директории, нам нужны только файлы .yaml
+			if !d.IsDir() && strings.HasSuffix(d.Name(), ".yaml") {
+				id := path
+				// Отрезаем расширение .yaml
+				id = strings.TrimSuffix(id, ".yaml")
+
+				// Отрезаем путь
+				id = strings.TrimPrefix(id, typeDir)
+				id = strings.TrimPrefix(id, "/")
+
+				// Нормализуем разделители (актуально для Windows, чтобы всегда был '/')
+				id = filepath.ToSlash(id)
+
+				ids = append(ids, model.Id(id))
+			}
+			return nil
+		},
+	)
+
+	return ids, err
+}
