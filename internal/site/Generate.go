@@ -34,6 +34,7 @@ type pilotRecord struct {
 
 type eventRecord struct {
 	id               model.Id
+	Href             string
 	NumPilots        int
 	Name             string
 	Date             string
@@ -48,9 +49,24 @@ type pilotPage struct {
 
 type assignmentRecord struct {
 	num        int
+	Href       string
 	Position   string
 	Name       string
 	Date       string
+	Assignment string
+}
+
+type eventPage struct {
+	Name    string
+	Date    string
+	Rating  int
+	Results []*resultRecord
+}
+
+type resultRecord struct {
+	Href       string
+	Position   int
+	Name       string
 	Assignment string
 }
 
@@ -73,7 +89,7 @@ func Generate(baseDir, outDir string) error {
 		}
 	}
 	for _, event := range events {
-		if err = generateEvent(event); err != nil {
+		if err = generateEvent(outDir, event); err != nil {
 			return err
 		}
 	}
@@ -87,14 +103,15 @@ func Generate(baseDir, outDir string) error {
 func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) error {
 	var pilotRecords = make([]*pilotRecord, 0, len(events))
 	for _, pilot := range pilots {
-		rating := pilot.RatingForClass(Class75mm)
-		if rating == nil {
+		career := pilot.CareerForClass(Class75mm)
+		if career == nil {
 			continue
 		}
+		name := pilot.Name
 		pilotRecords = append(pilotRecords, &pilotRecord{
 			Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
-			Name:   pilot.Name,
-			Rating: rating.Value,
+			Name:   name,
+			Rating: career.Ratings[len(career.Ratings)-1].Value,
 		})
 	}
 	slices.SortFunc(pilotRecords, func(a, b *pilotRecord) int {
@@ -117,6 +134,7 @@ func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) 
 		}
 		eventRecords = append(eventRecords, &eventRecord{
 			id:        event.Id,
+			Href:      db.ResolveIdPathExt("", "event", event.Id, "html"),
 			NumPilots: len(event.Pilots),
 			Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
 			Date:      event.Date.String(),
@@ -166,10 +184,12 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 		Rating: career.Ratings[len(career.Ratings)-1].Value,
 	}
 	for _, rating := range career.Ratings {
+		name := strings.ReplaceAll(rating.Event.Name, ">", "⟫")
 		page.Assignments = append(page.Assignments, &assignmentRecord{
 			num:        rating.Num,
+			Href:       db.ResolveIdPathExt("../../../", "event", rating.Event.Id, "html"),
 			Position:   rating.Position.String(),
-			Name:       strings.ReplaceAll(rating.Event.Name, ">", "⟫"),
+			Name:       name,
 			Date:       rating.Event.Date.String(),
 			Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.Value), "-", "−"),
 		})
@@ -198,8 +218,41 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	return err
 }
 
-func generateEvent(event *model.Event) error {
-	return nil
+func generateEvent(outDir string, event *model.Event) error {
+	var page = &eventPage{
+		Name: strings.ReplaceAll(fmt.Sprintf("FPV Ladder ⟫ %s", event.Name), ">", "⟫"),
+	}
+	for _, pilot := range event.Pilots {
+		rating := pilot.RatingForClass(event.Class)
+		if rating == nil {
+			continue
+		}
+		name := pilot.Name
+		page.Results = append(page.Results, &resultRecord{
+			Href:       db.ResolveIdPathExt("../../../", "pilot", pilot.Id, "html"),
+			Position:   pilot.Position,
+			Name:       name,
+			Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.NewValue), "-", "−"),
+		})
+	}
+	path := db.ResolveIdPathExt(outDir, "event", event.Id, "html")
+	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl")
+	if err != nil {
+		return err
+	}
+
+	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		return err
+	}
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Применяем данные к шаблону и пишем в файл
+	err = tmpl.ExecuteTemplate(file, "event.tmpl", page)
+	return err
 }
 
 func readAllEvents(baseDir string) ([]*model.Event, error) {

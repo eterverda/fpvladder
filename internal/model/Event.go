@@ -24,6 +24,15 @@ type PilotEntry struct {
 	Ratings  []RatingAssignment `yaml:"ratings,omitempty"`
 }
 
+func (p *PilotEntry) RatingForClass(class Class) *RatingAssignment {
+	for _, rating := range p.Ratings {
+		if rating.Class == class {
+			return &rating
+		}
+	}
+	return nil
+}
+
 type Event struct {
 	Id          Id           `yaml:"id"`
 	Date        Date         `yaml:"date"`

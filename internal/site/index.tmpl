@@ -22,7 +22,6 @@
             display: flex;
             justify-content: center;
             margin: 0;
-            /* Убрали боковые отступы, оставили только вертикальные */
             padding: 40px 0 80px 0; 
         }
 
@@ -36,7 +35,6 @@
             color: var(--muted); 
             text-transform: uppercase; 
             letter-spacing: 1.5px; 
-            /* Отступ заголовка адаптирован под узкие ячейки */
             margin: 40px 0 10px 50px; 
         }
 
@@ -55,7 +53,6 @@
         .data-row { border-bottom: 1px solid var(--line); transition: background 0.1s; }
         .data-row:hover { background-color: var(--hover-bg); }
         
-        /* Горизонтальный спейсинг уменьшен в 2 раза (был 15px стал 8px) */
         .data-row td { padding: 12px 8px; -webkit-tap-highlight-color: transparent; }
         .data-row:last-child { border-bottom: none; }
 
@@ -75,9 +72,9 @@
         .col-name { font-weight: 400; font-size: 1rem; }
 
         .col-right, .col-right-bold {
-            text-align: right; width: 80px; /* Немного ужали ширину под новые отступы */
+            text-align: right; width: 80px; 
             white-space: nowrap;
-            padding-right: 20px !important; /* Чтобы числа не липли к краю экрана */
+            padding-right: 20px !important; 
         }
 
         .col-right-bold { width: 40px; font-weight: 600; }
@@ -89,7 +86,6 @@
             color: var(--muted); font-size: 0.85rem; display: none; font-style: italic;
         }
 
-        /* Футер оставляем с отступами, чтобы текст не лип к краям */
         .manifest-box { margin: 60px 20px 0 20px; padding: 20px 25px; border: 1px solid var(--line); border-radius: 12px; font-size: 0.85rem; color: #636e72; }
         .footer-info { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; color: var(--muted); font-size: 0.75rem; }
         .tg-link { text-decoration: none; color: var(--muted) !important; font-weight: 600; display: flex; align-items: center; }
@@ -126,11 +122,11 @@
             <table class="data-table" id="eventTable">
                 <tbody id="eventTableBody">
                     {{ range .Events }}
-                    <tr class="data-row">
+                    <tr class="data-row" data-href="{{ .Href }}">
                         <td class="col-hover-info">
                             {{ .NumPilots }}<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         </td>
-                        <td class="col-name">{{ .Name }}</td>
+                        <td class="col-name"><a href="{{ .Href }}">{{ .Name }}</a></td>
                         <td class="col-right">{{ .Date }}</td>
                     </tr>
                     {{ end }}
