@@ -20,12 +20,11 @@
             display: flex;
             justify-content: center;
             margin: 0;
-            padding: 40px 0 80px 0;  
+            padding: 40px 0 80px 0;
         }
 
         .container { width: 100%; max-width: 600px; }
 
-         
         .back-link {
             display: inline-block;
             margin: 0 0 30px 20px;
@@ -58,18 +57,25 @@
             color: var(--muted); 
             text-transform: uppercase; 
             letter-spacing: 1.5px; 
-            margin: 40px 0 10px 50px;  
+            margin: 40px 0 10px 50px; 
         }
 
         .data-table { width: 100%; border-collapse: collapse; }
         
          
+        .event-group { cursor: pointer; border-bottom: 1px solid var(--line); transition: background 0.1s; }
+        .event-group:hover { background-color: var(--hover-bg); }
+        .event-group:last-child { border-bottom: none; }
+
         .event-row td { padding: 15px 8px 2px 8px; }
-        
-         
-        .assignment-row { border-bottom: 1px solid var(--line); }
         .assignment-row td { padding: 0 8px 15px 8px; -webkit-tap-highlight-color: transparent; }
-        .assignment-row:last-child { border-bottom: none; }
+
+         
+        .event-group a { text-decoration: none; color: inherit; }
+
+        @media (hover: none) {
+            .event-group:active { background-color: #f2f2f2; transition: background 0s; }
+        }
 
         .col-spacer {
             text-align: right; width: 30px; font-size: 0.75rem; color: var(--muted);
@@ -77,12 +83,12 @@
         } 
 
         .col-event { font-weight: 400; font-size: 1rem; }
-        .col-date { text-align: right; width: 90px; }
+        .col-date { text-align: right; width: 90px; color: var(--muted); font-size: 0.85rem; padding-right: 20px !important; }
 
         .assignment-container {
             text-align: right;
             margin-top: 4px;
-            padding-right: 20px;  
+            padding-right: 20px; 
         }
 
         .assignment-text { 
@@ -112,11 +118,11 @@
         <section>
             <h2>История соревнований</h2>
             <table class="data-table">
-                <tbody>
-                    
+                
+                <tbody class="event-group" data-href="../../../event/2026/02-21/4.html">
                     <tr class="event-row">
                         <td class="col-spacer">4/16</td>
-                        <td class="col-event">Гонка ГУАП 75 ЛЗ ⟫ Финалы</td>
+                        <td class="col-event"><a href="../../../event/2026/02-21/4.html">Гонка ГУАП 75 ЛЗ ⟫ Финалы</a></td>
                         <td class="col-date">2026-02-21</td>
                     </tr>
                     <tr class="assignment-row">
@@ -128,10 +134,12 @@
                         </td>
                         <td class="col-date"></td>
                     </tr>
-                    
+                </tbody>
+                
+                <tbody class="event-group" data-href="../../../event/2026/02-21/3.html">
                     <tr class="event-row">
                         <td class="col-spacer">2/33</td>
-                        <td class="col-event">Гонка ГУАП 75 ЛЗ ⟫ Квалификации</td>
+                        <td class="col-event"><a href="../../../event/2026/02-21/3.html">Гонка ГУАП 75 ЛЗ ⟫ Квалификации</a></td>
                         <td class="col-date">2026-02-21</td>
                     </tr>
                     <tr class="assignment-row">
@@ -143,10 +151,12 @@
                         </td>
                         <td class="col-date"></td>
                     </tr>
-                    
+                </tbody>
+                
+                <tbody class="event-group" data-href="../../../event/2025/12-28/2.html">
                     <tr class="event-row">
                         <td class="col-spacer">6/16</td>
-                        <td class="col-event">Фан-Кон ёлка 2026 ⟫ Финалы</td>
+                        <td class="col-event"><a href="../../../event/2025/12-28/2.html">Фан-Кон ёлка 2026 ⟫ Финалы</a></td>
                         <td class="col-date">2025-12-28</td>
                     </tr>
                     <tr class="assignment-row">
@@ -158,10 +168,12 @@
                         </td>
                         <td class="col-date"></td>
                     </tr>
-                    
+                </tbody>
+                
+                <tbody class="event-group" data-href="../../../event/2025/12-28/1.html">
                     <tr class="event-row">
                         <td class="col-spacer">2/17</td>
-                        <td class="col-event">Фан-Кон ёлка 2026 ⟫ Квалификации</td>
+                        <td class="col-event"><a href="../../../event/2025/12-28/1.html">Фан-Кон ёлка 2026 ⟫ Квалификации</a></td>
                         <td class="col-date">2025-12-28</td>
                     </tr>
                     <tr class="assignment-row">
@@ -173,8 +185,8 @@
                         </td>
                         <td class="col-date"></td>
                     </tr>
-                    
                 </tbody>
+                
             </table>
         </section>
 
@@ -182,5 +194,14 @@
             FPV Ladder Project &copy; 2026
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('click', (e) => {
+            const group = e.target.closest('.event-group[data-href]');
+            if (group && !e.target.closest('a')) {
+                window.location.href = group.dataset.href;
+            }
+        });
+    </script>
 </body>
 </html>
