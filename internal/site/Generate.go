@@ -3,9 +3,11 @@ package site
 import (
 	"cmp"
 	"html/template"
+	"io"
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 
 	"github.com/eterverda/fpvladder/internal/db"
 	"github.com/eterverda/fpvladder/internal/model"
@@ -19,13 +21,20 @@ type indexPage struct {
 	Title       string
 	GeneratedAt model.Date
 	Pilots      []*pilotRecord
-	Events      []*model.Event
+	Events      []*eventRecord
 }
 
 type pilotRecord struct {
 	Position int
 	Name     string
 	Rating   int
+}
+
+type eventRecord struct {
+	id        model.Id
+	NumPilots int
+	Name      string
+	Date      string
 }
 
 func Generate(baseDir, outDir string) error {
@@ -41,44 +50,72 @@ func Generate(baseDir, outDir string) error {
 	if err != nil {
 		return err
 	}
+	for _, pilot := range pilots {
+		if err = generatePilot(pilot); err != nil {
+			return err
+		}
+	}
+	for _, event := range events {
+		if err = generateEvent(event); err != nil {
+			return err
+		}
+	}
+	err = copyFile("internal/site/manifest.html", "site/manifest.html")
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) error {
-	var pilotRecords []*pilotRecord
+	var pilotRecords = make([]*pilotRecord, 0, len(events))
 	for _, pilot := range pilots {
 		rating := pilot.RatingForClass(Class75mm)
 		if rating == nil {
 			continue
 		}
-		pilotRecords = append(pilotRecords,
-			&pilotRecord{
-				Name:   pilot.Name,
-				Rating: rating.Value,
-			},
-		)
+		pilotRecords = append(pilotRecords, &pilotRecord{
+			Name:   pilot.Name,
+			Rating: rating.Value,
+		})
 	}
-	slices.SortFunc(
-		pilotRecords,
-		func(a, b *pilotRecord) int {
-			ord := -cmp.Compare(a.Rating, b.Rating)
-			if ord == 0 {
-				ord = cmp.Compare(a.Name, b.Name)
-			}
-			return ord
-		},
-	)
+	slices.SortFunc(pilotRecords, func(a, b *pilotRecord) int {
+		ord := -cmp.Compare(a.Rating, b.Rating)
+		if ord == 0 {
+			ord = cmp.Compare(a.Name, b.Name)
+		}
+		return ord
+	})
 	for i, pilotRecord := range pilotRecords {
 		pilotRecord.Position = i + 1
 		if i > 0 && pilotRecord.Rating == pilotRecords[i-1].Rating {
 			pilotRecord.Position = pilotRecords[i-1].Position
 		}
 	}
+	var eventRecords = make([]*eventRecord, 0, len(events))
+	for _, event := range events {
+		if event.Class != Class75mm {
+			continue
+		}
+		eventRecords = append(eventRecords, &eventRecord{
+			id:        event.Id,
+			NumPilots: len(event.Pilots),
+			Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
+			Date:      event.Date.String(),
+		})
+	}
+	slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
+		ord := -cmp.Compare(a.Date, b.Date)
+		if ord == 0 {
+			ord = -cmp.Compare(a.id, b.id)
+		}
+		return ord
+	})
 	index := indexPage{
-		Title:       string(Class75mm),
+		Title:       "FPV Ladder ⟫ Drone Racing ⟫ 75mm",
 		GeneratedAt: model.Today(),
 		Pilots:      pilotRecords,
-		Events:      events,
+		Events:      eventRecords,
 	}
 
 	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl")
@@ -99,6 +136,14 @@ func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) 
 	// Применяем данные к шаблону и пишем в файл
 	err = tmpl.Execute(file, index)
 	return err
+}
+
+func generatePilot(event *model.Pilot) error {
+	return nil
+}
+
+func generateEvent(event *model.Event) error {
+	return nil
 }
 
 func readAllEvents(baseDir string) ([]*model.Event, error) {
@@ -131,4 +176,21 @@ func readAllPilots(baseDir string) ([]*model.Pilot, error) {
 		pilots = append(pilots, pilot)
 	}
 	return pilots, nil
+}
+
+func copyFile(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer in.Close()
+
+	out, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	_, err = io.Copy(out, in)
+	return err
 }
