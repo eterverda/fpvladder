@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>drone-racing &gt; 75mm</title>
+    <title>FPV Ladder ⟫ Drone Racing ⟫ 75mm</title>
     <style>
         :root {
             --bg: #ffffff;
@@ -12,6 +12,7 @@
             --line: #eee;
             --hover-bg: #fcfcfc;
             --input-border: #dfe6e9;
+            --accent: #0088cc;
         }
 
         body {
@@ -21,373 +22,463 @@
             display: flex;
             justify-content: center;
             margin: 0;
-            padding: 40px 20px;
+            padding: 40px 20px 80px 20px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
+        .container { width: 100%; max-width: 600px; }
+
+        h1 { text-align: center; font-weight: 400; font-size: 1.5rem; margin-bottom: 25px; }
+        
+        h2 { 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            color: var(--muted); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            margin: 40px 0 10px 75px; 
         }
 
-        h1 {
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-        }
-
-         
-        .search-wrapper {
-            margin-bottom: 20px;
-             
-            margin-left: 30px; 
-			margin-right: 30px;
-            position: relative;
-        }
-
+        .search-wrapper { margin: 0 30px 25px 35px; position: relative; }
         .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            fill: var(--muted);
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            width: 16px; height: 16px; fill: var(--muted);
         }
-
         .search-input {
-            width: 100%;
-            padding: 10px 15px 10px 38px;
-            font-size: 0.9rem;
-            border: 1px solid var(--input-border);
-            border-radius: 6px;
-            outline: none;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
+            width: 100%; padding: 10px 30px 10px 38px; font-size: 0.9rem;
+            border: 1px solid var(--input-border); border-radius: 6px; outline: none;
+            box-sizing: border-box; transition: border-color 0.2s;
         }
+        .search-input:focus { border-color: var(--muted); }
 
-        .search-input:focus {
-            border-color: var(--muted);
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-row { border-bottom: 1px solid var(--line); transition: background 0.1s; }
+        .data-row:hover { background-color: var(--hover-bg); }
+        .data-row td { padding: 12px 15px; }
+        .data-row:last-child { border-bottom: none; }
+
+        .col-hover-info {
+            text-align: right; width: 30px; font-size: 0.75rem; color: var(--muted);
+            opacity: 0; transition: opacity 0.2s ease; white-space: nowrap;
         }
+        .data-row:hover .col-hover-info { opacity: 1; }
 
-        .pilot-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .pilot-row {
-            border-bottom: 1px solid var(--line);
-        }
-
-        .pilot-row[hidden] { display: none; }
-
-        .pilot-row:hover { background-color: var(--hover-bg); }
-
-        .pilot-row td { padding: 10px 15px; }
+        .col-name { font-weight: 400; font-size: 1rem; }
 
          
-        .col-position {
-            text-align: right;
-            font-size: 0.75rem;
-            color: var(--muted);
-            width: 30px;  
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        .col-right-bold {
+            text-align: right; font-weight: 600; width: 110px; 
             white-space: nowrap;
         }
 
-        .pilot-row:hover .col-position { opacity: 1; }
+        .user-icon { width: 11px; height: 11px; fill: var(--muted); vertical-align: 0px; margin-left: 1px; }
 
-        .col-name { font-weight: 400; font-size: 1rem; width: auto; }
-
-        .col-rating {
-            text-align: right;
-            font-weight: 600;
-            width: 70px;
+        .empty-state {
+            padding: 20px 0 20px 75px;
+            color: var(--muted); 
+            font-size: 0.85rem; 
+            display: none;
+            font-style: italic;
         }
 
-        .pilot-row:last-child { border-bottom: none; }
+         
+        .manifest-box {
+            margin-top: 60px;
+            padding: 20px 25px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #636e72;
+            text-align: center;
+        }
+
+        .manifest-box a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+        .manifest-box a:hover { color: var(--accent); }
+
+        .footer-info {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+
+        .tg-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--muted) !important;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .tg-link:hover { color: var(--accent) !important; }
+        .tg-icon { width: 14px; height: 14px; fill: currentColor; margin-right: 5px; }
+
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>drone-racing &gt; 75mm</h1>
+        <h1>FPV Ladder ⟫ Drone Racing ⟫ 75mm</h1>
         
         <div class="search-wrapper">
-            <svg class="search-icon" viewBox="0 0 24 24">
-                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            </svg>
-            <input type="text" 
-                   id="pilotSearch" 
-                   class="search-input" 
-                   placeholder="Поиск"
-                   autocomplete="off">
+            <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="mainSearch" class="search-input" placeholder="Поиск" autocomplete="off">
         </div>
 
-        <table class="pilot-table">
-            <tbody id="pilotTableBody">
-                
-                <tr class="pilot-row">
-                    <td class="col-position">1</td>
-                    <td class="col-name">Садовников Матвей</td>
-                    <td class="col-rating">1661</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">2</td>
-                    <td class="col-name">Губанов Илья</td>
-                    <td class="col-rating">1583</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">3</td>
-                    <td class="col-name">Сойгалов Степан</td>
-                    <td class="col-rating">1558</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">4</td>
-                    <td class="col-name">Саламатов Марк</td>
-                    <td class="col-rating">1527</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">5</td>
-                    <td class="col-name">Костин Егор</td>
-                    <td class="col-rating">1506</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">6</td>
-                    <td class="col-name">Смирнов Дмитрий</td>
-                    <td class="col-rating">1484</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">7</td>
-                    <td class="col-name">Прончаков Георгий</td>
-                    <td class="col-rating">1476</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">8</td>
-                    <td class="col-name">Руденко Владимир</td>
-                    <td class="col-rating">1444</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">9</td>
-                    <td class="col-name">Аверин Дмитрий</td>
-                    <td class="col-rating">1417</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">10</td>
-                    <td class="col-name">Ковцур Павел</td>
-                    <td class="col-rating">1326</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">11</td>
-                    <td class="col-name">Петренко Игорь</td>
-                    <td class="col-rating">1322</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">12</td>
-                    <td class="col-name">Асанов Александр</td>
-                    <td class="col-rating">1320</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">13</td>
-                    <td class="col-name">Дойников Дмитрий</td>
-                    <td class="col-rating">1306</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">14</td>
-                    <td class="col-name">Казаков Игорь</td>
-                    <td class="col-rating">1297</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">15</td>
-                    <td class="col-name">Фомина Алёна</td>
-                    <td class="col-rating">1282</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">16</td>
-                    <td class="col-name">Жбанов Андрей</td>
-                    <td class="col-rating">1230</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">16</td>
-                    <td class="col-name">Котоман Семен</td>
-                    <td class="col-rating">1230</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">18</td>
-                    <td class="col-name">Егоров Дмитрий</td>
-                    <td class="col-rating">1214</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">19</td>
-                    <td class="col-name">Богинский Никита</td>
-                    <td class="col-rating">1212</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">20</td>
-                    <td class="col-name">Смирнов Алексей</td>
-                    <td class="col-rating">1202</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">21</td>
-                    <td class="col-name">Смирнова Анна</td>
-                    <td class="col-rating">1182</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">22</td>
-                    <td class="col-name">Березкин Константин</td>
-                    <td class="col-rating">1162</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">23</td>
-                    <td class="col-name">Мельников Егор</td>
-                    <td class="col-rating">1158</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">24</td>
-                    <td class="col-name">Панарин Кирилл</td>
-                    <td class="col-rating">1142</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">25</td>
-                    <td class="col-name">Старостенков Антон</td>
-                    <td class="col-rating">1124</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">26</td>
-                    <td class="col-name">Сафонов Всеволод</td>
-                    <td class="col-rating">1122</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">27</td>
-                    <td class="col-name">Цызов Павел</td>
-                    <td class="col-rating">1082</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">28</td>
-                    <td class="col-name">Формагей Виктория</td>
-                    <td class="col-rating">1074</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">29</td>
-                    <td class="col-name">Титов Антон</td>
-                    <td class="col-rating">1062</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">30</td>
-                    <td class="col-name">Эйнтроп Евгений</td>
-                    <td class="col-rating">1042</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">31</td>
-                    <td class="col-name">Фомин Денис</td>
-                    <td class="col-rating">1022</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">32</td>
-                    <td class="col-name">Воробьев Артем</td>
-                    <td class="col-rating">1002</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">33</td>
-                    <td class="col-name">Елисеев Степан</td>
-                    <td class="col-rating">982</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">33</td>
-                    <td class="col-name">Сараев Евгений</td>
-                    <td class="col-rating">982</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">35</td>
-                    <td class="col-name">Баев Платон</td>
-                    <td class="col-rating">962</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">36</td>
-                    <td class="col-name">Саламатов Александр</td>
-                    <td class="col-rating">952</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">37</td>
-                    <td class="col-name">Кайманов Леонард</td>
-                    <td class="col-rating">942</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">38</td>
-                    <td class="col-name">Ткачёв Роман</td>
-                    <td class="col-rating">922</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">39</td>
-                    <td class="col-name">Титоренко Сергей</td>
-                    <td class="col-rating">902</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">40</td>
-                    <td class="col-name">Асанов Петр</td>
-                    <td class="col-rating">894</td>
-                </tr>
-                
-                <tr class="pilot-row">
-                    <td class="col-position">41</td>
-                    <td class="col-name">Дерюгин Константин</td>
-                    <td class="col-rating">882</td>
-                </tr>
-                
-            </tbody>
-        </table>
+        <section>
+            <h2>Пилоты</h2>
+            <table class="data-table" id="pilotTable">
+                <tbody id="pilotTableBody">
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">1</td>
+                        <td class="col-name">Садовников Матвей</td>
+                        <td class="col-right-bold">1661</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">2</td>
+                        <td class="col-name">Губанов Илья</td>
+                        <td class="col-right-bold">1583</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">3</td>
+                        <td class="col-name">Сойгалов Степан</td>
+                        <td class="col-right-bold">1558</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">4</td>
+                        <td class="col-name">Саламатов Марк</td>
+                        <td class="col-right-bold">1527</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">5</td>
+                        <td class="col-name">Костин Егор</td>
+                        <td class="col-right-bold">1506</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">6</td>
+                        <td class="col-name">Смирнов Дмитрий</td>
+                        <td class="col-right-bold">1484</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">7</td>
+                        <td class="col-name">Прончаков Георгий</td>
+                        <td class="col-right-bold">1476</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">8</td>
+                        <td class="col-name">Руденко Владимир</td>
+                        <td class="col-right-bold">1444</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">9</td>
+                        <td class="col-name">Аверин Дмитрий</td>
+                        <td class="col-right-bold">1417</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">10</td>
+                        <td class="col-name">Ковцур Павел</td>
+                        <td class="col-right-bold">1326</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">11</td>
+                        <td class="col-name">Петренко Игорь</td>
+                        <td class="col-right-bold">1322</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">12</td>
+                        <td class="col-name">Асанов Александр</td>
+                        <td class="col-right-bold">1320</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">13</td>
+                        <td class="col-name">Дойников Дмитрий</td>
+                        <td class="col-right-bold">1306</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">14</td>
+                        <td class="col-name">Казаков Игорь</td>
+                        <td class="col-right-bold">1297</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">15</td>
+                        <td class="col-name">Фомина Алёна</td>
+                        <td class="col-right-bold">1282</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">16</td>
+                        <td class="col-name">Жбанов Андрей</td>
+                        <td class="col-right-bold">1230</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">16</td>
+                        <td class="col-name">Котоман Семен</td>
+                        <td class="col-right-bold">1230</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">18</td>
+                        <td class="col-name">Егоров Дмитрий</td>
+                        <td class="col-right-bold">1214</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">19</td>
+                        <td class="col-name">Богинский Никита</td>
+                        <td class="col-right-bold">1212</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">20</td>
+                        <td class="col-name">Смирнов Алексей</td>
+                        <td class="col-right-bold">1202</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">21</td>
+                        <td class="col-name">Смирнова Анна</td>
+                        <td class="col-right-bold">1182</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">22</td>
+                        <td class="col-name">Березкин Константин</td>
+                        <td class="col-right-bold">1162</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">23</td>
+                        <td class="col-name">Мельников Егор</td>
+                        <td class="col-right-bold">1158</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">24</td>
+                        <td class="col-name">Панарин Кирилл</td>
+                        <td class="col-right-bold">1142</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">25</td>
+                        <td class="col-name">Старостенков Антон</td>
+                        <td class="col-right-bold">1124</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">26</td>
+                        <td class="col-name">Сафонов Всеволод</td>
+                        <td class="col-right-bold">1122</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">27</td>
+                        <td class="col-name">Цызов Павел</td>
+                        <td class="col-right-bold">1082</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">28</td>
+                        <td class="col-name">Формагей Виктория</td>
+                        <td class="col-right-bold">1074</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">29</td>
+                        <td class="col-name">Титов Антон</td>
+                        <td class="col-right-bold">1062</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">30</td>
+                        <td class="col-name">Эйнтроп Евгений</td>
+                        <td class="col-right-bold">1042</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">31</td>
+                        <td class="col-name">Фомин Денис</td>
+                        <td class="col-right-bold">1022</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">32</td>
+                        <td class="col-name">Воробьев Артем</td>
+                        <td class="col-right-bold">1002</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">33</td>
+                        <td class="col-name">Елисеев Степан</td>
+                        <td class="col-right-bold">982</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">33</td>
+                        <td class="col-name">Сараев Евгений</td>
+                        <td class="col-right-bold">982</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">35</td>
+                        <td class="col-name">Баев Платон</td>
+                        <td class="col-right-bold">962</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">36</td>
+                        <td class="col-name">Саламатов Александр</td>
+                        <td class="col-right-bold">952</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">37</td>
+                        <td class="col-name">Кайманов Леонард</td>
+                        <td class="col-right-bold">942</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">38</td>
+                        <td class="col-name">Ткачёв Роман</td>
+                        <td class="col-right-bold">922</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">39</td>
+                        <td class="col-name">Титоренко Сергей</td>
+                        <td class="col-right-bold">902</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">40</td>
+                        <td class="col-name">Асанов Петр</td>
+                        <td class="col-right-bold">894</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">41</td>
+                        <td class="col-name">Дерюгин Константин</td>
+                        <td class="col-right-bold">882</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <div id="pilots-empty" class="empty-state">Пилоты не найдены</div>
+        </section>
+
+        <section>
+            <h2>События</h2>
+            <table class="data-table" id="eventTable">
+                <tbody id="eventTableBody">
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">
+                            16<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </td>
+                        <td class="col-name">Гонка ГУАП 75 ЛЗ ⟫ Финалы</td>
+                        <td class="col-right-bold">2026-02-21</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">
+                            33<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </td>
+                        <td class="col-name">Гонка ГУАП 75 ЛЗ ⟫ Квалификации</td>
+                        <td class="col-right-bold">2026-02-21</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">
+                            16<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </td>
+                        <td class="col-name">Фан-Кон ёлка 2026 ⟫ Финалы</td>
+                        <td class="col-right-bold">2025-12-28</td>
+                    </tr>
+                    
+                    <tr class="data-row">
+                        <td class="col-hover-info">
+                            17<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </td>
+                        <td class="col-name">Фан-Кон ёлка 2026 ⟫ Квалификации</td>
+                        <td class="col-right-bold">2025-12-28</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <div id="events-empty" class="empty-state">События не найдены</div>
+        </section>
+
+        <footer>
+            <div class="manifest-box">
+                Fpv Ladder — это независимый открытый рейтинг Fpv пилотов с добровольным участием. Читать <a href="manifest.html">Манифест</a>.
+            </div>
+            
+            <div class="footer-info">
+                <span>Обновлено: 2026-02-27</span>
+                <a href="https://t.me/yourchannel" class="tg-link">
+                    <svg class="tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                    Написать нам
+                </a>
+            </div>
+            
+            <div class="copyright">
+                FPV Ladder Project &copy; 2026
+            </div>
+        </footer>
     </div>
 
     <script>
-        const searchInput = document.getElementById('pilotSearch');
-        const rows = document.querySelectorAll('.pilot-row');
-
+        const searchInput = document.getElementById('mainSearch');
+        
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
+            updateVisibility('pilotTableBody', 'pilotTable', 'pilots-empty', query);
+            updateVisibility('eventTableBody', 'eventTable', 'events-empty', query);
+        });
+
+        function updateVisibility(tbodyId, tableId, emptyId, query) {
+            const tbody = document.getElementById(tbodyId);
+            const table = document.getElementById(tableId);
+            const emptyState = document.getElementById(emptyId);
+            const rows = tbody.querySelectorAll('.data-row');
+            let foundAny = false;
+
             rows.forEach(row => {
                 const name = row.querySelector('.col-name').textContent.toLowerCase();
-                row.hidden = !name.includes(query);
+                if (name.includes(query)) {
+                    row.style.display = '';
+                    foundAny = true;
+                } else {
+                    row.style.display = 'none';
+                }
             });
-        });
+
+            table.style.display = foundAny ? 'table' : 'none';
+            emptyState.style.display = foundAny ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>
