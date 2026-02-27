@@ -12,6 +12,10 @@ type Position struct {
 	Denominator int
 }
 
+func (p Position) String() string {
+	return fmt.Sprintf("%d/%d", p.Numerator, p.Denominator)
+}
+
 // MarshalYAML превращает структуру в строку "num/denom"
 func (p Position) MarshalYAML() (interface{}, error) {
 	return fmt.Sprintf("%d/%d", p.Numerator, p.Denominator), nil
@@ -54,11 +58,19 @@ type Pilot struct {
 	Careers []Career `yaml:"careers"`
 }
 
-func (p *Pilot) RatingForClass(class Class) *RatingSummary {
+func (p *Pilot) CareerForClass(class Class) *Career {
 	for _, career := range p.Careers {
 		if career.Class == class {
-			return &career.Ratings[len(career.Ratings)-1]
+			return &career
 		}
 	}
 	return nil
+}
+
+func (p *Pilot) RatingForClass(class Class) *RatingSummary {
+	career := p.CareerForClass(class)
+	if career == nil {
+		return nil
+	}
+	return &career.Ratings[len(career.Ratings)-1]
 }

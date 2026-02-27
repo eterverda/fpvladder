@@ -78,19 +78,13 @@ func ResolveTypePath(baseDir string, dataType string) string {
 	return filepath.Join(baseDir, dataType)
 }
 
-// ResolveIdPath превращает Id в полный путь к файлу.
-// Если файл уже существует (с любым расширением), возвращает путь к нему.
-// Если файла нет, возвращает путь с дефолтным расширением .yaml.
+// ResolveIdPath превращает Id в полный путь к файлу с расширением yaml
 func ResolveIdPath(baseDir string, dataType string, id model.Id) string {
-	fullPathWithoutExt := filepath.Join(ResolveTypePath(baseDir, dataType), string(id))
+	return ResolveIdPathExt(baseDir, dataType, id, "yaml")
+}
 
-	// Проверяем наличие файла с любым расширением через Glob
-	matches, _ := filepath.Glob(fullPathWithoutExt + ".*")
-	if len(matches) > 0 {
-		return matches[0]
-	}
-
-	return fullPathWithoutExt + ".yaml"
+func ResolveIdPathExt(baseDir string, dataType string, id model.Id, extension string) string {
+	return filepath.Join(ResolveTypePath(baseDir, dataType), string(id)) + "." + extension
 }
 
 // lastDirEntry — вспомогательная функция для поиска последней подпапки

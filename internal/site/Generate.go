@@ -2,6 +2,7 @@ package site
 
 import (
 	"cmp"
+	"fmt"
 	"html/template"
 	"io"
 	"os"
@@ -25,16 +26,32 @@ type indexPage struct {
 }
 
 type pilotRecord struct {
+	Href     string
 	Position int
 	Name     string
 	Rating   int
 }
 
 type eventRecord struct {
-	id        model.Id
-	NumPilots int
-	Name      string
-	Date      string
+	id               model.Id
+	NumPilots        int
+	Name             string
+	Date             string
+	RatingAssignment string
+}
+
+type pilotPage struct {
+	Name        string
+	Rating      int
+	Assignments []*assignmentRecord
+}
+
+type assignmentRecord struct {
+	num        int
+	Position   string
+	Name       string
+	Date       string
+	Assignment string
 }
 
 func Generate(baseDir, outDir string) error {
@@ -51,7 +68,7 @@ func Generate(baseDir, outDir string) error {
 		return err
 	}
 	for _, pilot := range pilots {
-		if err = generatePilot(pilot); err != nil {
+		if err = generatePilot(outDir, pilot); err != nil {
 			return err
 		}
 	}
@@ -75,6 +92,7 @@ func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) 
 			continue
 		}
 		pilotRecords = append(pilotRecords, &pilotRecord{
+			Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
 			Name:   pilot.Name,
 			Rating: rating.Value,
 		})
@@ -138,8 +156,46 @@ func generateIndex(outDir string, events []*model.Event, pilots []*model.Pilot) 
 	return err
 }
 
-func generatePilot(event *model.Pilot) error {
-	return nil
+func generatePilot(outDir string, pilot *model.Pilot) error {
+	career := pilot.CareerForClass(Class75mm)
+	if career == nil {
+		return nil
+	}
+	var page = &pilotPage{
+		Name:   fmt.Sprintf("FPV Ladder ⟫ %s", pilot.Name),
+		Rating: career.Ratings[len(career.Ratings)-1].Value,
+	}
+	for _, rating := range career.Ratings {
+		page.Assignments = append(page.Assignments, &assignmentRecord{
+			num:        rating.Num,
+			Position:   rating.Position.String(),
+			Name:       strings.ReplaceAll(rating.Event.Name, ">", "⟫"),
+			Date:       rating.Event.Date.String(),
+			Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.Value), "-", "−"),
+		})
+	}
+	slices.SortFunc(page.Assignments, func(a, b *assignmentRecord) int {
+		return -cmp.Compare(a.num, b.num)
+	})
+
+	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
+	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl")
+	if err != nil {
+		return err
+	}
+
+	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		return err
+	}
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Применяем данные к шаблону и пишем в файл
+	err = tmpl.ExecuteTemplate(file, "pilot.tmpl", page)
+	return err
 }
 
 func generateEvent(event *model.Event) error {

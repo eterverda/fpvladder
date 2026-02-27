@@ -53,8 +53,18 @@
         .data-table { width: 100%; border-collapse: collapse; }
         .data-row { border-bottom: 1px solid var(--line); transition: background 0.1s; }
         .data-row:hover { background-color: var(--hover-bg); }
-        .data-row td { padding: 12px 15px; }
+        .data-row td { padding: 12px 15px; -webkit-tap-highlight-color: transparent; }
         .data-row:last-child { border-bottom: none; }
+
+        /* Кликабельность строки */
+        .data-row[data-href] { cursor: pointer; }
+        .data-row a { text-decoration: none; color: inherit; display: block; }
+        .data-row:hover .col-name a { text-decoration: underline; text-underline-offset: 4px; }
+
+        /* Мобильный отклик */
+        @media (hover: none) {
+            .data-row:active { background-color: #f2f2f2; transition: background 0s; }
+        }
 
         .col-hover-info {
             text-align: right; width: 30px; font-size: 0.75rem; color: var(--muted);
@@ -64,7 +74,11 @@
 
         .col-name { font-weight: 400; font-size: 1rem; }
 
-        /* Убрали JetBrains Mono, теперь обычный шрифт */
+        .col-right {
+            text-align: right; width: 110px; 
+            white-space: nowrap;
+        }
+
         .col-right-bold {
             text-align: right; font-weight: 600; width: 110px; 
             white-space: nowrap;
@@ -80,7 +94,6 @@
             font-style: italic;
         }
 
-        /* --- Футер --- */
         .manifest-box {
             margin-top: 60px;
             padding: 20px 25px;
@@ -137,9 +150,9 @@
             <table class="data-table" id="pilotTable">
                 <tbody id="pilotTableBody">
                     {{ range .Pilots }}
-                    <tr class="data-row">
+                    <tr class="data-row" data-href="{{ .Href }}">
                         <td class="col-hover-info">{{ .Position }}</td>
-                        <td class="col-name">{{ .Name }}</td>
+                        <td class="col-name"><a href="{{ .Href }}">{{ .Name }}</a></td>
                         <td class="col-right-bold">{{ .Rating }}</td>
                     </tr>
                     {{ end }}
@@ -158,7 +171,7 @@
                             {{ .NumPilots }}<svg class="user-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         </td>
                         <td class="col-name">{{ .Name }}</td>
-                        <td class="col-right-bold">{{ .Date }}</td>
+                        <td class="col-right">{{ .Date }}</td>
                     </tr>
                     {{ end }}
                 </tbody>
@@ -214,6 +227,14 @@
             table.style.display = foundAny ? 'table' : 'none';
             emptyState.style.display = foundAny ? 'none' : 'block';
         }
+
+        // Клик по всей строке
+        document.addEventListener('click', (e) => {
+            const row = e.target.closest('.data-row[data-href]');
+            if (row && !e.target.closest('a')) {
+                window.location.href = row.dataset.href;
+            }
+        });
     </script>
 </body>
 </html>
