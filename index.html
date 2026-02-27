@@ -22,12 +22,13 @@
             display: flex;
             justify-content: center;
             margin: 0;
-            padding: 40px 20px 80px 20px;
+             
+            padding: 40px 0 80px 0; 
         }
 
         .container { width: 100%; max-width: 600px; }
 
-        h1 { text-align: center; font-weight: 400; font-size: 1.5rem; margin-bottom: 25px; }
+        h1 { text-align: center; font-weight: 400; font-size: 1.5rem; margin-bottom: 25px; padding: 0 20px; }
         
         h2 { 
             font-size: 0.8rem; 
@@ -35,10 +36,11 @@
             color: var(--muted); 
             text-transform: uppercase; 
             letter-spacing: 1.5px; 
-            margin: 40px 0 10px 75px; 
+             
+            margin: 40px 0 10px 50px; 
         }
 
-        .search-wrapper { margin: 0 30px 25px 35px; position: relative; }
+        .search-wrapper { margin: 0 20px 25px 20px; position: relative; }
         .search-icon {
             position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
             width: 16px; height: 16px; fill: var(--muted);
@@ -48,20 +50,18 @@
             border: 1px solid var(--input-border); border-radius: 6px; outline: none;
             box-sizing: border-box; transition: border-color 0.2s;
         }
-        .search-input:focus { border-color: var(--muted); }
 
         .data-table { width: 100%; border-collapse: collapse; }
         .data-row { border-bottom: 1px solid var(--line); transition: background 0.1s; }
         .data-row:hover { background-color: var(--hover-bg); }
-        .data-row td { padding: 12px 15px; -webkit-tap-highlight-color: transparent; }
+        
+         
+        .data-row td { padding: 12px 8px; -webkit-tap-highlight-color: transparent; }
         .data-row:last-child { border-bottom: none; }
 
-         
         .data-row[data-href] { cursor: pointer; }
         .data-row a { text-decoration: none; color: inherit; display: block; }
-        .data-row:hover .col-name a { text-decoration: underline; text-underline-offset: 4px; }
 
-         
         @media (hover: none) {
             .data-row:active { background-color: #f2f2f2; transition: background 0s; }
         }
@@ -74,66 +74,26 @@
 
         .col-name { font-weight: 400; font-size: 1rem; }
 
-        .col-right {
-            text-align: right; width: 110px; 
+        .col-right, .col-right-bold {
+            text-align: right; width: 80px;  
             white-space: nowrap;
+            padding-right: 20px !important;  
         }
 
-        .col-right-bold {
-            text-align: right; font-weight: 600; width: 110px; 
-            white-space: nowrap;
-        }
+        .col-right-bold { width: 40px; font-weight: 600; }
 
-        .user-icon { width: 11px; height: 11px; fill: var(--muted); vertical-align: 0px; margin-left: 1px; }
+        .user-icon { width: 12px; height: 12px; fill: var(--muted); vertical-align: -2px; margin-left: 1px; }
 
         .empty-state {
-            padding: 20px 0 20px 75px;
-            color: var(--muted); 
-            font-size: 0.85rem; 
-            display: none;
-            font-style: italic;
+            padding: 20px 0 20px 45px;
+            color: var(--muted); font-size: 0.85rem; display: none; font-style: italic;
         }
 
-        .manifest-box {
-            margin-top: 60px;
-            padding: 20px 25px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: #636e72;
-        }
-
-        .manifest-box a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
-        .manifest-box a:hover { color: var(--accent); }
-
-        .footer-info {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-            color: var(--muted);
-            font-size: 0.75rem;
-        }
-
-        .tg-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--muted) !important;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        .tg-link:hover { color: var(--accent) !important; }
-        .tg-icon { width: 14px; height: 14px; fill: currentColor; margin-right: 5px; }
-
-        .copyright {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--muted);
-        }
+         
+        .manifest-box { margin: 60px 20px 0 20px; padding: 20px 25px; border: 1px solid var(--line); border-radius: 12px; font-size: 0.85rem; color: #636e72; }
+        .footer-info { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; color: var(--muted); font-size: 0.75rem; }
+        .tg-link { text-decoration: none; color: var(--muted) !important; font-weight: 600; display: flex; align-items: center; }
+        .copyright { margin-top: 40px; text-align: center; font-size: 0.75rem; color: var(--muted); }
     </style>
 </head>
 <body>
@@ -447,24 +407,16 @@
             <div class="manifest-box">
                 FPV Ladder — это независимый открытый рейтинг Fpv пилотов с добровольным участием. Читать <a href="manifest.html">Манифест</a>.
             </div>
-            
             <div class="footer-info">
                 <span>Обновлено: 2026-02-27</span>
-                <a href="https://t.me/yourchannel" class="tg-link">
-                    <svg class="tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-                    Написать нам
-                </a>
+                <a href="https://t.me/fpvladder" class="tg-link">Написать нам</a>
             </div>
-            
-            <div class="copyright">
-                FPV Ladder Project &copy; 2026
-            </div>
+            <div class="copyright">FPV Ladder Project &copy; 2026</div>
         </footer>
     </div>
 
     <script>
         const searchInput = document.getElementById('mainSearch');
-        
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             updateVisibility('pilotTableBody', 'pilotTable', 'pilots-empty', query);
@@ -477,7 +429,6 @@
             const emptyState = document.getElementById(emptyId);
             const rows = tbody.querySelectorAll('.data-row');
             let foundAny = false;
-
             rows.forEach(row => {
                 const name = row.querySelector('.col-name').textContent.toLowerCase();
                 if (name.includes(query)) {
@@ -487,12 +438,10 @@
                     row.style.display = 'none';
                 }
             });
-
             table.style.display = foundAny ? 'table' : 'none';
             emptyState.style.display = foundAny ? 'none' : 'block';
         }
 
-        
         document.addEventListener('click', (e) => {
             const row = e.target.closest('.data-row[data-href]');
             if (row && !e.target.closest('a')) {
