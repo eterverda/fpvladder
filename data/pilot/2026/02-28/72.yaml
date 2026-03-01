@@ -1,3 +1,39 @@
 id: 2026/02-28/72
 name: Тестов Максим
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 13/42
+          delta: 140
+          value: 1340
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 12/16
+          delta: -24
+          value: 1316
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 13/42
+          delta: 140
+          value: 1340
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 12/16
+          delta: -24
+          value: 1316

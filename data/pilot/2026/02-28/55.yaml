@@ -1,3 +1,23 @@
 id: 2026/02-28/55
 name: Кокшаров Егор
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 31/42
+          delta: -112
+          value: 1088
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 31/42
+          delta: -112
+          value: 1088

@@ -1,3 +1,23 @@
 id: 2026/02-28/63
 name: Меньшиков Владислав
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 28/42
+          delta: -70
+          value: 1130
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 28/42
+          delta: -70
+          value: 1130

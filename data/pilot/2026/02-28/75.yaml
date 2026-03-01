@@ -1,3 +1,39 @@
 id: 2026/02-28/75
 name: Шариков Степан
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 2/42
+          delta: 294
+          value: 1494
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 2/16
+          delta: 71
+          value: 1565
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 2/42
+          delta: 294
+          value: 1494
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 2/16
+          delta: 71
+          value: 1565

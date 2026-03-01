@@ -1,3 +1,39 @@
 id: 2026/02-28/53
 name: Калерин Андрей
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 16/42
+          delta: 98
+          value: 1298
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 11/16
+          delta: 2
+          value: 1300
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 16/42
+          delta: 98
+          value: 1298
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 11/16
+          delta: 2
+          value: 1300

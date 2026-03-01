@@ -1,3 +1,39 @@
 id: 2026/02-28/60
 name: Литвин Евгений
-careers: []
+careers:
+    - class: drone-racing > 75mm
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 15/42
+          delta: 112
+          value: 1312
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 14/16
+          delta: -44
+          value: 1268
+    - class: drone-racing
+      ratings:
+        - num: 1
+          event:
+            id: 2026/02-28/5
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Квалификации
+          position: 15/42
+          delta: 112
+          value: 1312
+        - num: 2
+          event:
+            id: 2026/02-28/6
+            date: 2026-02-28
+            name: Вупомания > S2T1 > Финалы
+          position: 14/16
+          delta: -44
+          value: 1268
