@@ -38,9 +38,9 @@ func main() {
 
 	// Kоманда pilot
 	var pilotCmd = &cobra.Command{
-		Use:   "pilot [name]",
+		Use:   "pilot [name]+",
 		Short: "Создать карточку нового пилота",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.MinimumNArgs(1),
 		Run:   func(cmd *cobra.Command, args []string) { handlePilotAdd(cmd, args, date) },
 	}
 
@@ -70,9 +70,7 @@ func main() {
 	}
 }
 
-func handlePilotAdd(cmd *cobra.Command, args []string, date string) {
-	name := args[0]
-
+func handlePilotAdd(cmd *cobra.Command, names []string, date string) {
 	targetDate := model.Today()
 	if date != "" {
 		parsedDate, err := time.Parse("2006-01-02", date)
@@ -82,24 +80,26 @@ func handlePilotAdd(cmd *cobra.Command, args []string, date string) {
 		targetDate = model.Date(parsedDate)
 	}
 
-	// Передаем targetDate в CalculateNextId, чтобы он искал в нужной папке
-	// Согласно твоей логике: год берется из даты, месяц-день — тоже.
-	newId, err := db.GenerateNextId(DBPath, "pilot", targetDate)
-	if err != nil {
-		log.Fatalf("[✕] Ошибка генерации ID: %v", err)
+	for _, name := range names {
+		// Передаем targetDate в CalculateNextId, чтобы он искал в нужной папке
+		// Согласно твоей логике: год берется из даты, месяц-день — тоже.
+		newId, err := db.GenerateNextId(DBPath, "pilot", targetDate)
+		if err != nil {
+			log.Fatalf("[✕] Ошибка генерации ID: %v", err)
+		}
+
+		// Строим путь: data/pilot/YYYY/MM-DD/N.yaml
+		parts := strings.Split(string(newId), "/")
+		targetPath := filepath.Join(DBPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
+
+		if err := createPilotFile(targetPath, newId, name); err != nil {
+			log.Fatalf("[✕] Ошибка записи файла: %v", err)
+		}
+
+		data, _ := os.ReadFile(targetPath)
+		fmt.Printf("[✓] Пилот добавлен: %s\n", targetPath)
+		fmt.Printf("------------\n%s------------\n", string(data))
 	}
-
-	// Строим путь: data/pilot/YYYY/MM-DD/N.yaml
-	parts := strings.Split(string(newId), "/")
-	targetPath := filepath.Join(DBPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
-
-	if err := createPilotFile(targetPath, newId, name); err != nil {
-		log.Fatalf("[✕] Ошибка записи файла: %v", err)
-	}
-
-	data, _ := os.ReadFile(targetPath)
-	fmt.Printf("[✓] Пилот добавлен: %s\n", targetPath)
-	fmt.Printf("------------\n%s------------\n", string(data))
 }
 
 func createPilotFile(path string, id model.Id, name string) error {
