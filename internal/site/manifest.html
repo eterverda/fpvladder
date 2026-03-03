@@ -5,78 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FPV Ladder ⟫ Манифест</title>
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #2d3436;
-            --muted: #464849;
-            --line: #eee;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 40px 20px 80px 20px;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover {
-            color: var(--text);
-        }
-
-        h1 {
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-        }
-
-        p {
-            margin: 0 0 25px 0;
-            font-size: 1rem;
-            text-align: justify;
-        }
-
-        strong {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-        }
-
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--line);
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="manifest">
     <div class="container">
         <a href="index.html" class="back-link">← Назад к рейтингу</a>
 
@@ -87,27 +19,31 @@
 
         <p>Наши принципы</p>
 
-        <p><strong>Независимость</strong> Мы не организуем соревнования, не диктуем правила вида спорта и не
+        <h2>Независимость</h2>
+        <p>Мы не организуем соревнования, не диктуем правила вида спорта и не
             распределяем призовые фонды. Наша задача — сбор результатов соревнований самого разного уровня и
             формирование на их основе объективного рейтинга.</p>
 
-        <p><strong>Прозрачность</strong> Система ранжирования может изменяться со временем, но алгоритм всегда остается
+        <h2>Прозрачность</h2>
+        <p>Система ранжирования может изменяться со временем, но алгоритм всегда остается
             прозрачным и понятным. Принцип прост: победы поднимают вас по лестнице, поражения — опускают.</p>
 
-        <p><strong>Достоверность</strong> Рейтинг формируется в полуавтоматическом режиме. Кураторы проверяют
+        <h2>Достоверность</h2>
+        <p>Рейтинг формируется в полуавтоматическом режиме. Кураторы проверяют
             подлинность данных, но не оценивают мастерство пилотов, способности организаторов соревнований или работу
             судей. Единственное основание для исключения из рейтинга — предоставление заведомо ложных сведений.</p>
 
-        <p><strong>Незыблемость истории</strong> Присвоенный рейтинг может быть пересмотрен только в одном случае — если
+        <h2>Незыблемость истории</h2>
+        <p>Присвоенный рейтинг может быть пересмотрен только в одном случае — если
             официально изменились результаты соревнований, на которых он базировался.</p>
 
         <p>Мы верим, что дрон-рейсинг должен быть массовым. В FPV Ladder есть
             место каждому, независимо от бюджета, возраста или текущего скилла. Наша миссия — помочь каждому пилоту
             найти подходящего соперника и увидеть свой путь в хобби.</p>
 
-        <footer>
-            FPV Ladder Project &copy; 2026
-        </footer>
+        <div class="copyright">
+            &copy; 2026 FPV Ladder Project
+        </div>
     </div>
 </body>
 

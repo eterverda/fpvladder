@@ -97,6 +97,14 @@ func Generate(baseDir, outDir string) error {
 	if err != nil {
 		return err
 	}
+	err = copyFile("internal/site/styles.css", "site/styles.css")
+	if err != nil {
+		return err
+	}
+	err = copyFile("internal/site/scripts.js", "site/scripts.js")
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

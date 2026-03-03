@@ -4,98 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }}</title>
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #2d3436;
-            --muted: #b2bec3;
-            --line: #eee;
-            --hover-bg: #fcfcfc;
-            --input-border: #dfe6e9;
-            --accent: #0088cc;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 40px 0 80px 0; 
-        }
-
-        .container { width: 100%; max-width: 600px; }
-
-        h1 { text-align: center; font-weight: 400; font-size: 1.5rem; margin-bottom: 25px; padding: 0 20px; }
-        
-        h2 { 
-            font-size: 0.8rem; 
-            font-weight: 700; 
-            color: var(--muted); 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-            margin: 40px 0 10px 50px; 
-        }
-
-        .search-wrapper { margin: 0 20px 25px 20px; position: relative; }
-        .search-icon {
-            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-            width: 16px; height: 16px; fill: var(--muted);
-        }
-        .search-input {
-            width: 100%; padding: 10px 30px 10px 38px; font-size: 0.9rem;
-            border: 1px solid var(--input-border); border-radius: 6px; outline: none;
-            box-sizing: border-box; transition: border-color 0.2s;
-        }
-
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-row { border-bottom: 1px solid var(--line); transition: background 0.1s; }
-        .data-row:hover { background-color: var(--hover-bg); }
-        
-        .data-row td { padding: 12px 8px; -webkit-tap-highlight-color: transparent; }
-        .data-row:last-child { border-bottom: none; }
-
-        .data-row[data-href] { cursor: pointer; }
-        .data-row a { text-decoration: none; color: inherit; display: block; }
-
-        @media (hover: none) {
-            .data-row:active { background-color: #f2f2f2; transition: background 0s; }
-        }
-
-        .col-hover-info {
-            text-align: right; width: 30px; font-size: 0.75rem; color: var(--muted);
-            opacity: 0; transition: opacity 0.2s ease; white-space: nowrap;
-        }
-        .data-row:hover .col-hover-info { opacity: 1; }
-
-        .col-name { font-weight: 400; font-size: 1rem; }
-
-        .col-right, .col-right-bold {
-            text-align: right; width: 80px; 
-            white-space: nowrap;
-            padding-right: 20px !important; 
-        }
-
-        .col-right-bold { width: 40px; font-weight: 600; }
-
-        .user-icon { width: 12px; height: 12px; fill: var(--muted); vertical-align: -2px; margin-left: 1px; }
-
-        .empty-state {
-            padding: 20px 0 20px 45px;
-            color: var(--muted); font-size: 0.85rem; display: none; font-style: italic;
-        }
-
-        .manifest-box { margin: 60px 20px 0 20px; padding: 20px 25px; border: 1px solid var(--line); border-radius: 12px; font-size: 0.85rem; color: #636e72; }
-        .footer-info { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; color: var(--muted); font-size: 0.75rem; }
-        .tg-link { text-decoration: none; color: var(--muted) !important; font-weight: 600; display: flex; align-items: center; }
-        .copyright { margin-top: 40px; text-align: center; font-size: 0.75rem; color: var(--muted); }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>{{ .Title }}</h1>
-        
+
         <div class="search-wrapper">
             <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             <input type="text" id="mainSearch" class="search-input" placeholder="Поиск" autocomplete="off">
@@ -143,10 +57,11 @@
                 <span>Обновлено: {{ .GeneratedAt }}</span>
                 <a href="https://t.me/fpvladder" class="tg-link">Написать нам</a>
             </div>
-            <div class="copyright">FPV Ladder Project &copy; 2026</div>
+            <div class="copyright">&copy; 2026 FPV Ladder Project</div>
         </footer>
     </div>
 
+    <script src="scripts.js"></script>
     <script>
         const searchInput = document.getElementById('mainSearch');
         searchInput.addEventListener('input', (e) => {
@@ -173,13 +88,6 @@
             table.style.display = foundAny ? 'table' : 'none';
             emptyState.style.display = foundAny ? 'none' : 'block';
         }
-
-        document.addEventListener('click', (e) => {
-            const row = e.target.closest('.data-row[data-href]');
-            if (row && !e.target.closest('a')) {
-                window.location.href = row.dataset.href;
-            }
-        });
     </script>
 </body>
 </html>
