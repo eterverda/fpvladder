@@ -40,6 +40,16 @@ type Event struct {
 	Description string       `yaml:"description,omitempty"`
 	Link        Link         `yaml:"link,omitempty"`
 	Organizer   Organizer    `yaml:"organizer,omitempty"`
-	Class       Class        `yaml:"class,omitempty"` // drone-racing :: 75mm :: individual
+	Class       Class        `yaml:"class,omitempty"` // drone-racing > 75mm
 	Pilots      []PilotEntry `yaml:"pilots,omitempty"`
+}
+
+type FutureEvent struct {
+	Id          Id        `yaml:"id"`
+	Date        Date      `yaml:"date"`
+	Name        string    `yaml:"name"`
+	Description string    `yaml:"description,omitempty"`
+	Link        Link      `yaml:"link,omitempty"`
+	Organizer   Organizer `yaml:"organizer,omitempty"`
+	Classes     []Class   `yaml:"class"`
 }
