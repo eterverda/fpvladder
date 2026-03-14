@@ -19,8 +19,8 @@ import (
 )
 
 const (
-	DBPath   = "./data"
-	SitePath = "./site"
+	DbPath   = "./data"
+	SitePath = "./build"
 )
 
 func main() {
@@ -58,7 +58,7 @@ func main() {
 		Use:   "generate",
 		Short: "Сгенерировать сайт",
 		Args:  cobra.NoArgs,
-		RunE:  func(cmd *cobra.Command, args []string) error { return site.Generate(DBPath, SitePath) },
+		RunE:  func(cmd *cobra.Command, args []string) error { return site.Generate(DbPath, SitePath) },
 	}
 
 	csvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
@@ -83,14 +83,14 @@ func handlePilotAdd(cmd *cobra.Command, names []string, date string) {
 	for _, name := range names {
 		// Передаем targetDate в CalculateNextId, чтобы он искал в нужной папке
 		// Согласно твоей логике: год берется из даты, месяц-день — тоже.
-		newId, err := db.GenerateNextId(DBPath, "pilot", targetDate)
+		newId, err := db.GenerateNextId(DbPath, "pilot", targetDate)
 		if err != nil {
 			log.Fatalf("[✕] Ошибка генерации ID: %v", err)
 		}
 
 		// Строим путь: data/pilot/YYYY/MM-DD/N.yaml
 		parts := strings.Split(string(newId), "/")
-		targetPath := filepath.Join(DBPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
+		targetPath := filepath.Join(DbPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
 
 		if err := createPilotFile(targetPath, newId, name); err != nil {
 			log.Fatalf("[✕] Ошибка записи файла: %v", err)
@@ -141,11 +141,11 @@ func handleInstall(cmd *cobra.Command, args []string) {
 		log.Fatalf("[✕] Не удалось прочитать эвент: %s\n", err)
 	}
 
-	presumedId, err := db.GenerateNextId(DBPath, "event", event.Date)
+	presumedId, err := db.GenerateNextId(DbPath, "event", event.Date)
 	if event.Id != presumedId {
 		log.Fatalln("[✕] Неверный Id")
 	}
-	targetPath := db.ResolveIdPath(DBPath, "event", event.Id)
+	targetPath := db.ResolveIdPath(DbPath, "event", event.Id)
 
 	// 3. Скопировали файл
 	err = copyFile(path, targetPath)
@@ -173,7 +173,7 @@ func recalculateRatings(event *model.Event) error {
 
 	for i, entry := range event.Pilots {
 		id := entry.Id
-		pilot, err := db.ReadPilot(DBPath, id)
+		pilot, err := db.ReadPilot(DbPath, id)
 		if err != nil {
 			return err
 		}
@@ -264,7 +264,7 @@ func recalculateRatings(event *model.Event) error {
 	}
 
 	eventData, _ := yaml.Marshal(event)
-	eventFile := db.ResolveIdPath(DBPath, "event", event.Id)
+	eventFile := db.ResolveIdPath(DbPath, "event", event.Id)
 
 	err := os.MkdirAll(filepath.Dir(eventFile), 0755)
 	if err != nil {
@@ -278,7 +278,7 @@ func recalculateRatings(event *model.Event) error {
 
 	for _, pilot := range pilots {
 		pilotData, _ := yaml.Marshal(pilot)
-		pilotFile := db.ResolveIdPath(DBPath, "pilot", pilot.Id)
+		pilotFile := db.ResolveIdPath(DbPath, "pilot", pilot.Id)
 
 		err = os.WriteFile(pilotFile, pilotData, 0644)
 		if err != nil {
@@ -389,7 +389,7 @@ func validateEvent(path string) error {
 	// --- ЦИКЛ 2: Верификация пилотов по внешней базе данных ---
 
 	for id, p := range allUniquePilots {
-		dbPilot, err := db.ReadPilot(DBPath, model.Id(id))
+		dbPilot, err := db.ReadPilot(DbPath, model.Id(id))
 		if err != nil {
 			return err
 		}
@@ -411,7 +411,7 @@ func handleExportCsv(cmd *cobra.Command, args []string, class string) {
 	var results []record
 
 	// Рекурсивно обходим папку с пилотами
-	pilotDir := db.ResolveTypePath(DBPath, "pilot")
+	pilotDir := db.ResolveTypePath(DbPath, "pilot")
 	err := filepath.Walk(pilotDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err

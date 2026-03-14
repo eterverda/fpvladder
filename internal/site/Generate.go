@@ -112,15 +112,15 @@ func Generate(baseDir, outDir string) error {
 			return err
 		}
 	}
-	err = copyFile("internal/site/manifest.html", "site/manifest.html")
+	err = copyFile("internal/site/manifest.html", "build/manifest.html")
 	if err != nil {
 		return err
 	}
-	err = copyFile("internal/site/styles.css", "site/styles.css")
+	err = copyFile("internal/site/styles.css", "build/styles.css")
 	if err != nil {
 		return err
 	}
-	err = copyFile("internal/site/scripts.js", "site/scripts.js")
+	err = copyFile("internal/site/scripts.js", "build/scripts.js")
 	if err != nil {
 		return err
 	}
