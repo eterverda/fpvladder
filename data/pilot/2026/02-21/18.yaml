@@ -1,23 +1,23 @@
 id: 2026/02-21/18
 name: Баев Платон
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 29/33
-          delta: -238
-          value: 962
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 29/33
-          delta: -238
-          value: 962
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 29/33
+        delta: -238
+        value: 962
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 29/33
+        delta: -238
+        value: 962

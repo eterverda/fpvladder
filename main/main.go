@@ -116,7 +116,7 @@ func createPilotFile(path string, id model.Id, name string) error {
 	}
 
 	// Маршалим в YAML
-	data, err := yaml.Marshal(newPilot)
+	data, err := model.MarshalPrettyYaml(newPilot)
 	if err != nil {
 		return fmt.Errorf("[✕] Ошибка маршалинга: %w", err)
 	}
@@ -263,7 +263,7 @@ func recalculateRatings(event *model.Event) error {
 		class = class.Parent()
 	}
 
-	eventData, _ := yaml.Marshal(event)
+	eventData, _ := model.MarshalPrettyYaml(event)
 	eventFile := db.ResolveIdPath(DbPath, "event", event.Id)
 
 	err := os.MkdirAll(filepath.Dir(eventFile), 0755)
@@ -277,7 +277,7 @@ func recalculateRatings(event *model.Event) error {
 	}
 
 	for _, pilot := range pilots {
-		pilotData, _ := yaml.Marshal(pilot)
+		pilotData, _ := model.MarshalPrettyYaml(pilot)
 		pilotFile := db.ResolveIdPath(DbPath, "pilot", pilot.Id)
 
 		err = os.WriteFile(pilotFile, pilotData, 0644)

@@ -1,23 +1,23 @@
 id: 2026/02-21/31
 name: Сафонов Всеволод
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 21/33
-          delta: -78
-          value: 1122
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 21/33
-          delta: -78
-          value: 1122
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 21/33
+        delta: -78
+        value: 1122
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 21/33
+        delta: -78
+        value: 1122

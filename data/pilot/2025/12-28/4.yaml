@@ -1,71 +1,71 @@
 id: 2025/12-28/4
 name: Богинский Никита
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 11/17
-          delta: -60
-          value: 1140
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 9/16
-          delta: 19
-          value: 1159
-        - num: 3
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 11/33
-          delta: 159
-          value: 1318
-        - num: 4
-          event:
-            id: 2026/02-21/4
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Финалы
-          position: 15/16
-          delta: -106
-          value: 1212
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 11/17
-          delta: -60
-          value: 1140
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 9/16
-          delta: 19
-          value: 1159
-        - num: 3
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 11/33
-          delta: 159
-          value: 1318
-        - num: 4
-          event:
-            id: 2026/02-21/4
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Финалы
-          position: 15/16
-          delta: -106
-          value: 1212
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 11/17
+        delta: -60
+        value: 1140
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 9/16
+        delta: 19
+        value: 1159
+      - num: 3
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 11/33
+        delta: 159
+        value: 1318
+      - num: 4
+        event:
+          id: 2026/02-21/4
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Финалы
+        position: 15/16
+        delta: -106
+        value: 1212
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 11/17
+        delta: -60
+        value: 1140
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 9/16
+        delta: 19
+        value: 1159
+      - num: 3
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 11/33
+        delta: 159
+        value: 1318
+      - num: 4
+        event:
+          id: 2026/02-21/4
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Финалы
+        position: 15/16
+        delta: -106
+        value: 1212

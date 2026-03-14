@@ -1,23 +1,23 @@
 id: 2026/02-21/37
 name: Ткачёв Роман
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 31/33
-          delta: -278
-          value: 922
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-21/3
-            date: 2026-02-21
-            name: Гонка ГУАП 75 ЛЗ > Квалификации
-          position: 31/33
-          delta: -278
-          value: 922
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 31/33
+        delta: -278
+        value: 922
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-21/3
+          date: 2026-02-21
+          name: Гонка ГУАП 75 ЛЗ > Квалификации
+        position: 31/33
+        delta: -278
+        value: 922

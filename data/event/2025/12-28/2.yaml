@@ -2,262 +2,262 @@ id: 2025/12-28/2
 date: 2025-12-28
 name: Фан-Кон ёлка 2026 > Финалы
 organizer:
-    name: Вуп-Трек
+  name: Вуп-Трек
 class: drone-racing > 75mm
 pilots:
-    - position: 1
-      id: 2025/12-28/11
-      name: Садовников Матвей
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1350
-          algorithm: elo > k-30
-          delta: 140
-          new_value: 1490
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1350
-          algorithm: elo > k-30
-          delta: 140
-          new_value: 1490
-    - position: 2
-      id: 2025/12-28/9
-      name: Костин Егор
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1440
-          algorithm: elo > k-30
-          delta: 66
-          new_value: 1506
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1440
-          algorithm: elo > k-30
-          delta: 66
-          new_value: 1506
-    - position: 3
-      id: 2025/12-28/10
-      name: Руденко Владимир
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1380
-          algorithm: elo > k-30
-          delta: 64
-          new_value: 1444
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1380
-          algorithm: elo > k-30
-          delta: 64
-          new_value: 1444
-    - position: 4
-      id: 2025/12-28/13
-      name: Саламатов Марк
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1260
-          algorithm: elo > k-30
-          delta: 99
-          new_value: 1359
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1260
-          algorithm: elo > k-30
-          delta: 99
-          new_value: 1359
-    - position: 5
-      id: 2025/12-28/5
-      name: Губанов Илья
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1320
-          algorithm: elo > k-30
-          delta: 35
-          new_value: 1355
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1320
-          algorithm: elo > k-30
-          delta: 35
-          new_value: 1355
-    - position: 6
-      id: 2025/12-28/14
-      name: Сойгалов Степан
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1410
-          algorithm: elo > k-30
-          delta: -40
-          new_value: 1370
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1410
-          algorithm: elo > k-30
-          delta: -40
-          new_value: 1370
-    - position: 7
-      id: 2025/12-28/17
-      name: Фомина Алёна
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1290
-          algorithm: elo > k-30
-          delta: -8
-          new_value: 1282
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1290
-          algorithm: elo > k-30
-          delta: -8
-          new_value: 1282
-    - position: 8
-      id: 2025/12-28/6
-      name: Егоров Дмитрий
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1200
-          algorithm: elo > k-30
-          delta: 14
-          new_value: 1214
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1200
-          algorithm: elo > k-30
-          delta: 14
-          new_value: 1214
-    - position: 9
-      id: 2025/12-28/4
-      name: Богинский Никита
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1140
-          algorithm: elo > k-30
-          delta: 19
-          new_value: 1159
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1140
-          algorithm: elo > k-30
-          delta: 19
-          new_value: 1159
-    - position: 10
-      id: 2025/12-28/1
-      name: Аверин Дмитрий
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1170
-          algorithm: elo > k-30
-          delta: -29
-          new_value: 1141
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1170
-          algorithm: elo > k-30
-          delta: -29
-          new_value: 1141
-    - position: 11
-      id: 2025/12-28/2
-      name: Асанов Александр
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1110
-          algorithm: elo > k-30
-          delta: -24
-          new_value: 1086
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1110
-          algorithm: elo > k-30
-          delta: -24
-          new_value: 1086
-    - position: 12
-      id: 2025/12-28/16
-      name: Формагей Виктория
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1050
-          algorithm: elo > k-30
-          delta: -22
-          new_value: 1028
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1050
-          algorithm: elo > k-30
-          delta: -22
-          new_value: 1028
-    - position: 13
-      id: 2025/12-28/12
-      name: Саламатов Александр
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 960
-          algorithm: elo > k-30
-          delta: -8
-          new_value: 952
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 960
-          algorithm: elo > k-30
-          delta: -8
-          new_value: 952
-    - position: 14
-      id: 2025/12-28/7
-      name: Елисеев Степан
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1080
-          algorithm: elo > k-30
-          delta: -98
-          new_value: 982
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1080
-          algorithm: elo > k-30
-          delta: -98
-          new_value: 982
-    - position: 15
-      id: 2025/12-28/15
-      name: Старостенков Антон
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 990
-          algorithm: elo > k-30
-          delta: -82
-          new_value: 908
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 990
-          algorithm: elo > k-30
-          delta: -82
-          new_value: 908
-    - position: 16
-      id: 2025/12-28/3
-      name: Асанов Петр
-      ratings:
-        - class: drone-racing > 75mm
-          origin_id: 2025/12-28/1
-          old_value: 1020
-          algorithm: elo > k-30
-          delta: -126
-          new_value: 894
-        - class: drone-racing
-          origin_id: 2025/12-28/1
-          old_value: 1020
-          algorithm: elo > k-30
-          delta: -126
-          new_value: 894
+  - position: 1
+    id: 2025/12-28/11
+    name: Садовников Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1350
+        algorithm: elo > k-30
+        delta: 140
+        new_value: 1490
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1350
+        algorithm: elo > k-30
+        delta: 140
+        new_value: 1490
+  - position: 2
+    id: 2025/12-28/9
+    name: Костин Егор
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1440
+        algorithm: elo > k-30
+        delta: 66
+        new_value: 1506
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1440
+        algorithm: elo > k-30
+        delta: 66
+        new_value: 1506
+  - position: 3
+    id: 2025/12-28/10
+    name: Руденко Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1380
+        algorithm: elo > k-30
+        delta: 64
+        new_value: 1444
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1380
+        algorithm: elo > k-30
+        delta: 64
+        new_value: 1444
+  - position: 4
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1260
+        algorithm: elo > k-30
+        delta: 99
+        new_value: 1359
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1260
+        algorithm: elo > k-30
+        delta: 99
+        new_value: 1359
+  - position: 5
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1320
+        algorithm: elo > k-30
+        delta: 35
+        new_value: 1355
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1320
+        algorithm: elo > k-30
+        delta: 35
+        new_value: 1355
+  - position: 6
+    id: 2025/12-28/14
+    name: Сойгалов Степан
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1410
+        algorithm: elo > k-30
+        delta: -40
+        new_value: 1370
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1410
+        algorithm: elo > k-30
+        delta: -40
+        new_value: 1370
+  - position: 7
+    id: 2025/12-28/17
+    name: Фомина Алёна
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1290
+        algorithm: elo > k-30
+        delta: -8
+        new_value: 1282
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1290
+        algorithm: elo > k-30
+        delta: -8
+        new_value: 1282
+  - position: 8
+    id: 2025/12-28/6
+    name: Егоров Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1200
+        algorithm: elo > k-30
+        delta: 14
+        new_value: 1214
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1200
+        algorithm: elo > k-30
+        delta: 14
+        new_value: 1214
+  - position: 9
+    id: 2025/12-28/4
+    name: Богинский Никита
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1140
+        algorithm: elo > k-30
+        delta: 19
+        new_value: 1159
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1140
+        algorithm: elo > k-30
+        delta: 19
+        new_value: 1159
+  - position: 10
+    id: 2025/12-28/1
+    name: Аверин Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1170
+        algorithm: elo > k-30
+        delta: -29
+        new_value: 1141
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1170
+        algorithm: elo > k-30
+        delta: -29
+        new_value: 1141
+  - position: 11
+    id: 2025/12-28/2
+    name: Асанов Александр
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1110
+        algorithm: elo > k-30
+        delta: -24
+        new_value: 1086
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1110
+        algorithm: elo > k-30
+        delta: -24
+        new_value: 1086
+  - position: 12
+    id: 2025/12-28/16
+    name: Формагей Виктория
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1050
+        algorithm: elo > k-30
+        delta: -22
+        new_value: 1028
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1050
+        algorithm: elo > k-30
+        delta: -22
+        new_value: 1028
+  - position: 13
+    id: 2025/12-28/12
+    name: Саламатов Александр
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 960
+        algorithm: elo > k-30
+        delta: -8
+        new_value: 952
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 960
+        algorithm: elo > k-30
+        delta: -8
+        new_value: 952
+  - position: 14
+    id: 2025/12-28/7
+    name: Елисеев Степан
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1080
+        algorithm: elo > k-30
+        delta: -98
+        new_value: 982
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1080
+        algorithm: elo > k-30
+        delta: -98
+        new_value: 982
+  - position: 15
+    id: 2025/12-28/15
+    name: Старостенков Антон
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 990
+        algorithm: elo > k-30
+        delta: -82
+        new_value: 908
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 990
+        algorithm: elo > k-30
+        delta: -82
+        new_value: 908
+  - position: 16
+    id: 2025/12-28/3
+    name: Асанов Петр
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2025/12-28/1
+        old_value: 1020
+        algorithm: elo > k-30
+        delta: -126
+        new_value: 894
+      - class: drone-racing
+        origin_id: 2025/12-28/1
+        old_value: 1020
+        algorithm: elo > k-30
+        delta: -126
+        new_value: 894

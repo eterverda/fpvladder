@@ -1,39 +1,39 @@
 id: 2025/12-28/17
 name: Фомина Алёна
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 6/17
-          delta: 90
-          value: 1290
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 7/16
-          delta: -8
-          value: 1282
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 6/17
-          delta: 90
-          value: 1290
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 7/16
-          delta: -8
-          value: 1282
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 6/17
+        delta: 90
+        value: 1290
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 7/16
+        delta: -8
+        value: 1282
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 6/17
+        delta: 90
+        value: 1290
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 7/16
+        delta: -8
+        value: 1282

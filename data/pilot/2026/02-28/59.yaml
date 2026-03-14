@@ -1,39 +1,39 @@
 id: 2026/02-28/59
 name: Лебедь Александр
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 6/42
-          delta: 238
-          value: 1438
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 9/16
-          delta: -11
-          value: 1427
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 6/42
-          delta: 238
-          value: 1438
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 9/16
-          delta: -11
-          value: 1427
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 6/42
+        delta: 238
+        value: 1438
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 9/16
+        delta: -11
+        value: 1427
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 6/42
+        delta: 238
+        value: 1438
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 9/16
+        delta: -11
+        value: 1427

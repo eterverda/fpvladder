@@ -1,39 +1,39 @@
 id: 2026/02-28/58
 name: Куракова Арина
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 11/42
-          delta: 168
-          value: 1368
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 7/16
-          delta: 38
-          value: 1406
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 11/42
-          delta: 168
-          value: 1368
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 7/16
-          delta: 38
-          value: 1406
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 11/42
+        delta: 168
+        value: 1368
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 7/16
+        delta: 38
+        value: 1406
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 11/42
+        delta: 168
+        value: 1368
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 7/16
+        delta: 38
+        value: 1406

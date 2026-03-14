@@ -1,23 +1,23 @@
 id: 2026/02-28/52
 name: Казьмин Олег
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 37/42
-          delta: -196
-          value: 1004
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 37/42
-          delta: -196
-          value: 1004
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 37/42
+        delta: -196
+        value: 1004
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 37/42
+        delta: -196
+        value: 1004

@@ -1,39 +1,39 @@
 id: 2026/02-28/57
 name: Кунилов Теодор
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 9/42
-          delta: 196
-          value: 1396
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 15/16
-          delta: -82
-          value: 1314
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 9/42
-          delta: 196
-          value: 1396
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 15/16
-          delta: -82
-          value: 1314
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 9/42
+        delta: 196
+        value: 1396
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 15/16
+        delta: -82
+        value: 1314
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 9/42
+        delta: 196
+        value: 1396
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 15/16
+        delta: -82
+        value: 1314

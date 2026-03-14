@@ -1,39 +1,39 @@
 id: 2025/12-28/9
 name: Костин Егор
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 1/17
-          delta: 240
-          value: 1440
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 2/16
-          delta: 66
-          value: 1506
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 1/17
-          delta: 240
-          value: 1440
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 2/16
-          delta: 66
-          value: 1506
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 1/17
+        delta: 240
+        value: 1440
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 2/16
+        delta: 66
+        value: 1506
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 1/17
+        delta: 240
+        value: 1440
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 2/16
+        delta: 66
+        value: 1506

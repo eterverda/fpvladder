@@ -1,23 +1,23 @@
 id: 2026/02-28/65
 name: Нехаев Иван
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 32/42
-          delta: -126
-          value: 1074
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 32/42
-          delta: -126
-          value: 1074
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 32/42
+        delta: -126
+        value: 1074
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 32/42
+        delta: -126
+        value: 1074

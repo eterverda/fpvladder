@@ -1,39 +1,39 @@
 id: 2026/02-28/76
 name: Шестаков Арсений
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 12/42
-          delta: 154
-          value: 1354
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 16/16
-          delta: -84
-          value: 1270
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 12/42
-          delta: 154
-          value: 1354
-        - num: 2
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 16/16
-          delta: -84
-          value: 1270
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 12/42
+        delta: 154
+        value: 1354
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 16/16
+        delta: -84
+        value: 1270
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 12/42
+        delta: 154
+        value: 1354
+      - num: 2
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 16/16
+        delta: -84
+        value: 1270

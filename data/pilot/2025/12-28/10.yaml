@@ -1,71 +1,71 @@
 id: 2025/12-28/10
 name: Руденко Владимир
 careers:
-    - class: drone-racing > 75mm
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 3/17
-          delta: 180
-          value: 1380
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 3/16
-          delta: 64
-          value: 1444
-        - num: 3
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 7/42
-          delta: 48
-          value: 1492
-        - num: 4
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 4/16
-          delta: 43
-          value: 1535
-    - class: drone-racing
-      ratings:
-        - num: 1
-          event:
-            id: 2025/12-28/1
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Квалификации
-          position: 3/17
-          delta: 180
-          value: 1380
-        - num: 2
-          event:
-            id: 2025/12-28/2
-            date: 2025-12-28
-            name: Фан-Кон ёлка 2026 > Финалы
-          position: 3/16
-          delta: 64
-          value: 1444
-        - num: 3
-          event:
-            id: 2026/02-28/5
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Квалификации
-          position: 7/42
-          delta: 48
-          value: 1492
-        - num: 4
-          event:
-            id: 2026/02-28/6
-            date: 2026-02-28
-            name: Вупомания > S2T1 > Финалы
-          position: 4/16
-          delta: 43
-          value: 1535
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 3/17
+        delta: 180
+        value: 1380
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 3/16
+        delta: 64
+        value: 1444
+      - num: 3
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 7/42
+        delta: 48
+        value: 1492
+      - num: 4
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 4/16
+        delta: 43
+        value: 1535
+  - class: drone-racing
+    ratings:
+      - num: 1
+        event:
+          id: 2025/12-28/1
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Квалификации
+        position: 3/17
+        delta: 180
+        value: 1380
+      - num: 2
+        event:
+          id: 2025/12-28/2
+          date: 2025-12-28
+          name: Фан-Кон ёлка 2026 > Финалы
+        position: 3/16
+        delta: 64
+        value: 1444
+      - num: 3
+        event:
+          id: 2026/02-28/5
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Квалификации
+        position: 7/42
+        delta: 48
+        value: 1492
+      - num: 4
+        event:
+          id: 2026/02-28/6
+          date: 2026-02-28
+          name: Вупомания > S2T1 > Финалы
+        position: 4/16
+        delta: 43
+        value: 1535
