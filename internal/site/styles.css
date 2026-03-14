@@ -6,21 +6,31 @@
     --hover-bg: #fcfcfc;
     --input-border: #dfe6e9;
     --accent: #0088cc;
+
+    /* Table alignment: 20px padding + 26px first col + 8px gap - 1em adjustment */
+    --table-first-col-padding-left: 20px;
+    --table-first-col-width: 26px;
+    --table-col-padding: 8px;
+    --table-h2-offset: calc(
+        var(--table-first-col-width) + 2 * var(--table-col-padding)
+    );
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-family: "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    display: flex;
-    justify-content: center;
     margin: 0;
     padding: 40px 0 80px 0;
+    line-height: 1.6;
 }
 
 .container {
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -36,12 +46,20 @@ h2 {
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin: 40px 0 10px 50px;
+    margin: 40px 0 10px var(--table-first-col-padding-left);
+}
+
+h2.table-header {
+    margin-left: var(--table-h2-offset);
+}
+
+.page h2 {
+    margin-left: 0;
 }
 
 .back-link {
     display: inline-block;
-    margin: 0 0 30px 20px;
+    margin-bottom: 30px;
     color: var(--muted);
     text-decoration: none;
     font-size: 0.9rem;
@@ -54,15 +72,11 @@ h2 {
 
 header {
     text-align: center;
-    padding: 0 20px;
-}
-
-header.pilot {
     margin-bottom: 60px;
 }
 
 .search-wrapper {
-    margin: 0 20px 25px 20px;
+    margin: 40px 0 25px 0;
     position: relative;
 }
 
@@ -88,8 +102,9 @@ header.pilot {
 }
 
 .data-table {
-    width: 100%;
+    width: calc(100% + 40px);
     border-collapse: collapse;
+    margin: 0 -20px;
 }
 
 .data-row {
@@ -105,6 +120,14 @@ header.pilot {
 .data-row td {
     padding: 12px 8px;
     -webkit-tap-highlight-color: transparent;
+}
+
+.data-row td:first-child {
+    padding-left: 20px;
+}
+
+.data-row td:last-child {
+    padding-right: 20px;
 }
 
 .data-row:last-child {
@@ -129,9 +152,25 @@ header.pilot {
     padding: 12px 8px 2px 8px;
 }
 
+.event-row td:first-child {
+    padding-left: 20px;
+}
+
+.event-row td:last-child {
+    padding-right: 20px;
+}
+
 .assignment-row td {
     padding: 0 8px 12px 8px;
     -webkit-tap-highlight-color: transparent;
+}
+
+.assignment-row td:first-child {
+    padding-left: 20px;
+}
+
+.assignment-row td:last-child {
+    padding-right: 20px;
 }
 
 .data-row a,
@@ -142,7 +181,6 @@ header.pilot {
 }
 
 @media (hover: none) {
-
     .data-row:active,
     .event-group:active {
         background-color: #f2f2f2;
@@ -152,7 +190,9 @@ header.pilot {
 
 .col-hover-info {
     text-align: right;
-    width: 30px;
+    width: var(--table-first-col-width);
+    min-width: var(--table-first-col-width);
+    max-width: var(--table-first-col-width);
     font-size: 0.75rem;
     color: var(--muted);
     opacity: 0;
@@ -166,7 +206,9 @@ header.pilot {
 
 .col-pos {
     text-align: right;
-    width: 30px;
+    width: var(--table-first-col-width);
+    min-width: var(--table-first-col-width);
+    max-width: var(--table-first-col-width);
     font-size: 0.75rem;
     color: var(--muted);
     white-space: nowrap;
@@ -174,7 +216,9 @@ header.pilot {
 
 .col-spacer {
     text-align: right;
-    width: 30px;
+    width: var(--table-first-col-width);
+    min-width: var(--table-first-col-width);
+    max-width: var(--table-first-col-width);
     font-size: 0.75rem;
     color: var(--muted);
     white-space: nowrap;
@@ -195,7 +239,6 @@ header.pilot {
     text-align: right;
     width: 80px;
     white-space: nowrap;
-    padding-right: 20px !important;
 }
 
 .col-right-bold {
@@ -206,7 +249,6 @@ header.pilot {
 .col-assignment {
     text-align: right;
     white-space: nowrap;
-    padding-right: 20px !important;
     font-weight: 600;
     color: var(--text);
 }
@@ -216,7 +258,6 @@ header.pilot {
     width: 90px;
     color: var(--muted);
     font-size: 0.85rem;
-    padding-right: 20px !important;
 }
 
 .user-icon {
@@ -252,7 +293,6 @@ header.pilot {
 .assignment-container {
     text-align: right;
     margin-top: 4px;
-    padding-right: 20px;
 }
 
 .assignment-text {
@@ -262,7 +302,7 @@ header.pilot {
 }
 
 .empty-state {
-    padding: 20px 0 20px 45px;
+    padding: 20px 0 20px 30px;
     color: var(--muted);
     font-size: 0.85rem;
     display: none;
@@ -270,7 +310,7 @@ header.pilot {
 }
 
 .manifest-box {
-    margin: 60px 20px 0 20px;
+    margin-top: 60px;
     padding: 20px 25px;
     border: 1px solid var(--line);
     border-radius: 12px;
@@ -284,7 +324,6 @@ header.pilot {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
     color: var(--muted);
     font-size: 0.75rem;
 }
@@ -309,18 +348,4 @@ header.pilot {
     padding-top: 20px;
     border-top: 1px solid var(--line);
     font-size: 0.8rem;
-}
-
-body.manifest {
-    padding: 40px 0 80px 0;
-    line-height: 1.6;
-}
-
-.manifest p {
-    padding: 0 20px;
-}
-
-.manifest h2 {
-    color: var(--text);
-    margin: 40px 20px 8px 20px;
 }
