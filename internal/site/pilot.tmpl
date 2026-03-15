@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPV Ladder ⟫ {{ .Name }}</title>
+    <title>{{ .Name }}</title>
     <link rel="stylesheet" href="../../../styles.css">
 </head>
 <body>
-    <div class="container">
-        <a href="../../../index.html" class="back-link">← Назад к рейтингу</a>
+    {{template "header"}}
 
+    <div class="container">
         <header>
             <h1>{{ .Name }}</h1>
             <div class="subtle-rating">рейтинг</div>

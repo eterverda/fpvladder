@@ -112,7 +112,7 @@ func Generate(baseDir, outDir string) error {
 			return err
 		}
 	}
-	err = copyFile("internal/site/manifest.html", "build/manifest.html")
+	err = generateManifest(outDir)
 	if err != nil {
 		return err
 	}
@@ -124,6 +124,7 @@ func Generate(baseDir, outDir string) error {
 	if err != nil {
 		return err
 	}
+	fmt.Printf("[✓] Сайт сгенерирован: file://%s/index.html\n", outDir)
 	return nil
 }
 
@@ -184,14 +185,14 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		})
 	}
 	index := indexPage{
-		Title:        "FPV Ladder ⟫ Drone Racing ⟫ 75mm",
+		Title:        "Drone Racing ⟫ 75mm",
 		GeneratedAt:  model.Today(),
 		Pilots:       pilotRecords,
 		Events:       eventRecords,
 		FutureEvents: futureEventRecords,
 	}
 
-	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl")
+	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl")
 	if err != nil {
 		return err
 	}
@@ -217,7 +218,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 		return nil
 	}
 	var page = &pilotPage{
-		Name:   fmt.Sprintf("FPV Ladder ⟫ %s", pilot.Name),
+		Name:   pilot.Name,
 		Rating: career.Ratings[len(career.Ratings)-1].Value,
 	}
 	for _, rating := range career.Ratings {
@@ -236,7 +237,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	})
 
 	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
-	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl")
+	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl")
 	if err != nil {
 		return err
 	}
@@ -257,7 +258,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 
 func generateEvent(outDir string, event *model.Event) error {
 	var page = &eventPage{
-		Name: strings.ReplaceAll(fmt.Sprintf("FPV Ladder ⟫ %s", event.Name), ">", "⟫"),
+		Name: strings.ReplaceAll(event.Name, ">", "⟫"),
 	}
 	for _, pilot := range event.Pilots {
 		rating := pilot.RatingForClass(event.Class)
@@ -273,7 +274,7 @@ func generateEvent(outDir string, event *model.Event) error {
 		})
 	}
 	path := db.ResolveIdPathExt(outDir, "event", event.Id, "html")
-	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl")
+	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl")
 	if err != nil {
 		return err
 	}
@@ -294,11 +295,11 @@ func generateEvent(outDir string, event *model.Event) error {
 
 func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 	var page = &eventPage{
-		Name:        strings.ReplaceAll(fmt.Sprintf("FPV Ladder ⟫ %s", event.Name), ">", "⟫"),
+		Name:        strings.ReplaceAll(event.Name, ">", "⟫"),
 		Description: template.HTML(md2html(event.Description)),
 	}
 	path := db.ResolveIdPathExt(outDir, "future_event", event.Id, "html")
-	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl")
+	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl")
 	if err != nil {
 		return err
 	}
@@ -315,6 +316,22 @@ func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 	// Применяем данные к шаблону и пишем в файл
 	err = tmpl.ExecuteTemplate(file, "future_event.tmpl", page)
 	return err
+}
+
+func generateManifest(outDir string) error {
+	tmpl, err := template.New("manifest.tmpl").ParseFiles("internal/site/manifest.tmpl", "internal/site/header.tmpl")
+	if err != nil {
+		return err
+	}
+
+	path := filepath.Join(outDir, "manifest.html")
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	return tmpl.ExecuteTemplate(file, "manifest.tmpl", nil)
 }
 
 func readAllEvents(baseDir string) ([]*model.Event, error) {
