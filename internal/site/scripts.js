@@ -39,8 +39,16 @@
     return depth === 0 ? "./" : "../".repeat(depth);
   }
 
+  // Check if running from file:// protocol
+  const isFileProtocol = window.location.protocol === "file:";
+
   // Get saved theme or default
   function getSavedTheme() {
+    // For file:// protocol use cookies as fallback (Firefox blocks localStorage)
+    if (isFileProtocol) {
+      const match = document.cookie.match(new RegExp(STORAGE_KEY + "=([^;]+)"));
+      if (match) return match[1];
+    }
     try {
       return localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
     } catch (e) {
@@ -50,6 +58,12 @@
 
   // Save theme to localStorage
   function saveTheme(theme) {
+    // For file:// protocol use cookies as fallback
+    if (isFileProtocol) {
+      document.cookie =
+        STORAGE_KEY + "=" + theme + "; path=/; max-age=31536000";
+      return;
+    }
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch (e) {
@@ -94,11 +108,12 @@
     }
   }
 
+  // Apply theme immediately to avoid flash
+  const savedTheme = getSavedTheme();
+  applyTheme(savedTheme);
+
   // Initialize theme
   function init() {
-    const savedTheme = getSavedTheme();
-    applyTheme(savedTheme);
-
     // Setup event listeners
     document.addEventListener("DOMContentLoaded", function () {
       // Setup back arrow link and visibility
