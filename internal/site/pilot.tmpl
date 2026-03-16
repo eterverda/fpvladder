@@ -11,9 +11,11 @@
 
     <div class="container">
         <header>
-            <h1>{{ .Name }}</h1>
-            <div class="subtle-rating">рейтинг</div>
-            <div class="big-rating">{{ .Rating }}</div>
+            <div class="pilot-card">
+                <div class="pilot-card-name">{{ .Name }}</div>
+                <div class="pilot-card-label">рейтинг</div>
+                <div class="pilot-card-rating">{{ .Rating }}</div>
+            </div>
         </header>
 
         <section>
