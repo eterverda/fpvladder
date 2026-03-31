@@ -48,8 +48,10 @@ var (
 type Screen int
 
 const (
-	ScreenMain     Screen = iota
-	ScreenEditName        // Редактирование имени пилота в модалке
+	ScreenMain         Screen = iota
+	ScreenEditName            // Редактирование имени пилота в модалке
+	ScreenEditPosition        // Редактирование позиции пилота
+	ScreenEditTeam            // Редактирование команды пилота
 	ScreenEditEventDate
 	ScreenEditEventName
 	ScreenEditEventOrganizer
@@ -728,8 +730,11 @@ func (m TUIModel) handleEditKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 			m.ShowValidationError = false
 			row := &m.EventModel.Rows[m.EditRow]
 			row.Name = value
+			// Сбрасываем ID в пустую строку чтобы при рендере
+			// getSuggestedVirtualId сделал повторный поиск
+			row.Id = ""
 			// Если редактировали виртуальную строку и что-то ввели
-			if row.Virtual && (row.Place != 0 || row.Name != "" || row.Id != "") {
+			if row.Virtual && (row.Position.Int != 0 || row.Name != "" || row.Id != "") {
 				m.EventModel.PromoteVirtualRow(m.EditRow)
 			} else if !row.Virtual {
 				m.EventModel.Modified = true
@@ -800,21 +805,6 @@ func (m TUIModel) handleDateEditKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 	}
 	return m, nil
-}
-
-// addMonthOverflow добавляет/вычитает месяцы, корректируя день при переполнении
-// При переполнении дня устанавливает последний день целевого месяца
-func addMonthOverflow(t time.Time, months int) time.Time {
-	result := t.AddDate(0, months, 0)
-
-	// Если день изменился — значит был переполнение (например, 31 марта → 1 мая)
-	// Возвращаем последний день целевого месяца
-	if result.Day() != t.Day() {
-		// Переходим на первое число следующего месяца и откатываем на 1 день
-		return time.Date(result.Year(), result.Month(), 1, 0, 0, 0, 0, time.UTC).AddDate(0, 0, -1)
-	}
-
-	return result
 }
 
 func (m TUIModel) handleConfirmKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
@@ -1082,6 +1072,7 @@ func (m TUIModel) viewMain() string {
 	// Подсказка в самом низу, растянутая на всю ширину
 	helpItems := []string{
 		"↑↓ навигация",
+		"^+↑↓ двигать",
 		"↵ редактировать",
 		"i идентифицировать",
 		"* принять всех",
@@ -1100,7 +1091,7 @@ func (m TUIModel) viewMain() string {
 }
 
 func (m TUIModel) renderRow(rowIndex int, row PilotRow, placeWidth, idWidth, nameWidth int, selected bool) string {
-	placeStr := fmt.Sprintf("%d", row.Place)
+	placeStr := row.Position.String()
 
 	// Определяем ID для отображения и суффикс
 	var idStr string

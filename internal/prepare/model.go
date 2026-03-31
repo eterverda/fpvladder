@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -14,10 +15,11 @@ import (
 
 // PilotRow представляет строку в таблице пилотов
 type PilotRow struct {
-	Id      model.Id
-	Place   int
-	Name    string
-	Virtual bool // true для виртуальной строки-заглушки
+	Id       model.Id
+	Position model.Position
+	Team     int
+	Name     string
+	Virtual  bool // true для виртуальной строки-заглушки
 }
 
 // EventModel хранит состояние события
@@ -32,66 +34,99 @@ type EventModel struct {
 // NewEventModel создаёт новое или загружает существующее событие
 func NewEventModel(filename string) (*EventModel, error) {
 	m := &EventModel{
-		Rows:     []PilotRow{},
 		Filename: filename,
+		IsNew:    filename == "",
 	}
 
-	if filename == "" {
-		// Создаём новое событие
-		m.IsNew = true
-		m.Event = model.Event{
-			Id:     "~",
-			Date:   model.Today(),
-			Name:   "~",
-			Class:  "drone-racing > 75mm",
-			Pilots: []model.PilotEntry{},
+	if filename != "" {
+		// Загружаем существующий файл
+		data, err := os.ReadFile(filename)
+		if err != nil {
+			return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
 		}
+		if err := yaml.Unmarshal(data, &m.Event); err != nil {
+			return nil, fmt.Errorf("не удалось распарсить YAML: %w", err)
+		}
+
+		// Конвертируем пилотов в строки
+		for _, p := range m.Event.Pilots {
+			name := p.Name
+			if name == "" {
+				// Загружаем имя из базы если не указано
+				if pilot, err := db.ReadPilot("./data", p.Id); err == nil {
+					name = pilot.Name
+				}
+			}
+			m.Rows = append(m.Rows, PilotRow{
+				Id:       p.Id,
+				Position: p.Position,
+				Team:     p.Team,
+				Name:     name,
+				Virtual:  false,
+			})
+		}
+
+		m.sortRows()
 		m.addVirtualRow()
 		return m, nil
 	}
 
-	// Загружаем существующее
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		return nil, fmt.Errorf("не удалось прочитать файл: %w", err)
-	}
-
-	if err := yaml.Unmarshal(data, &m.Event); err != nil {
-		return nil, fmt.Errorf("не удалось распарсить YAML: %w", err)
-	}
-
-	// Конвертируем пилотов в строки
-	for _, p := range m.Event.Pilots {
-		name := p.Name
-		if name == "" {
-			// Загружаем имя из базы если не указано
-			if pilot, err := db.ReadPilot("./data", p.Id); err == nil {
-				name = pilot.Name
-			}
-		}
-		m.Rows = append(m.Rows, PilotRow{
-			Id:      p.Id,
-			Place:   p.Position,
-			Name:    name,
-			Virtual: false,
-		})
-	}
-
+	// Новое событие
+	m.Event = model.Event{}
 	m.addVirtualRow()
 	return m, nil
 }
 
+// sortRows сортирует строки по Position.Int, затем по имени
+func (m *EventModel) sortRows() {
+	sort.SliceStable(m.Rows, func(i, j int) bool {
+		if m.Rows[i].Virtual != m.Rows[j].Virtual {
+			return !m.Rows[i].Virtual
+		}
+		if m.Rows[i].Virtual {
+			return false
+		}
+		if m.Rows[i].Position.Int != m.Rows[j].Position.Int {
+			return m.Rows[i].Position.Int < m.Rows[j].Position.Int
+		}
+		return m.Rows[i].Name < m.Rows[j].Name
+	})
+}
+
+// findRowIndex находит индекс строки по имени
+func (m *EventModel) findRowIndex(name string) int {
+	for i, r := range m.Rows {
+		if r.Name == name {
+			return i
+		}
+	}
+	return -1
+}
+
+// getRowsAtPosition возвращает строки с заданным Position.Int
+func (m *EventModel) getRowsAtPosition(posInt int) []int {
+	var indices []int
+	for i, r := range m.Rows {
+		if !r.Virtual && r.Position.Int == posInt {
+			indices = append(indices, i)
+		}
+	}
+	return indices
+}
+
 func (m *EventModel) addVirtualRow() {
-	// Находим максимальный place
-	maxPlace := 0
+	maxPos := 0
 	for _, r := range m.Rows {
-		if !r.Virtual && r.Place > maxPlace {
-			maxPlace = r.Place
+		if !r.Virtual {
+			_, end := getTieRange(r.Position)
+			if end > maxPos {
+				maxPos = end
+			}
 		}
 	}
 	m.Rows = append(m.Rows, PilotRow{
-		Place:   maxPlace + 1,
-		Virtual: true,
+		Position: model.Position{Int: maxPos + 1},
+		Virtual:  true,
 	})
 }
 
@@ -105,13 +140,13 @@ func (m *EventModel) PromoteVirtualRow(index int) {
 }
 
 // UpdateRow обновляет данные строки
-func (m *EventModel) UpdateRow(index int, place int, name string, id model.Id) {
+func (m *EventModel) UpdateRow(index int, pos model.Position, name string, id model.Id) {
 	if index < 0 || index >= len(m.Rows) {
 		return
 	}
 	row := &m.Rows[index]
-	if row.Place != place || row.Name != name || row.Id != id {
-		row.Place = place
+	if !row.Position.Equal(pos) || row.Name != name || row.Id != id {
+		row.Position = pos
 		row.Name = name
 		row.Id = id
 		m.Modified = true
@@ -127,41 +162,10 @@ func (m *EventModel) DeleteRow(index int) {
 	m.Modified = true
 }
 
-// MoveRowUp перемещает строку вверх (уменьшает позицию)
-func (m *EventModel) MoveRowUp(index int) int {
-	if index <= 0 || index >= len(m.Rows) || m.Rows[index].Virtual {
-		return index
-	}
-	// Меняем местами с предыдущей строкой
-	m.Rows[index-1], m.Rows[index] = m.Rows[index], m.Rows[index-1]
-	// Пересчитываем позиции
-	m.recalculatePlaces()
-	m.Modified = true
-	return index - 1
-}
-
-// MoveRowDown перемещает строку вниз (увеличивает позицию)
-func (m *EventModel) MoveRowDown(index int) int {
-	if index < 0 || index >= len(m.Rows)-1 || m.Rows[index].Virtual {
-		return index
-	}
-	// Нельзя двигать ниже виртуальной строки
-	if m.Rows[index+1].Virtual {
-		return index
-	}
-	// Меняем местами со следующей строкой
-	m.Rows[index+1], m.Rows[index] = m.Rows[index], m.Rows[index+1]
-	// Пересчитываем позиции
-	m.recalculatePlaces()
-	m.Modified = true
-	return index + 1
-}
-
-// recalculatePlaces пересчитывает позиции всех строк
-func (m *EventModel) recalculatePlaces() {
-	for i := range m.Rows {
-		m.Rows[i].Place = i + 1
-	}
+// GenerateFilename генерирует имя файла на основе даты и ID события
+func (m *EventModel) GenerateFilename() string {
+	presumedId, _ := db.GenerateNextId("./data", "event", m.Event.Date)
+	return presumedId.String() + ".yaml"
 }
 
 // Save сохраняет событие в файл
@@ -173,11 +177,21 @@ func (m *EventModel) Save() error {
 			continue
 		}
 		pilots = append(pilots, model.PilotEntry{
-			Position: r.Place,
+			Position: r.Position,
+			Team:     r.Team,
 			Id:       r.Id,
 			Name:     r.Name,
 		})
 	}
+
+	// Сортируем пилотов по позиции и имени перед сохранением
+	sort.Slice(pilots, func(i, j int) bool {
+		if pilots[i].Position.Int != pilots[j].Position.Int {
+			return pilots[i].Position.Int < pilots[j].Position.Int
+		}
+		return pilots[i].Name < pilots[j].Name
+	})
+
 	m.Event.Pilots = pilots
 
 	// Сериализуем
@@ -201,79 +215,6 @@ func (m *EventModel) Save() error {
 	m.Modified = false
 	m.IsNew = false
 	return nil
-}
-
-// FindPilotsByName ищет пилотов по имени с учётом текущего класса события
-func (m *EventModel) FindPilotsByName(name string) []FindResult {
-	var results []FindResult
-	if name == "" {
-		return results
-	}
-
-	searchWords := strings.Fields(strings.ToLower(name))
-	pilots, _ := db.ListIds("./data", "pilot")
-	currentClass := string(m.Event.Class)
-	if currentClass == "" {
-		currentClass = string(model.Class75mm)
-	}
-
-	for _, id := range pilots {
-		pilot, err := db.ReadPilot("./data", id)
-		if err != nil {
-			continue
-		}
-		pilotWords := strings.Fields(strings.ToLower(pilot.Name))
-
-		// Проверяем: подмножество слов поиска в имени пилота ИЛИ подмножество слов пилота в поиске
-		if isSubset(searchWords, pilotWords) || isSubset(pilotWords, searchWords) {
-			rating := 1200 // По умолчанию для новых пилотов
-			career := pilot.CareerForClass(model.Class(currentClass))
-			if len(career.Ratings) > 0 {
-				rating = career.Ratings[len(career.Ratings)-1].Value
-			}
-
-			results = append(results, FindResult{
-				Name:   pilot.Name,
-				Id:     string(pilot.Id),
-				Rating: rating,
-			})
-		}
-	}
-
-	return results
-}
-
-func isSubset(a, b []string) bool {
-	if len(a) > len(b) {
-		return false
-	}
-	for _, aw := range a {
-		found := false
-		for _, bw := range b {
-			if strings.Contains(bw, aw) || strings.Contains(aw, bw) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			return false
-		}
-	}
-	return true
-}
-
-// FindResult результат поиска пилота
-type FindResult struct {
-	Name   string
-	Id     string
-	Rating int
-}
-
-// GenerateFilename генерирует имя файла для нового события
-func (m *EventModel) GenerateFilename() string {
-	date := m.Event.Date
-	presumedId, _ := db.GenerateNextId("./data", "event", date)
-	return presumedId.String() + ".yaml"
 }
 
 // ParsePlace парсит строку места в число

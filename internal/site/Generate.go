@@ -71,7 +71,7 @@ type eventPage struct {
 
 type resultRecord struct {
 	Href       string
-	Position   int
+	Position   string
 	Name       string
 	Assignment string
 }
@@ -268,7 +268,7 @@ func generateEvent(outDir string, event *model.Event) error {
 		name := pilot.Name
 		page.Results = append(page.Results, &resultRecord{
 			Href:       db.ResolveIdPathExt("../../../", "pilot", pilot.Id, "html"),
-			Position:   pilot.Position,
+			Position:   pilot.Position.String(),
 			Name:       name,
 			Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.NewValue), "-", "−"),
 		})

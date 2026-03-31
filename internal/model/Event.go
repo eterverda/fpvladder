@@ -18,7 +18,8 @@ type RatingAssignment struct {
 }
 
 type PilotEntry struct {
-	Position int                `yaml:"position"`
+	Position Position           `yaml:"position"`
+	Team     int                `yaml:"team,omitempty"` // Номер команды (0 = нет команды)
 	Id       Id                 `yaml:"id,omitempty"`
 	Name     string             `yaml:"name,omitempty"`
 	Ratings  []RatingAssignment `yaml:"ratings,omitempty"`

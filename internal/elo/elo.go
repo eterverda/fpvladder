@@ -14,10 +14,13 @@ var (
 )
 
 type Input struct {
-	Position int
+	Position int // Позиция (значение из model.Position.Int)
+	Team     int // Номер команды (0 = нет команды)
 	Rating   int
 }
 
+// GroupKCalc рассчитывает изменения рейтинга для группы пилотов
+// Учитывает ничьи между разными командами
 func GroupKCalc(inputs []Input) (deltas []int) {
 	deltasF := GroupKCalcF(inputs)
 
@@ -28,20 +31,19 @@ func GroupKCalc(inputs []Input) (deltas []int) {
 	return
 }
 
+// GroupKCalcF рассчитывает сырые изменения рейтинга для группы пилотов
 func GroupKCalcF(inputs []Input) (deltas []float64) {
 	deltas = make([]float64, len(inputs))
 
 	for i := range inputs {
-		a := inputs[i]
 		for j := i + 1; j < len(inputs); j++ {
-			b := inputs[j]
-			// Пропускаем напарников по команде (одинаковая позиция)
-			if a.Position == b.Position {
+			// Пропускаем пилотов из одной команды (если команда указана)
+			if inputs[i].Team > 0 && inputs[i].Team == inputs[j].Team {
 				continue
 			}
 
-			// Считаем микро-дельту дуэли i против j
-			deltaA, deltaB := KCalcF(a, b)
+			// Используем KCalcF для расчёта дуэли
+			deltaA, deltaB := KCalcF(inputs[i], inputs[j])
 			deltas[i] += deltaA
 			deltas[j] += deltaB
 		}
@@ -49,29 +51,36 @@ func GroupKCalcF(inputs []Input) (deltas []float64) {
 	return
 }
 
+// KCalc рассчитывает изменения рейтинга для двух пилотов
 func KCalc(a, b Input) (deltaA, deltaB int) {
 	deltaAF, deltaBF := KCalcF(a, b)
 	return int(math.Round(deltaAF)), int(math.Round(deltaBF))
 }
 
+// KCalcF рассчитывает сырое изменение рейтинга для двух пилотов (с K)
 func KCalcF(a, b Input) (deltaA, deltaB float64) {
-	deltaAF, deltaBF := CalcF(a, b)
-	return K * deltaAF, K * deltaBF
+	deltaA, deltaB = calcWinLossF(a, b)
+	return K * deltaA, K * deltaB
 }
 
-func CalcF(a, b Input) (deltaA, deltaB float64) {
-	if a.Position == b.Position {
-		return 0.0, 0.0
-	}
-	// 1. Ожидание: насколько мы сильнее соперника из ДРУГОЙ команды
+// calcWinLossF рассчитывает сырую дельту (без K)
+// Обрабатывает победу, поражение и ничью
+func calcWinLossF(a, b Input) (deltaA, deltaB float64) {
+	// 1. Ожидание: насколько мы сильнее соперника
 	exp := 1.0 / (1.0 + math.Pow(10, float64(b.Rating-a.Rating)/400.0))
 
-	// 2. Реальность: обошли мы их или они нас
+	// 2. Реальность
 	var act float64
-	if a.Position < b.Position {
-		act = 1.0 // Победа
+	if a.Position == b.Position {
+		// Ничья: результат = 0.5
+		act = 0.5
+	} else if a.Position < b.Position {
+		// Победа
+		act = 1.0
 	} else {
-		act = 0.0 // Поражение
+		// Поражение
+		act = 0.0
 	}
+
 	return act - exp, exp - act
 }

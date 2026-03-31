@@ -216,7 +216,11 @@ func recalculateRatings(event *model.Event) error {
 					break
 				}
 			}
-			inputs[i] = elo.Input{Position: entry.Position, Rating: oldRatingValue}
+			inputs[i] = elo.Input{
+				Position: entry.Position.Int,
+				Team:     entry.Team,
+				Rating:   oldRatingValue,
+			}
 			originIds[i] = originId
 		}
 
@@ -250,9 +254,9 @@ func recalculateRatings(event *model.Event) error {
 			summary := model.RatingSummary{
 				Num:   1,
 				Event: simpleEvent,
-				Position: model.Position{
-					Numerator:   inputs[i].Position,
-					Denominator: len(event.Pilots),
+				Position: model.RelativePosition{
+					Position: event.Pilots[i].Position,
+					Count:    len(event.Pilots),
 				},
 				Delta: delta,
 				Value: newRatingValue,
@@ -358,8 +362,8 @@ func validateEvent(path string) error {
 	// Карта для проверки уникальности пилотов в рамках ОДНОГО эвента
 	eventPilotIds := make(map[string]bool)
 
-	posCounts := make(map[int]int)
-	maxPos := 0
+	// Группировка пилотов по позиции для проверки ничьих
+	positionGroups := make(map[int][]model.PilotEntry)
 
 	for _, p := range event.Pilots {
 		// А. Проверка наличия ID (Обязательно по твоему требованию)
@@ -377,31 +381,19 @@ func validateEvent(path string) error {
 		// Собираем для верификации по базе (общий список по всему файлу)
 		allUniquePilots[idStr] = p
 
-		// В. Сбор данных по позициям
-		if p.Position <= 0 {
+		// В. Проверка позиции
+		if p.Position.Int <= 0 {
 			return fmt.Errorf("позиция пилота %s должна быть > 0", p.Name)
 		}
-		posCounts[p.Position]++
-		if p.Position > maxPos {
-			maxPos = p.Position
-		}
+
+		// Группируем по позиции
+		pos := p.Position.Int
+		positionGroups[pos] = append(positionGroups[pos], p)
 	}
 
-	// Г. Логика "командности" и последовательности мест
-	teamSize := posCounts[1]
-	if teamSize == 0 {
-		return fmt.Errorf("отсутствует 1-е место")
-	}
-
-	for i := 1; i <= maxPos; i++ {
-		count, ok := posCounts[i]
-		if !ok {
-			return fmt.Errorf("пропущено место %d (последовательность прервана)", i)
-		}
-		if count != teamSize {
-			return fmt.Errorf("неровные составы. На 1-м месте %d чел, а на %d-м — %d",
-				teamSize, i, count)
-		}
+	// Г. Валидация позиций, ничьих и команд
+	if err := validatePositions(positionGroups); err != nil {
+		return err
 	}
 
 	// --- ЦИКЛ 2: Верификация пилотов по внешней базе данных ---
@@ -415,6 +407,72 @@ func validateEvent(path string) error {
 		if !strings.EqualFold(dbPilot.Name, p.Name) {
 			fmt.Printf("[!] Расхождение имен для ID %s: %s vs %s\n", id, dbPilot.Name, p.Name)
 		}
+	}
+
+	return nil
+}
+
+// validatePositions проверяет согласованность позиций, ничьих и команд
+func validatePositions(positionGroups map[int][]model.PilotEntry) error {
+	if len(positionGroups) == 0 {
+		return fmt.Errorf("нет пилотов в событии")
+	}
+
+	// Находим максимальную позицию
+	maxPos := 0
+	for pos := range positionGroups {
+		if pos > maxPos {
+			maxPos = pos
+		}
+	}
+
+	// Проверяем наличие 1-й позиции
+	if _, ok := positionGroups[1]; !ok {
+		return fmt.Errorf("отсутствует 1-е место")
+	}
+
+	// Проверяем последовательность позиций и ничьи
+	expectedPos := 1
+	for expectedPos <= maxPos {
+		pilots, ok := positionGroups[expectedPos]
+		if !ok {
+			return fmt.Errorf("пропущено место %d (последовательность прервана)", expectedPos)
+		}
+
+		// Проверяем согласованность ничьей
+		for _, p := range pilots {
+			if p.Position.TieCount == 0 {
+				// Нет ничьей — должна быть только одна позиция
+				if len(pilots) != 1 {
+					return fmt.Errorf("позиция %d: несколько пилотов без указания ничьей (нужен формат %d-%d)",
+						expectedPos, expectedPos, expectedPos+len(pilots)-1)
+				}
+			} else {
+				// Есть ничья — проверяем согласованность
+				expectedEnd := expectedPos + p.Position.TieCount
+				actualEnd := expectedPos + len(pilots) - 1
+				if expectedEnd != actualEnd {
+					return fmt.Errorf("позиция %s: несогласованная ничья (ожидалось %d-%d, получено %d-%d)",
+						p.Position.String(), expectedPos, expectedEnd, expectedPos, actualEnd)
+				}
+			}
+		}
+
+		// Проверяем команды: пилоты с одинаковой позицией должны быть из разных команд
+		// или не иметь команды (Team = 0)
+		teamSet := make(map[int]bool)
+		for _, p := range pilots {
+			if p.Team > 0 {
+				if teamSet[p.Team] {
+					return fmt.Errorf("позиция %d: пилоты из одной команды %d не могут делить место",
+						expectedPos, p.Team)
+				}
+				teamSet[p.Team] = true
+			}
+		}
+
+		// Переходим к следующей позиции (с учётом ничьей)
+		expectedPos += len(pilots)
 	}
 
 	return nil
