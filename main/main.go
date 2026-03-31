@@ -13,6 +13,7 @@ import (
 	"github.com/eterverda/fpvladder/internal/db"
 	"github.com/eterverda/fpvladder/internal/elo"
 	"github.com/eterverda/fpvladder/internal/model"
+	"github.com/eterverda/fpvladder/internal/prepare"
 	"github.com/eterverda/fpvladder/internal/site"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
@@ -63,7 +64,22 @@ func main() {
 
 	csvCmd.Flags().StringVarP(&class, "class", "c", "drone-racing > 75mm", "Класс")
 
-	rootCmd.AddCommand(installCmd, pilotCmd, csvCmd, genCmd)
+	var prepareCmd = &cobra.Command{
+		Use:   "prepare [filename]",
+		Short: "Подготовить событие (редактор TUI)",
+		Args:  cobra.MaximumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			filename := ""
+			if len(args) > 0 {
+				filename = args[0]
+			}
+			if err := prepare.Run(filename); err != nil {
+				log.Fatalf("[✕] Ошибка: %v", err)
+			}
+		},
+	}
+
+	rootCmd.AddCommand(installCmd, pilotCmd, csvCmd, genCmd, prepareCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
@@ -142,9 +158,11 @@ func handleInstall(cmd *cobra.Command, args []string) {
 	}
 
 	presumedId, err := db.GenerateNextId(DbPath, "event", event.Date)
-	if event.Id != presumedId {
+	if event.Id != "" && event.Id != presumedId {
 		log.Fatalln("[✕] Неверный Id")
 	}
+	event.Id = presumedId
+
 	targetPath := db.ResolveIdPath(DbPath, "event", event.Id)
 
 	// 3. Скопировали файл
@@ -337,11 +355,11 @@ func validateEvent(path string) error {
 	// Нужна для второго цикла верификации по файловой базе
 	allUniquePilots := make(map[string]model.PilotEntry)
 
-	posCounts := make(map[int]int)
-	maxPos := 0
-
 	// Карта для проверки уникальности пилотов в рамках ОДНОГО эвента
 	eventPilotIds := make(map[string]bool)
+
+	posCounts := make(map[int]int)
+	maxPos := 0
 
 	for _, p := range event.Pilots {
 		// А. Проверка наличия ID (Обязательно по твоему требованию)

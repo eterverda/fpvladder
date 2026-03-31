@@ -6,6 +6,15 @@ const ClassSeparator = ">"
 
 type Class string
 
+const (
+	Class75mm  Class = "drone-racing > 75mm"
+	Class125mm Class = "drone-racing > 125mm"
+	Class200mm Class = "drone-racing > 200mm"
+	Class330mm Class = "drone-racing > 330mm"
+)
+
+var KnownClasses = []Class{Class75mm, Class125mm, Class200mm, Class330mm}
+
 // Parent возвращает родительский класс.
 // Например: "a > b > c" -> "a > b"
 // Если родителя нет, возвращает ""

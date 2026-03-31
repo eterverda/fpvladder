@@ -19,7 +19,7 @@ type RatingAssignment struct {
 
 type PilotEntry struct {
 	Position int                `yaml:"position"`
-	Id       Id                 `yaml:"id"`
+	Id       Id                 `yaml:"id,omitempty"`
 	Name     string             `yaml:"name,omitempty"`
 	Ratings  []RatingAssignment `yaml:"ratings,omitempty"`
 }
@@ -34,7 +34,7 @@ func (p *PilotEntry) RatingForClass(class Class) *RatingAssignment {
 }
 
 type Event struct {
-	Id          Id           `yaml:"id"`
+	Id          Id           `yaml:"id,omitempty"`
 	Date        Date         `yaml:"date"`
 	Name        string       `yaml:"name"`
 	Description string       `yaml:"description,omitempty"`
