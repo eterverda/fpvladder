@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	K = 14.0
+	K = 10
 )
 
 var (
