@@ -50,6 +50,7 @@ type indexClassData struct {
 }
 
 type pilotRecord struct {
+	Id       model.Id
 	Href     string
 	Position int
 	Name     string
@@ -57,7 +58,7 @@ type pilotRecord struct {
 }
 
 type eventRecord struct {
-	id               model.Id
+	Id               model.Id
 	Href             string
 	NumPilots        int
 	Name             string
@@ -66,6 +67,7 @@ type eventRecord struct {
 }
 
 type pilotPage struct {
+	Id      model.Id
 	Name    string
 	Classes []*pilotClassData
 }
@@ -80,6 +82,7 @@ type pilotClassData struct {
 
 type assignmentRecord struct {
 	num        int
+	Id         model.Id
 	Href       string
 	Position   string
 	Name       string
@@ -88,6 +91,7 @@ type assignmentRecord struct {
 }
 
 type eventPage struct {
+	Id          model.Id
 	Name        string
 	Date        string
 	Description template.HTML
@@ -96,6 +100,7 @@ type eventPage struct {
 }
 
 type resultRecord struct {
+	Id         model.Id
 	Href       string
 	Position   string
 	Name       string
@@ -172,6 +177,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 				continue
 			}
 			pilotRecords = append(pilotRecords, &pilotRecord{
+				Id:     pilot.Id,
 				Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
 				Name:   pilot.Name,
 				Rating: career.Ratings[len(career.Ratings)-1].Value,
@@ -199,7 +205,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 				continue
 			}
 			eventRecords = append(eventRecords, &eventRecord{
-				id:        event.Id,
+				Id:        event.Id,
 				Href:      db.ResolveIdPathExt("", "event", event.Id, "html"),
 				NumPilots: len(event.Pilots),
 				Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
@@ -209,7 +215,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
 			ord := -cmp.Compare(a.Date, b.Date)
 			if ord == 0 {
-				ord = -cmp.Compare(a.id, b.id)
+				ord = -cmp.Compare(a.Id, b.Id)
 			}
 			return ord
 		})
@@ -230,7 +236,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 				continue
 			}
 			futureEventRecords = append(futureEventRecords, &eventRecord{
-				id:   event.Id,
+				Id:   event.Id,
 				Href: db.ResolveIdPathExt("", "future_event", event.Id, "html"),
 				Name: strings.ReplaceAll(event.Name, ">", "⟫"),
 				Date: event.Date.String(),
@@ -250,7 +256,22 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		Classes:     classes,
 	}
 
-	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl")
+	tmpl, err := template.New("index.tmpl").Funcs(template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, fmt.Errorf("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, fmt.Errorf("dict keys must be strings")
+				}
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}).ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -287,6 +308,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 			name := strings.ReplaceAll(rating.Event.Name, ">", "⟫")
 			pc.Assignments = append(pc.Assignments, &assignmentRecord{
 				num:        rating.Num,
+				Id:         rating.Event.Id,
 				Href:       db.ResolveIdPathExt("../../../", "event", rating.Event.Id, "html"),
 				Position:   rating.Position.String(),
 				Name:       name,
@@ -305,12 +327,28 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	}
 
 	page := &pilotPage{
+		Id:      pilot.Id,
 		Name:    pilot.Name,
 		Classes: classes,
 	}
 
 	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
-	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl")
+	tmpl, err := template.New("pilot.tmpl").Funcs(template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, fmt.Errorf("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, fmt.Errorf("dict keys must be strings")
+				}
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}).ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -330,6 +368,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 
 func generateEvent(outDir string, event *model.Event) error {
 	var page = &eventPage{
+		Id:   event.Id,
 		Name: strings.ReplaceAll(event.Name, ">", "⟫"),
 	}
 	for _, pilot := range event.Pilots {
@@ -339,6 +378,7 @@ func generateEvent(outDir string, event *model.Event) error {
 		}
 		name := pilot.Name
 		page.Results = append(page.Results, &resultRecord{
+			Id:         pilot.Id,
 			Href:       db.ResolveIdPathExt("../../../", "pilot", pilot.Id, "html"),
 			Position:   pilot.Position.String(),
 			Name:       name,
@@ -346,7 +386,22 @@ func generateEvent(outDir string, event *model.Event) error {
 		})
 	}
 	path := db.ResolveIdPathExt(outDir, "event", event.Id, "html")
-	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl")
+	tmpl, err := template.New("event.tmpl").Funcs(template.FuncMap{
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, fmt.Errorf("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, fmt.Errorf("dict keys must be strings")
+				}
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}).ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -371,7 +426,7 @@ func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 		Description: template.HTML(md2html(event.Description)),
 	}
 	path := db.ResolveIdPathExt(outDir, "future_event", event.Id, "html")
-	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl")
+	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -391,7 +446,7 @@ func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 }
 
 func generateManifest(outDir string) error {
-	tmpl, err := template.New("manifest.tmpl").ParseFiles("internal/site/manifest.tmpl", "internal/site/header.tmpl")
+	tmpl, err := template.New("manifest.tmpl").ParseFiles("internal/site/manifest.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
