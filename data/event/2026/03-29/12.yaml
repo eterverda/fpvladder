@@ -1,0 +1,56 @@
+id: 2026/03-29/12
+date: 2026-03-29
+name: Кубок СПб 2026 > 330мм > Квалицикации
+organizer:
+  name: Федерация гонок дронов Санкт-Петербурга
+  link: http://t.me/fgdSPb
+class: drone-racing > 330mm
+pilots:
+  - position: 1
+    id: 2026/03-29/107
+    name: Якубовский Николай Александрович
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: 25
+        new_value: 1225
+  - position: 2
+    id: 2025/12-28/11
+    name: Садовников Матвей Романович
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: 15
+        new_value: 1215
+  - position: 3
+    id: 2026/03-28/93
+    name: Петров Григорий Михайлович
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: 5
+        new_value: 1205
+  - position: 4
+    id: 2026/03-29/106
+    name: Пронин Александр Сергеевич
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: -5
+        new_value: 1195
+  - position: 5
+    id: 2025/12-28/8
+    name: Котоман Семён Олегович
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: -15
+        new_value: 1185
+  - position: 6
+    id: 2025/12-28/10
+    name: Руденко Владимир Александрович
+    ratings:
+      - class: drone-racing > 330mm
+        algorithm: elo > k-10
+        delta: -25
+        new_value: 1175

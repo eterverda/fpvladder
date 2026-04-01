@@ -35,3 +35,37 @@ careers:
         position: 2/16
         delta: 77
         value: 1583
+      - num: 5
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 4/47
+        delta: 33
+        value: 1616
+      - num: 6
+        event:
+          id: 2026/03-28/8
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Финалы ЛЗ
+        position: 9/16
+        delta: -38
+        value: 1578
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/10
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 200мм > Квалицикации
+        position: 7/12
+        delta: -5
+        value: 1195
+      - num: 2
+        event:
+          id: 2026/03-29/11
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 200мм > Финалы ЛЗ
+        position: 7/8
+        delta: -22
+        value: 1173

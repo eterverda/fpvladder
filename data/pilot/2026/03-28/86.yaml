@@ -1,0 +1,13 @@
+id: 2026/03-28/86
+name: Коваленко Александр Юрьевич
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 18/47
+        delta: 70
+        value: 1270

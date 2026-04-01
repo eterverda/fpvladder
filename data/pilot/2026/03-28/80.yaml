@@ -1,0 +1,13 @@
+id: 2026/03-28/80
+name: Бакланов Тимофей Дмитриевич
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 34/47
+        delta: -90
+        value: 1110

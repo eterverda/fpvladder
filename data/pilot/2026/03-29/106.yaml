@@ -1,0 +1,39 @@
+id: 2026/03-29/106
+name: Пронин Александр Сергеевич
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/10
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 200мм > Квалицикации
+        position: 8/12
+        delta: -15
+        value: 1185
+      - num: 2
+        event:
+          id: 2026/03-29/11
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 200мм > Финалы ЛЗ
+        position: 6/8
+        delta: -11
+        value: 1174
+  - class: drone-racing > 330mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/12
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 330мм > Квалицикации
+        position: 4/6
+        delta: -5
+        value: 1195
+      - num: 2
+        event:
+          id: 2026/03-29/13
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 330мм > Финалы ЛЗ
+        position: 4/6
+        delta: -5
+        value: 1190

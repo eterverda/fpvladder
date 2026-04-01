@@ -1,0 +1,96 @@
+id: 2026/03-28/9
+date: 2026-03-28
+name: Кубок СПб 2026 > 75мм > Финалы КЗ
+organizer:
+  name: Федерация гонок дронов Санкт-Петербурга
+  link: http://t.me/fgdSPb
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    team: 1
+    id: 2025/12-28/11
+    name: Садовников Матвей Романович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1791
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1800
+  - position: 1
+    team: 1
+    id: 2026/02-28/72
+    name: Тестов Максим Васильевич
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1517
+        algorithm: elo > k-10
+        delta: 25
+        new_value: 1542
+  - position: 2
+    team: 2
+    id: 2025/12-28/8
+    name: Котоман Семён Олегович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1407
+        algorithm: elo > k-10
+        delta: 16
+        new_value: 1423
+  - position: 2
+    team: 2
+    id: 2025/12-28/14
+    name: Сойгалов Степан Максимович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1614
+        algorithm: elo > k-10
+        delta: 2
+        new_value: 1616
+  - position: 3
+    team: 3
+    id: 2026/03-28/93
+    name: Петров Григорий Михайлович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1277
+        algorithm: elo > k-10
+        delta: 6
+        new_value: 1283
+  - position: 3
+    team: 3
+    id: 2025/12-28/10
+    name: Руденко Владимир Александрович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1603
+        algorithm: elo > k-10
+        delta: -16
+        new_value: 1587
+  - position: 4
+    team: 4
+    id: 2026/02-28/54
+    name: Кан Денис Михайлович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1287
+        algorithm: elo > k-10
+        delta: -14
+        new_value: 1273
+  - position: 4
+    team: 4
+    id: 2026/02-21/33
+    name: Смирнов Дмитрий Александрович
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1507
+        algorithm: elo > k-10
+        delta: -28
+        new_value: 1479

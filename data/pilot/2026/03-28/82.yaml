@@ -1,0 +1,13 @@
+id: 2026/03-28/82
+name: Егоров Даниил Александрович
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 27/47
+        delta: -20
+        value: 1180

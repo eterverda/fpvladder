@@ -1,0 +1,13 @@
+id: 2026/03-28/85
+name: Зуев Николай Максимович
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 19/47
+        delta: 60
+        value: 1260

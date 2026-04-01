@@ -35,3 +35,13 @@ careers:
         position: 7/16
         delta: 21
         value: 1417
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/10
+          date: 2026-03-29
+          name: Кубок СПб 2026 > 200мм > Квалицикации
+        position: 10/12
+        delta: -35
+        value: 1165

@@ -35,3 +35,19 @@ careers:
         position: 3/16
         delta: 80
         value: 1527
+      - num: 5
+        event:
+          id: 2026/03-28/7
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Квалификации
+        position: 5/47
+        delta: 40
+        value: 1567
+      - num: 6
+        event:
+          id: 2026/03-28/8
+          date: 2026-03-28
+          name: Кубок СПб 2026 > 75мм > Финалы ЛЗ
+        position: 4/16
+        delta: 20
+        value: 1587
