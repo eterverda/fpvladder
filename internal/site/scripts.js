@@ -452,20 +452,14 @@ function saveClass(classValue) {
     searchFilters.forEach((filterBtn) => {
       const filterType = filterBtn.dataset.filter;
       const hasItems = Object.values(favorites).some((tags) => tags.includes(filterType));
+      const isActive = activeFilters[filterType];
 
-      if (hasItems) {
+      if (hasItems || isActive) {
         filterBtn.classList.add("visible");
       } else {
         filterBtn.classList.remove("visible");
-        // Deactivate filter if no items
-        if (activeFilters[filterType]) {
-          activeFilters[filterType] = false;
-          filterBtn.classList.remove("active");
-        }
       }
     });
-
-    saveActiveFilters(activeFilters);
   }
 
   function applyFavoritesFilter(visibleClass) {
@@ -615,6 +609,7 @@ function saveClass(classValue) {
         saveActiveFilters(activeFilters);
         this.classList.toggle("active", activeFilters[filterType]);
         applyFavoritesFilter();
+        updateSearchFiltersVisibility();
       });
     });
 
