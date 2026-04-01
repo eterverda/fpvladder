@@ -264,6 +264,7 @@ func recalculateRatings(event *model.Event) error {
 
 	class := event.Class
 
+	count := 0
 	for i, entry := range event.Pilots {
 		id := entry.Id
 		pilot, err := db.ReadPilot(DbPath, id)
@@ -271,6 +272,8 @@ func recalculateRatings(event *model.Event) error {
 			return err
 		}
 		pilots[i] = pilot
+
+		count = max(count, entry.Position.Int+entry.Position.TieCount)
 	}
 
 	if class != "" {
@@ -331,7 +334,7 @@ func recalculateRatings(event *model.Event) error {
 				Event: simpleEvent,
 				Position: model.RelativePosition{
 					Position: event.Pilots[i].Position,
-					Count:    len(event.Pilots),
+					Count:    count,
 				},
 				Delta: delta,
 				Value: newRatingValue,
