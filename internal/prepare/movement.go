@@ -1,24 +1,14 @@
 package prepare
 
-import (
-	"github.com/eterverda/fpvladder/internal/model"
-)
+import "github.com/eterverda/fpvladder/internal/model"
 
-// getTieRange возвращает диапазон ничьи: (startInt, endInt) для данной позиции
-// Для Position{7, 2} вернёт (7, 9) — позиции 7, 8, 9
-func getTieRange(pos model.Position) (start, end int) {
-	start = pos.Int
-	end = pos.Int + pos.TieCount
-	return
-}
-
-// MoveRowUp перемещает строку вверх с учётом ничьих
+// MoveRowUp перемещает команду вверх с учётом ничьих
 func (m *EventModel) MoveRowUp(index int) int {
 	if index < 0 || index >= len(m.Rows) || m.Rows[index].Virtual {
 		return index
 	}
 
-	rowName := m.Rows[index].Name
+	rowName := m.Rows[index].Name()
 	currentPos := m.Rows[index].Position
 	currentStart, currentEnd := getTieRange(currentPos)
 
@@ -105,13 +95,13 @@ func (m *EventModel) MoveRowUp(index int) int {
 	return m.findRowIndex(rowName)
 }
 
-// MoveRowDown перемещает строку вниз с учётом ничьих
+// MoveRowDown перемещает команду вниз с учётом ничьих
 func (m *EventModel) MoveRowDown(index int) int {
 	if index < 0 || index >= len(m.Rows) || m.Rows[index].Virtual {
 		return index
 	}
 
-	rowName := m.Rows[index].Name
+	rowName := m.Rows[index].Name()
 	currentPos := m.Rows[index].Position
 	currentStart, currentEnd := getTieRange(currentPos)
 
