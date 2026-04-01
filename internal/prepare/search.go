@@ -1,6 +1,7 @@
 package prepare
 
 import (
+	"slices"
 	"strings"
 
 	"github.com/eterverda/fpvladder/internal/db"
@@ -34,7 +35,7 @@ func (m *EventModel) FindPilotsByName(name string) []FindResult {
 		if isSubset(searchWords, pilotWords) || isSubset(pilotWords, searchWords) {
 			rating := 1200
 			career := pilot.CareerForClass(m.Event.Class)
-			if len(career.Ratings) > 0 {
+			if career != nil && len(career.Ratings) > 0 {
 				rating = career.Ratings[len(career.Ratings)-1].Value
 			}
 
@@ -67,14 +68,7 @@ func normalizeWord(s string) string {
 // Учитывает ё/е как одинаковые символы
 func isSubset(a, b []string) bool {
 	for _, aw := range a {
-		found := false
-		for _, bw := range b {
-			if aw == bw {
-				found = true
-				break
-			}
-		}
-		if !found {
+		if !slices.Contains(b, aw) {
 			return false
 		}
 	}
