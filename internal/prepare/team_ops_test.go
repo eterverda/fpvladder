@@ -125,9 +125,9 @@ func TestSaveTeams(t *testing.T) {
 			Class:     model.Class75mm,
 		},
 		Rows: []TeamRow{
-			{Pilots: []PilotRow{{Id: "p1", Name: "Пилот1"}}, Position: model.Position{Int: 1}},
-			{Pilots: []PilotRow{{Id: "p2", Name: "Пилот2"}, {Id: "p3", Name: "Пилот3"}}, Position: model.Position{Int: 2}},
-			{Pilots: []PilotRow{{Id: "p4", Name: "Пилот4"}}, Position: model.Position{Int: 3}},
+			{Pilots: []PilotRow{{Id: "p1", IdKind: IdKindExplicit, Name: "Пилот1"}}, Position: model.Position{Int: 1}},
+			{Pilots: []PilotRow{{Id: "p2", IdKind: IdKindExplicit, Name: "Пилот2"}, {Id: "p3", IdKind: IdKindExplicit, Name: "Пилот3"}}, Position: model.Position{Int: 2}},
+			{Pilots: []PilotRow{{Id: "p4", IdKind: IdKindExplicit, Name: "Пилот4"}}, Position: model.Position{Int: 3}},
 		},
 		Filename: "/tmp/test_save_teams.yaml",
 	}
