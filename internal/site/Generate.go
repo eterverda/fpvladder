@@ -18,13 +18,32 @@ import (
 	"github.com/yuin/goldmark"
 )
 
-const (
-	Class75mm = model.Class("drone-racing > 75mm")
-)
+// ClassDisplayNames маппинг классов на отображаемые имена
+var ClassDisplayNames = map[model.Class]string{
+	model.Class75mm:  "75мм",
+	model.Class125mm: "125мм",
+	model.Class200mm: "200мм",
+	model.Class330mm: "330мм",
+}
+
+// ClassParamValues маппинг классов на значения URL параметра
+var ClassParamValues = map[model.Class]string{
+	model.Class75mm:  "75mm",
+	model.Class125mm: "125mm",
+	model.Class200mm: "200mm",
+	model.Class330mm: "330mm",
+}
 
 type indexPage struct {
-	Title        string
-	GeneratedAt  model.Date
+	Title       string
+	GeneratedAt model.Date
+	Classes     []*indexClassData
+}
+
+type indexClassData struct {
+	Class        model.Class
+	ClassName    string
+	ParamValue   string
 	Pilots       []*pilotRecord
 	Events       []*eventRecord
 	FutureEvents []*eventRecord
@@ -47,7 +66,14 @@ type eventRecord struct {
 }
 
 type pilotPage struct {
-	Name        string
+	Name    string
+	Classes []*pilotClassData
+}
+
+type pilotClassData struct {
+	Class       model.Class
+	ClassName   string
+	ParamValue  string
 	Rating      int
 	Assignments []*assignmentRecord
 }
@@ -129,67 +155,99 @@ func Generate(baseDir, outDir string) error {
 }
 
 func generateIndex(outDir string, events []*model.Event, futureEvents []*model.FutureEvent, pilots []*model.Pilot) error {
-	var pilotRecords = make([]*pilotRecord, 0, len(events))
-	for _, pilot := range pilots {
-		career := pilot.CareerForClass(Class75mm)
-		if career == nil {
-			continue
+	// Build data for all classes
+	var classes []*indexClassData
+	for _, class := range model.KnownClasses {
+		classData := &indexClassData{
+			Class:      class,
+			ClassName:  ClassDisplayNames[class],
+			ParamValue: ClassParamValues[class],
 		}
-		name := pilot.Name
-		pilotRecords = append(pilotRecords, &pilotRecord{
-			Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
-			Name:   name,
-			Rating: career.Ratings[len(career.Ratings)-1].Value,
+
+		// Pilots for this class
+		var pilotRecords = make([]*pilotRecord, 0)
+		for _, pilot := range pilots {
+			career := pilot.CareerForClass(class)
+			if career == nil {
+				continue
+			}
+			pilotRecords = append(pilotRecords, &pilotRecord{
+				Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
+				Name:   pilot.Name,
+				Rating: career.Ratings[len(career.Ratings)-1].Value,
+			})
+		}
+		slices.SortFunc(pilotRecords, func(a, b *pilotRecord) int {
+			ord := -cmp.Compare(a.Rating, b.Rating)
+			if ord == 0 {
+				ord = cmp.Compare(a.Name, b.Name)
+			}
+			return ord
 		})
-	}
-	slices.SortFunc(pilotRecords, func(a, b *pilotRecord) int {
-		ord := -cmp.Compare(a.Rating, b.Rating)
-		if ord == 0 {
-			ord = cmp.Compare(a.Name, b.Name)
+		for i, pilotRecord := range pilotRecords {
+			pilotRecord.Position = i + 1
+			if i > 0 && pilotRecord.Rating == pilotRecords[i-1].Rating {
+				pilotRecord.Position = pilotRecords[i-1].Position
+			}
 		}
-		return ord
-	})
-	for i, pilotRecord := range pilotRecords {
-		pilotRecord.Position = i + 1
-		if i > 0 && pilotRecord.Rating == pilotRecords[i-1].Rating {
-			pilotRecord.Position = pilotRecords[i-1].Position
+		classData.Pilots = pilotRecords
+
+		// Events for this class
+		var eventRecords = make([]*eventRecord, 0)
+		for _, event := range events {
+			if event.Class != class {
+				continue
+			}
+			eventRecords = append(eventRecords, &eventRecord{
+				id:        event.Id,
+				Href:      db.ResolveIdPathExt("", "event", event.Id, "html"),
+				NumPilots: len(event.Pilots),
+				Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
+				Date:      event.Date.String(),
+			})
 		}
-	}
-	var eventRecords = make([]*eventRecord, 0, len(events))
-	for _, event := range events {
-		if event.Class != Class75mm {
-			continue
-		}
-		eventRecords = append(eventRecords, &eventRecord{
-			id:        event.Id,
-			Href:      db.ResolveIdPathExt("", "event", event.Id, "html"),
-			NumPilots: len(event.Pilots),
-			Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
-			Date:      event.Date.String(),
+		slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
+			ord := -cmp.Compare(a.Date, b.Date)
+			if ord == 0 {
+				ord = -cmp.Compare(a.id, b.id)
+			}
+			return ord
 		})
-	}
-	slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
-		ord := -cmp.Compare(a.Date, b.Date)
-		if ord == 0 {
-			ord = -cmp.Compare(a.id, b.id)
+		classData.Events = eventRecords
+
+		// Future events for this class (event may have multiple classes)
+		var futureEventRecords = make([]*eventRecord, 0)
+		for _, event := range futureEvents {
+			// Check if this future event includes current class
+			hasClass := false
+			for _, c := range event.Classes {
+				if c == class {
+					hasClass = true
+					break
+				}
+			}
+			if !hasClass {
+				continue
+			}
+			futureEventRecords = append(futureEventRecords, &eventRecord{
+				id:   event.Id,
+				Href: db.ResolveIdPathExt("", "future_event", event.Id, "html"),
+				Name: strings.ReplaceAll(event.Name, ">", "⟫"),
+				Date: event.Date.String(),
+			})
 		}
-		return ord
-	})
-	var futureEventRecords = make([]*eventRecord, 0, len(futureEvents))
-	for _, event := range futureEvents {
-		futureEventRecords = append(futureEventRecords, &eventRecord{
-			id:   event.Id,
-			Href: db.ResolveIdPathExt("", "future_event", event.Id, "html"),
-			Name: strings.ReplaceAll(event.Name, ">", "⟫"),
-			Date: event.Date.String(),
-		})
+		classData.FutureEvents = futureEventRecords
+
+		// Only add class if it has any data
+		if len(pilotRecords) > 0 || len(eventRecords) > 0 || len(futureEventRecords) > 0 {
+			classes = append(classes, classData)
+		}
 	}
+
 	index := indexPage{
-		Title:        "Drone Racing ⟫ 75mm",
-		GeneratedAt:  model.Today(),
-		Pilots:       pilotRecords,
-		Events:       eventRecords,
-		FutureEvents: futureEventRecords,
+		Title:       "FPV Ladder",
+		GeneratedAt: model.Today(),
+		Classes:     classes,
 	}
 
 	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl")
@@ -207,34 +265,49 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 	}
 	defer file.Close()
 
-	// Применяем данные к шаблону и пишем в файл
 	err = tmpl.Execute(file, index)
 	return err
 }
 
 func generatePilot(outDir string, pilot *model.Pilot) error {
-	career := pilot.CareerForClass(Class75mm)
-	if career == nil {
+	// Build data for all classes this pilot has careers in
+	var classes []*pilotClassData
+	for _, class := range model.KnownClasses {
+		career := pilot.CareerForClass(class)
+		if career == nil {
+			continue
+		}
+		pc := &pilotClassData{
+			Class:      class,
+			ClassName:  ClassDisplayNames[class],
+			ParamValue: ClassParamValues[class],
+			Rating:     career.Ratings[len(career.Ratings)-1].Value,
+		}
+		for _, rating := range career.Ratings {
+			name := strings.ReplaceAll(rating.Event.Name, ">", "⟫")
+			pc.Assignments = append(pc.Assignments, &assignmentRecord{
+				num:        rating.Num,
+				Href:       db.ResolveIdPathExt("../../../", "event", rating.Event.Id, "html"),
+				Position:   rating.Position.String(),
+				Name:       name,
+				Date:       rating.Event.Date.String(),
+				Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.Value), "-", "−"),
+			})
+		}
+		slices.SortFunc(pc.Assignments, func(a, b *assignmentRecord) int {
+			return -cmp.Compare(a.num, b.num)
+		})
+		classes = append(classes, pc)
+	}
+
+	if len(classes) == 0 {
 		return nil
 	}
-	var page = &pilotPage{
-		Name:   pilot.Name,
-		Rating: career.Ratings[len(career.Ratings)-1].Value,
+
+	page := &pilotPage{
+		Name:    pilot.Name,
+		Classes: classes,
 	}
-	for _, rating := range career.Ratings {
-		name := strings.ReplaceAll(rating.Event.Name, ">", "⟫")
-		page.Assignments = append(page.Assignments, &assignmentRecord{
-			num:        rating.Num,
-			Href:       db.ResolveIdPathExt("../../../", "event", rating.Event.Id, "html"),
-			Position:   rating.Position.String(),
-			Name:       name,
-			Date:       rating.Event.Date.String(),
-			Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.Value), "-", "−"),
-		})
-	}
-	slices.SortFunc(page.Assignments, func(a, b *assignmentRecord) int {
-		return -cmp.Compare(a.num, b.num)
-	})
 
 	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
 	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl")
@@ -251,7 +324,6 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	}
 	defer file.Close()
 
-	// Применяем данные к шаблону и пишем в файл
 	err = tmpl.ExecuteTemplate(file, "pilot.tmpl", page)
 	return err
 }

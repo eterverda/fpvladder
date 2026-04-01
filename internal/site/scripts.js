@@ -6,32 +6,25 @@
   const DEFAULT_THEME = "light";
 
   // Calculate relative path from current page to index.html
-  // Uses the location of scripts.js as anchor point
   function getRelativePathToRoot() {
-    // Find the path to scripts.js - it's in the same dir as index.html
     const scripts = document.querySelectorAll('script[src*="scripts.js"]');
     for (const script of scripts) {
       const src = script.getAttribute("src");
       if (src) {
-        // src is relative path from current page to scripts.js
-        // index.html is in the same dir as scripts.js
         const lastSlash = src.lastIndexOf("/");
         if (lastSlash >= 0) {
           return src.substring(0, lastSlash + 1);
         } else {
-          // scripts.js is in the same dir as current page
           return "./";
         }
       }
     }
-    // Fallback: calculate from pathname
     const path = window.location.pathname;
     const parts = path.split("/").filter((p) => p.length > 0);
     const lastPart = parts[parts.length - 1];
     if (lastPart && lastPart.includes(".")) {
       parts.pop();
     }
-    // Remove first part if it's a drive letter or protocol (file:)
     if (parts.length > 0 && parts[0].includes(":")) {
       parts.shift();
     }
@@ -39,52 +32,34 @@
     return depth === 0 ? "./" : "../".repeat(depth);
   }
 
-  // Check if running from file:// protocol
-  const isFileProtocol = window.location.protocol === "file:";
-
-  // Get saved theme or default
   function getSavedTheme() {
-    // For file:// protocol use cookies as fallback (Firefox blocks localStorage)
-    if (isFileProtocol) {
-      const match = document.cookie.match(new RegExp(STORAGE_KEY + "=([^;]+)"));
-      if (match) return match[1];
-    }
     try {
       return localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
     } catch (e) {
-      return DEFAULT_THEME;
+      const match = document.cookie.match(new RegExp(STORAGE_KEY + "=([^;]+)"));
+      return match ? match[1] : DEFAULT_THEME;
     }
   }
 
-  // Save theme to localStorage
   function saveTheme(theme) {
-    // For file:// protocol use cookies as fallback
-    if (isFileProtocol) {
-      document.cookie =
-        STORAGE_KEY + "=" + theme + "; path=/; max-age=31536000";
-      return;
-    }
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch (e) {
-      // Ignore storage errors
+      document.cookie = STORAGE_KEY + "=" + theme + "; path=/; max-age=31536000";
     }
   }
 
-  // Apply theme to document
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     updateThemeButtons(theme);
   }
 
-  // Update active state of theme options
   function updateThemeButtons(theme) {
     document.querySelectorAll(".theme-option").forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.value === theme);
     });
   }
 
-  // Toggle settings dropdown
   function toggleDropdown() {
     const dropdown = document.getElementById("settingsDropdown");
     if (dropdown) {
@@ -92,7 +67,6 @@
     }
   }
 
-  // Close dropdown when clicking outside
   function closeDropdownOnClickOutside(e) {
     const settingsBtn = document.getElementById("settingsBtn");
     const settingsClose = document.getElementById("settingsClose");
@@ -108,24 +82,17 @@
     }
   }
 
-  // Apply theme immediately to avoid flash
   const savedTheme = getSavedTheme();
   applyTheme(savedTheme);
 
-  // Initialize theme
   function init() {
-    // Setup event listeners
     document.addEventListener("DOMContentLoaded", function () {
-      // Setup back arrow link and visibility
       const backArrow = document.getElementById("backArrow");
       const rootPath = getRelativePathToRoot() + "index.html";
 
       if (backArrow) {
         const path = window.location.pathname;
-        const isHomePage =
-          document.body.dataset.hasBack === "false" ||
-          path === "/" ||
-          path.endsWith("/index.html");
+        const isHomePage = document.body.dataset.hasBack === "false" || path === "/" || path.endsWith("/index.html");
         if (isHomePage) {
           backArrow.style.display = "none";
         } else {
@@ -134,13 +101,11 @@
         }
       }
 
-      // Settings button click
       const settingsBtn = document.getElementById("settingsBtn");
       if (settingsBtn) {
         settingsBtn.addEventListener("click", toggleDropdown);
       }
 
-      // Close button click
       const settingsClose = document.getElementById("settingsClose");
       if (settingsClose) {
         settingsClose.addEventListener("click", (e) => {
@@ -150,17 +115,14 @@
         });
       }
 
-      // Close dropdown on outside click
       document.addEventListener("click", closeDropdownOnClickOutside);
 
-      // Theme option clicks
       document.querySelectorAll(".theme-option").forEach((btn) => {
         btn.addEventListener("click", function () {
           const theme = this.dataset.value;
           if (theme) {
             applyTheme(theme);
             saveTheme(theme);
-            // Close dropdown after theme change
             const dropdown = document.getElementById("settingsDropdown");
             if (dropdown) dropdown.classList.remove("active");
           }
@@ -169,11 +131,119 @@
     });
   }
 
-  // Run initialization
   init();
 })();
 
-// Row click handler for data-href
+// Class management (global functions for cross-page persistence)
+const CLASS_STORAGE_KEY = "fpvladder-class";
+
+// Get saved class from storage
+function getSavedClass() {
+  try {
+    return localStorage.getItem(CLASS_STORAGE_KEY);
+  } catch (e) {
+    const match = document.cookie.match(new RegExp(CLASS_STORAGE_KEY + "=([^;]+)"));
+    return match ? match[1] : null;
+  }
+}
+
+// Save class to storage
+function saveClass(classValue) {
+  try {
+    localStorage.setItem(CLASS_STORAGE_KEY, classValue);
+  } catch (e) {
+    document.cookie = CLASS_STORAGE_KEY + "=" + classValue + "; path=/; max-age=31536000";
+  }
+}
+
+// Class management
+(function () {
+  "use strict";
+
+  // Get available classes from page content
+  function getAvailableClasses() {
+    const classes = new Set();
+    document.querySelectorAll(".class-content").forEach((el) => {
+      if (el.dataset.class) {
+        classes.add(el.dataset.class);
+      }
+    });
+    return Array.from(classes);
+  }
+
+  // Show content for specific class, hide others
+  function showClassContent(classValue) {
+    // Show/hide content sections
+    document.querySelectorAll(".class-content").forEach((el) => {
+      if (el.dataset.class === classValue) {
+        el.style.display = "block";
+      } else {
+        el.style.display = "none";
+      }
+    });
+
+    // Update active state in dropdown
+    document.querySelectorAll(".class-option").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.value === classValue);
+    });
+  }
+
+  // Initialize class switching
+  function initClassSwitching() {
+    const available = getAvailableClasses();
+
+    // Hide class options that are not available on this page
+    document.querySelectorAll(".class-option").forEach((btn) => {
+      const classValue = btn.dataset.value;
+      if (classValue && !available.includes(classValue)) {
+        btn.style.display = "none";
+      }
+    });
+
+    // Hide class section title if no classes available
+    const hasVisibleClasses = document.querySelectorAll('.class-option[style="display: none;"]').length < 4;
+    const classTitle = document.querySelector(".settings-title");
+    if (classTitle && classTitle.textContent === "Класс" && !hasVisibleClasses) {
+      classTitle.style.display = "none";
+    }
+
+    if (available.length === 0) return;
+
+    // Priority: saved class > first available
+    const savedClass = getSavedClass();
+    let targetClass = savedClass;
+
+    // If saved class is not available, pick first available
+    if (!targetClass || !available.includes(targetClass)) {
+      targetClass = available[0];
+    }
+
+    // Show target class
+    showClassContent(targetClass);
+
+    // Save class (in case we picked first available)
+    saveClass(targetClass);
+
+    // Setup dropdown option clicks
+    document.querySelectorAll(".class-option").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const classValue = this.dataset.value;
+        if (classValue && available.includes(classValue)) {
+          showClassContent(classValue);
+          saveClass(classValue);
+          // Close dropdown
+          const dropdown = document.getElementById("settingsDropdown");
+          if (dropdown) dropdown.classList.remove("active");
+        }
+      });
+    });
+  }
+
+  // Run on DOM ready
+  document.addEventListener("DOMContentLoaded", initClassSwitching);
+})();
+
+// Row click handler for data-href - just navigate, class is in storage
 document.addEventListener("click", (e) => {
   const target = e.target.closest("[data-href]");
   if (target && !e.target.closest("a")) {
@@ -186,19 +256,17 @@ document.addEventListener("click", (e) => {
   let lastScrollY = window.scrollY;
   let ticking = false;
   const header = document.querySelector(".site-header");
+  if (!header) return;
   const headerHeight = 50;
 
   function updateHeader() {
     const currentScrollY = window.scrollY;
 
     if (currentScrollY <= 0) {
-      // At top - always show
       header.style.transform = "translateY(0)";
     } else if (currentScrollY > lastScrollY && currentScrollY > headerHeight) {
-      // Scrolling down - hide
       header.style.transform = "translateY(-100%)";
     } else if (currentScrollY < lastScrollY) {
-      // Scrolling up - show
       header.style.transform = "translateY(0)";
     }
 

@@ -6,19 +6,22 @@
     <title>{{ .Name }}</title>
     <link rel="stylesheet" href="../../../styles.css">
 </head>
-<body>
+<body class="pilot-page">
     {{template "header"}}
 
     <div class="container">
         <header>
-            <div class="pilot-card">
-                <div class="pilot-card-name">{{ .Name }}</div>
-                <div class="pilot-card-label">рейтинг</div>
+            {{ range .Classes }}
+            <div class="pilot-card class-content" data-class="{{ .ParamValue }}">
+                <div class="pilot-card-name">{{ $.Name }}</div>
+                <div class="pilot-card-label">Рейтинг <span style="text-transform: none;">{{ .ClassName }}</span></div>
                 <div class="pilot-card-rating">{{ .Rating }}</div>
             </div>
+            {{ end }}
         </header>
 
-        <section>
+        {{ range .Classes }}
+        <section class="class-content" data-class="{{ .ParamValue }}">
             <h2 class="table-header">История соревнований</h2>
             <table class="data-table">
                 {{ range .Assignments }}
@@ -41,6 +44,7 @@
                 {{ end }}
             </table>
         </section>
+        {{ end }}
 
         <footer class="copyright">
             &copy; 2026 FPV Ladder Project
