@@ -63,12 +63,16 @@ func (p Position) Equal(other Position) bool {
 	return p.Int == other.Int && p.TieCount == other.TieCount
 }
 
-// MarshalYAML сериализует Position в строку
+// MarshalYAML сериализует Position как строку без кавычек
 func (p Position) MarshalYAML() (any, error) {
-	return p.String(), nil
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Value: p.String(),
+		Style: 0, // Plain style - без кавычек
+	}, nil
 }
 
-// UnmarshalYAML десериализует Position из строки
+// UnmarshalYAML десериализует Position из строки или числа
 func (p *Position) UnmarshalYAML(node *yaml.Node) error {
 	var s string
 	if err := node.Decode(&s); err != nil {
@@ -102,9 +106,13 @@ func (rp RelativePosition) String() string {
 	return fmt.Sprintf("%s/%d", rp.Position.String(), rp.Count)
 }
 
-// MarshalYAML превращает структуру в строку "pos/count"
+// MarshalYAML превращает структуру в строку "pos/count" без кавычек
 func (rp RelativePosition) MarshalYAML() (interface{}, error) {
-	return rp.String(), nil
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Value: rp.String(),
+		Style: 0, // Plain style - без кавычек
+	}, nil
 }
 
 // UnmarshalYAML парсит строку "pos/count" обратно в структуру
