@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -30,12 +31,14 @@ func main() {
 	var class string
 
 	// Kоманда install
+	var autoCreatePilots bool
 	var installCmd = &cobra.Command{
 		Use:   "install [file_path]",
 		Short: "Добавить событие в БД и пересчитать все рейтинги",
 		Args:  cobra.ExactArgs(1),
-		Run:   handleInstall,
+		Run:   func(cmd *cobra.Command, args []string) { handleInstall(cmd, args, autoCreatePilots) },
 	}
+	installCmd.Flags().BoolVar(&autoCreatePilots, "auto-create-pilots", false, "Автоматически создавать пилотов без ID")
 
 	// Kоманда pilot
 	var pilotCmd = &cobra.Command{
@@ -86,6 +89,40 @@ func main() {
 	}
 }
 
+// createPilots создаёт пилотов в базе с указанными именами и датой регистрации
+// Возвращает срез созданных ID или ошибку
+func createPilots(names []string, date model.Date) ([]model.Id, error) {
+	var ids []model.Id
+	for _, name := range names {
+		newId, err := db.GenerateNextId(DbPath, "pilot", date)
+		if err != nil {
+			return nil, fmt.Errorf("ошибка генерации ID для %s: %w", name, err)
+		}
+
+		// Строим путь: data/pilot/YYYY/MM-DD/N.yaml
+		parts := strings.Split(string(newId), "/")
+		targetPath := filepath.Join(DbPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
+
+		if err := createPilotFile(targetPath, newId, name); err != nil {
+			return nil, fmt.Errorf("ошибка записи файла для %s: %w", name, err)
+		}
+
+		ids = append(ids, newId)
+	}
+
+	for i, newId := range ids {
+		// Строим путь для вывода
+		parts := strings.Split(string(newId), "/")
+		targetPath := filepath.Join(DbPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
+
+		data, _ := os.ReadFile(targetPath)
+		fmt.Printf("[✓] Пилот добавлен: %s\n", targetPath)
+		fmt.Printf("------------\n%s------------\n", string(data))
+		_ = i // используем i чтобы избежать warning
+	}
+	return ids, nil
+}
+
 func handlePilotAdd(cmd *cobra.Command, names []string, date string) {
 	targetDate := model.Today()
 	if date != "" {
@@ -96,25 +133,9 @@ func handlePilotAdd(cmd *cobra.Command, names []string, date string) {
 		targetDate = model.Date(parsedDate)
 	}
 
-	for _, name := range names {
-		// Передаем targetDate в CalculateNextId, чтобы он искал в нужной папке
-		// Согласно твоей логике: год берется из даты, месяц-день — тоже.
-		newId, err := db.GenerateNextId(DbPath, "pilot", targetDate)
-		if err != nil {
-			log.Fatalf("[✕] Ошибка генерации ID: %v", err)
-		}
-
-		// Строим путь: data/pilot/YYYY/MM-DD/N.yaml
-		parts := strings.Split(string(newId), "/")
-		targetPath := filepath.Join(DbPath, "pilot", parts[0], parts[1], parts[2]+".yaml")
-
-		if err := createPilotFile(targetPath, newId, name); err != nil {
-			log.Fatalf("[✕] Ошибка записи файла: %v", err)
-		}
-
-		data, _ := os.ReadFile(targetPath)
-		fmt.Printf("[✓] Пилот добавлен: %s\n", targetPath)
-		fmt.Printf("------------\n%s------------\n", string(data))
+	_, err := createPilots(names, targetDate)
+	if err != nil {
+		log.Fatalf("[✕] %v", err)
 	}
 }
 
@@ -144,10 +165,57 @@ func createPilotFile(path string, id model.Id, name string) error {
 	return err
 }
 
-func handleInstall(cmd *cobra.Command, args []string) {
+// autoCreateMissingPilots создаёт пилотов в базе для тех у кого нет ID
+// Пилоты сортируются по алфавиту и получают ID последовательно
+func autoCreateMissingPilots(event *model.Event) error {
+	// Собираем пары (имя, индекс) для пилотов без ID
+	type pair struct {
+		name  string
+		index int
+	}
+	var pairs []pair
+
+	for i, p := range event.Pilots {
+		if p.Id == "" {
+			pairs = append(pairs, pair{name: p.Name, index: i})
+		}
+	}
+
+	if len(pairs) == 0 {
+		return nil
+	}
+
+	// Сортируем по имени
+	slices.SortFunc(pairs, func(a, b pair) int {
+		return strings.Compare(strings.ToLower(a.name), strings.ToLower(b.name))
+	})
+
+	// Разделяем на два среза после сортировки
+	names := make([]string, len(pairs))
+	indices := make([]int, len(pairs))
+	for i, p := range pairs {
+		names[i] = p.name
+		indices[i] = p.index
+	}
+
+	// Создаём всех пилотов
+	ids, err := createPilots(names, event.Date)
+	if err != nil {
+		return err
+	}
+
+	// Обновляем ID в событии
+	for i, idx := range indices {
+		event.Pilots[idx].Id = ids[i]
+	}
+
+	return nil
+}
+
+func handleInstall(cmd *cobra.Command, args []string, autoCreatePilots bool) {
 	path := args[0]
 
-	err := validateEvent(path)
+	err := validateEvent(path, autoCreatePilots)
 	if err != nil {
 		log.Fatalf("[✕] Файл невалиден и не готов к работе: %s\n", err)
 	}
@@ -155,6 +223,13 @@ func handleInstall(cmd *cobra.Command, args []string) {
 	event, err := db.ReadEventPath(path)
 	if err != nil {
 		log.Fatalf("[✕] Не удалось прочитать эвент: %s\n", err)
+	}
+
+	// Автоматическое создание пилотов без ID
+	if autoCreatePilots {
+		if err := autoCreateMissingPilots(event); err != nil {
+			log.Fatalf("[✕] Не удалось создать пилотов: %s\n", err)
+		}
 	}
 
 	presumedId, err := db.GenerateNextId(DbPath, "event", event.Date)
@@ -343,7 +418,7 @@ func copyFile(src, dst string) error {
 }
 
 // validateEvent проверяет файл на соответствие модели Event
-func validateEvent(path string) error {
+func validateEvent(path string, skipIdCheck bool) error {
 
 	event, err := db.ReadEventPath(path)
 	if err != nil {
@@ -366,20 +441,22 @@ func validateEvent(path string) error {
 	positionGroups := make(map[int][]model.PilotEntry)
 
 	for _, p := range event.Pilots {
-		// А. Проверка наличия ID (Обязательно по твоему требованию)
+		// А. Проверка наличия ID (пропускается если используется --auto-create-pilots)
 		idStr := string(p.Id)
-		if idStr == "" || idStr == "~" {
+		if !skipIdCheck && (idStr == "" || idStr == "~") {
 			return fmt.Errorf("у пилота '%s' не указан ID (id обязателен)", p.Name)
 		}
 
-		// Б. Уникальность ID внутри этапа
-		if eventPilotIds[idStr] {
-			return fmt.Errorf("дубликат пилота с ID %s", idStr)
-		}
-		eventPilotIds[idStr] = true
+		// Б. Уникальность ID внутри этапа (только для непустых ID)
+		if idStr != "" && idStr != "~" {
+			if eventPilotIds[idStr] {
+				return fmt.Errorf("дубликат пилота с ID %s", idStr)
+			}
+			eventPilotIds[idStr] = true
 
-		// Собираем для верификации по базе (общий список по всему файлу)
-		allUniquePilots[idStr] = p
+			// Собираем для верификации по базе (общий список по всему файлу)
+			allUniquePilots[idStr] = p
+		}
 
 		// В. Проверка позиции
 		if p.Position.Int <= 0 {
@@ -439,35 +516,69 @@ func validatePositions(positionGroups map[int][]model.PilotEntry) error {
 			return fmt.Errorf("пропущено место %d (последовательность прервана)", expectedPos)
 		}
 
-		// Проверяем согласованность ничьей
-		for _, p := range pilots {
-			if p.Position.TieCount == 0 {
-				// Нет ничьей — должна быть только одна позиция
-				if len(pilots) != 1 {
+		// Проверяем согласованность ничьей и команд
+		// Если несколько пилотов на позиции, проверяем что это либо ничья, либо команды
+		if len(pilots) > 1 {
+			// Проверяем есть ли ничья
+			hasTie := false
+			for _, p := range pilots {
+				if p.Position.TieCount > 0 {
+					hasTie = true
+					break
+				}
+			}
+
+			// Если нет ничьи, проверяем что все пилоты из команд (Team > 0)
+			if !hasTie {
+				allHaveTeams := true
+				for _, p := range pilots {
+					if p.Team == 0 {
+						allHaveTeams = false
+						break
+					}
+				}
+				if !allHaveTeams {
 					return fmt.Errorf("позиция %d: несколько пилотов без указания ничьей (нужен формат %d-%d)",
 						expectedPos, expectedPos, expectedPos+len(pilots)-1)
 				}
 			} else {
 				// Есть ничья — проверяем согласованность
-				expectedEnd := expectedPos + p.Position.TieCount
-				actualEnd := expectedPos + len(pilots) - 1
-				if expectedEnd != actualEnd {
-					return fmt.Errorf("позиция %s: несогласованная ничья (ожидалось %d-%d, получено %d-%d)",
-						p.Position.String(), expectedPos, expectedEnd, expectedPos, actualEnd)
+				for _, p := range pilots {
+					expectedEnd := expectedPos + p.Position.TieCount
+					actualEnd := expectedPos + len(pilots) - 1
+					if expectedEnd != actualEnd {
+						return fmt.Errorf("позиция %s: несогласованная ничья (ожидалось %d-%d, получено %d-%d)",
+							p.Position.String(), expectedPos, expectedEnd, expectedPos, actualEnd)
+					}
 				}
 			}
 		}
 
-		// Проверяем команды: пилоты с одинаковой позицией должны быть из разных команд
-		// или не иметь команды (Team = 0)
-		teamSet := make(map[int]bool)
-		for _, p := range pilots {
-			if p.Team > 0 {
-				if teamSet[p.Team] {
-					return fmt.Errorf("позиция %d: пилоты из одной команды %d не могут делить место",
-						expectedPos, p.Team)
+		// Проверяем команды: если несколько пилотов на позиции без ничьи,
+		// они должны быть из одной команды (это команда) или без команд
+		if len(pilots) > 1 {
+			// Проверяем есть ли ничья
+			hasTie := false
+			for _, p := range pilots {
+				if p.Position.TieCount > 0 {
+					hasTie = true
+					break
 				}
-				teamSet[p.Team] = true
+			}
+
+			// Если нет ничьи и есть команды - все должны быть из одной команды
+			if !hasTie {
+				var teamId int = -1
+				for _, p := range pilots {
+					if p.Team > 0 {
+						if teamId == -1 {
+							teamId = p.Team
+						} else if p.Team != teamId {
+							return fmt.Errorf("позиция %d: пилоты из разных команд не могут делить место без ничьей",
+								expectedPos)
+						}
+					}
+				}
 			}
 		}
 

@@ -179,7 +179,7 @@ func (m *EventModel) validatePositions() error {
 }
 
 // Save сохраняет событие в файл
-// Сохраняются только пилоты с IdKind == IdKindExplicit (явно подтверждённые ID)
+// Для пилотов с IdKind != Explicit ID не сохраняется (оставляется пустым)
 func (m *EventModel) Save() error {
 	// Конвертируем команды обратно в пилотов
 	pilots := []model.PilotEntry{}
@@ -193,34 +193,33 @@ func (m *EventModel) Save() error {
 
 		if r.IsSingle() {
 			// Одиночный пилот - Team:0
-			// Сохраняем только если IdKind == Explicit
-			if r.Pilots[0].IdKind == IdKindExplicit {
-				pilots = append(pilots, model.PilotEntry{
-					Position: r.Position,
-					Team:     0,
-					Id:       r.Pilots[0].Id,
-					Name:     r.Pilots[0].Name,
-				})
+			// Сохраняем ID только если IdKind == Explicit
+			id := r.Pilots[0].Id
+			if r.Pilots[0].IdKind != IdKindExplicit {
+				id = ""
 			}
+			pilots = append(pilots, model.PilotEntry{
+				Position: r.Position,
+				Team:     0,
+				Id:       id,
+				Name:     r.Pilots[0].Name,
+			})
 		} else {
 			// Команда из нескольких пилотов - назначаем Team номер
-			// Сохраняем только пилотов с IdKind == Explicit
-			teamPilots := []model.PilotEntry{}
 			for _, p := range r.Pilots {
-				if p.IdKind == IdKindExplicit {
-					teamPilots = append(teamPilots, model.PilotEntry{
-						Position: r.Position,
-						Team:     teamCounter,
-						Id:       p.Id,
-						Name:     p.Name,
-					})
+				// Сохраняем ID только если IdKind == Explicit
+				id := p.Id
+				if p.IdKind != IdKindExplicit {
+					id = ""
 				}
+				pilots = append(pilots, model.PilotEntry{
+					Position: r.Position,
+					Team:     teamCounter,
+					Id:       id,
+					Name:     p.Name,
+				})
 			}
-			// Сохраняем команду только если есть хотя бы один пилот с explicit ID
-			if len(teamPilots) > 0 {
-				pilots = append(pilots, teamPilots...)
-				teamCounter++
-			}
+			teamCounter++
 		}
 	}
 
