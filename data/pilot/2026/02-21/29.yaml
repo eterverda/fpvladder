@@ -27,29 +27,3 @@ careers:
         position: 40/42
         delta: -334
         value: 988
-  - class: drone-racing
-    ratings:
-      - num: 1
-        event:
-          id: 2026/02-21/3
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Квалификации
-        position: 12/33
-        delta: 102
-        value: 1302
-      - num: 2
-        event:
-          id: 2026/02-21/4
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Финалы
-        position: 9/16
-        delta: 20
-        value: 1322
-      - num: 3
-        event:
-          id: 2026/02-28/5
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Квалификации
-        position: 40/42
-        delta: -334
-        value: 988

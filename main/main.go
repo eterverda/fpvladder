@@ -273,7 +273,7 @@ func recalculateRatings(event *model.Event) error {
 		pilots[i] = pilot
 	}
 
-	for class != "" {
+	if class != "" {
 		fmt.Printf("[ ] Обработка этапа класса %s\n", string(class))
 
 		// сначала собираем все данные

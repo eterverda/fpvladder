@@ -19,21 +19,3 @@ careers:
         position: 3/16
         delta: 69
         value: 1521
-  - class: drone-racing
-    ratings:
-      - num: 1
-        event:
-          id: 2026/02-28/5
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Квалификации
-        position: 5/42
-        delta: 252
-        value: 1452
-      - num: 2
-        event:
-          id: 2026/02-28/6
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Финалы
-        position: 3/16
-        delta: 69
-        value: 1521

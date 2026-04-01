@@ -19,21 +19,3 @@ careers:
         position: 12/16
         delta: -65
         value: 1297
-  - class: drone-racing
-    ratings:
-      - num: 1
-        event:
-          id: 2026/02-21/3
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Квалификации
-        position: 9/33
-        delta: 162
-        value: 1362
-      - num: 2
-        event:
-          id: 2026/02-21/4
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Финалы
-        position: 12/16
-        delta: -65
-        value: 1297

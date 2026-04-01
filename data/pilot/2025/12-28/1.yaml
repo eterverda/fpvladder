@@ -35,37 +35,3 @@ careers:
         position: 7/16
         delta: 21
         value: 1417
-  - class: drone-racing
-    ratings:
-      - num: 1
-        event:
-          id: 2025/12-28/1
-          date: 2025-12-28
-          name: Фан-Кон ёлка 2026 > Квалификации
-        position: 10/17
-        delta: -30
-        value: 1170
-      - num: 2
-        event:
-          id: 2025/12-28/2
-          date: 2025-12-28
-          name: Фан-Кон ёлка 2026 > Финалы
-        position: 10/16
-        delta: -29
-        value: 1141
-      - num: 3
-        event:
-          id: 2026/02-21/3
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Квалификации
-        position: 7/33
-        delta: 255
-        value: 1396
-      - num: 4
-        event:
-          id: 2026/02-21/4
-          date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Финалы
-        position: 7/16
-        delta: 21
-        value: 1417

@@ -11,13 +11,3 @@ careers:
         position: 18/42
         delta: 70
         value: 1270
-  - class: drone-racing
-    ratings:
-      - num: 1
-        event:
-          id: 2026/02-28/5
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Квалификации
-        position: 18/42
-        delta: 70
-        value: 1270
