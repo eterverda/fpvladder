@@ -55,8 +55,10 @@
   }
 
   function updateThemeButtons(theme) {
-    document.querySelectorAll(".theme-option").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.value === theme);
+    document.querySelectorAll(".menu-option").forEach((btn) => {
+      if (btn.dataset.value === "light" || btn.dataset.value === "dark") {
+        btn.classList.toggle("active", btn.dataset.value === theme);
+      }
     });
   }
 
@@ -117,7 +119,11 @@
 
       document.addEventListener("click", closeDropdownOnClickOutside);
 
-      document.querySelectorAll(".theme-option").forEach((btn) => {
+      document.querySelectorAll(".menu-option").forEach((btn) => {
+        // Only theme options (light/dark)
+        const value = btn.dataset.value;
+        if (value !== "light" && value !== "dark") return;
+
         btn.addEventListener("click", function () {
           const theme = this.dataset.value;
           if (theme) {
@@ -177,13 +183,19 @@ function saveClass(classValue) {
     document.querySelectorAll(".class-content").forEach((el) => {
       if (el.dataset.class === classValue) {
         el.style.display = "block";
+
+        // Hide future events section if no events for this class
+        const futureSection = el.querySelector(".future-events-section");
+        if (futureSection && futureSection.dataset.hasEvents === "false") {
+          futureSection.style.display = "none";
+        }
       } else {
         el.style.display = "none";
       }
     });
 
     // Update active state in dropdown
-    document.querySelectorAll(".class-option").forEach((btn) => {
+    document.querySelectorAll(".menu-option").forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.value === classValue);
     });
   }
@@ -192,19 +204,30 @@ function saveClass(classValue) {
   function initClassSwitching() {
     const available = getAvailableClasses();
 
-    // Hide class options that are not available on this page
-    document.querySelectorAll(".class-option").forEach((btn) => {
-      const classValue = btn.dataset.value;
-      if (classValue && !available.includes(classValue)) {
+    // Hide class options that are not available on this page (skip theme options)
+    let visibleClassCount = 0;
+    document.querySelectorAll(".menu-option").forEach((btn) => {
+      const value = btn.dataset.value;
+      // Skip theme options
+      if (value === "light" || value === "dark") return;
+
+      if (value && !available.includes(value)) {
         btn.style.display = "none";
+      } else {
+        visibleClassCount++;
       }
     });
 
-    // Hide class section title if no classes available
-    const hasVisibleClasses = document.querySelectorAll('.class-option[style="display: none;"]').length < 4;
+    // Hide class section title and divider if no classes available
     const classTitle = document.querySelector(".settings-title");
-    if (classTitle && classTitle.textContent === "Класс" && !hasVisibleClasses) {
+    if (classTitle && classTitle.textContent === "Класс" && visibleClassCount === 0) {
       classTitle.style.display = "none";
+    }
+
+    // Hide divider if no classes (divider is between class and theme sections)
+    const divider = document.getElementById("classThemeDivider");
+    if (divider && visibleClassCount === 0) {
+      divider.style.display = "none";
     }
 
     if (available.length === 0) return;
@@ -224,8 +247,11 @@ function saveClass(classValue) {
     // Save class (in case we picked first available)
     saveClass(targetClass);
 
-    // Setup dropdown option clicks
-    document.querySelectorAll(".class-option").forEach((btn) => {
+    // Setup class option clicks
+    document.querySelectorAll(".menu-option").forEach((btn) => {
+      // Skip theme options (light/dark)
+      if (btn.dataset.value === "light" || btn.dataset.value === "dark") return;
+
       btn.addEventListener("click", function () {
         const classValue = this.dataset.value;
         if (classValue && available.includes(classValue)) {

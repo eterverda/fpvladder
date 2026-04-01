@@ -254,6 +254,13 @@ header {
     white-space: nowrap;
 }
 
+/* Pilot page: wider spacer column for position (3 chars more) */
+.pilot-page .col-spacer {
+    width: calc(var(--table-first-col-width) + 3ch);
+    min-width: calc(var(--table-first-col-width) + 3ch);
+    max-width: calc(var(--table-first-col-width) + 3ch);
+}
+
 .col-name {
     font-weight: 400;
     font-size: 1rem;
@@ -581,7 +588,19 @@ header {
     padding: 0 8px 8px 38px;
 }
 
-.theme-option {
+/* Adjust body padding for fixed header */
+body {
+    padding-top: 90px;
+}
+
+/* Dropdown menu options */
+.settings-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 12px 0;
+}
+
+.menu-option {
     width: 100%;
     border: none;
     background: transparent;
@@ -595,21 +614,21 @@ header {
     box-sizing: border-box;
 }
 
-.theme-option .theme-check {
+.menu-option .menu-check {
     width: 16px;
     margin-left: 0;
 }
 
-.theme-option .theme-name {
+.menu-option .menu-label {
     margin-left: 0;
 }
 
-.theme-option:hover,
-.theme-option.active {
+.menu-option:hover,
+.menu-option.active {
     background: var(--hover-bg);
 }
 
-.theme-check {
+.menu-check {
     width: 12px;
     height: 16px;
     margin-left: -18px;
@@ -623,75 +642,16 @@ header {
     justify-content: center;
 }
 
-.theme-check svg {
+.menu-check svg {
     width: 12px;
     height: 12px;
 }
 
-.theme-option.active .theme-check {
+.menu-option.active .menu-check {
     opacity: 1;
 }
 
-.theme-name {
-    flex: 1;
-    text-align: left;
-    padding-left: 0;
-}
-
-/* Adjust body padding for fixed header */
-body {
-    padding-top: 90px;
-}
-
-/* Class options in dropdown */
-.settings-divider {
-    height: 1px;
-    background: var(--line);
-    margin: 12px 0;
-}
-
-.class-option {
-    width: 100%;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 6px 16px;
-    color: var(--text);
-    font-size: 0.85rem;
-    transition: all 0.15s;
-    box-sizing: border-box;
-}
-
-.class-option:hover,
-.class-option.active {
-    background: var(--hover-bg);
-}
-
-.class-check {
-    width: 16px;
-    height: 16px;
-    margin-right: 6px;
-    text-align: left;
-    color: var(--text);
-    opacity: 0;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.class-check svg {
-    width: 12px;
-    height: 12px;
-}
-
-.class-option.active .class-check {
-    opacity: 1;
-}
-
-.class-name {
+.menu-label {
     flex: 1;
     text-align: left;
 }

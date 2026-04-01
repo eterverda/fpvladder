@@ -15,7 +15,7 @@
         {{ range .Classes }}
         <div class="class-content" data-class="{{ .ParamValue }}">
 
-            <section>
+            <section class="future-events-section" data-has-events="{{ if .FutureEvents }}true{{ else }}false{{ end }}">
                 <h2 class="table-header">
                     Предстоящие события
                     <a href="webcal://fpvladder.ru/calendar.ics" type="text/calendar" style="text-decoration: none; margin-left: 8px;" title="Подписаться на календарь">

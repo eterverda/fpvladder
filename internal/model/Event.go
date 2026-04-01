@@ -52,5 +52,5 @@ type FutureEvent struct {
 	Description string    `yaml:"description,omitempty"`
 	Link        Link      `yaml:"link,omitempty"`
 	Organizer   Organizer `yaml:"organizer,omitempty"`
-	Classes     []Class   `yaml:"class"`
+	Classes     []Class   `yaml:"classes"`
 }
