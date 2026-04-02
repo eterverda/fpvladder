@@ -148,8 +148,10 @@ header {
     cursor: pointer;
 }
 
-.data-row:hover {
-    background-color: var(--hover-bg);
+@media (hover: hover) {
+    .data-row:hover {
+        background-color: var(--hover-bg);
+    }
 }
 
 .data-row td {
@@ -175,8 +177,10 @@ header {
     transition: background 0.1s;
 }
 
-.event-group:hover {
-    background-color: var(--hover-bg);
+@media (hover: hover) {
+    .event-group:hover {
+        background-color: var(--hover-bg);
+    }
 }
 
 .event-group:last-child {
@@ -237,6 +241,16 @@ header {
 
 .data-row:hover .col-hover-info {
     opacity: 1;
+}
+
+.touch-device .col-hover-info {
+    opacity: 1;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .col-hover-info {
+        opacity: 1;
+    }
 }
 
 .col-pos {
@@ -681,6 +695,48 @@ body {
     display: none;
 }
 
+/* Favorites tags (non-interactive active icons) */
+.favorites-tags {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 0 6px;
+    vertical-align: middle;
+}
+
+.favorites-tags .tag-icon {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    display: none;
+}
+
+.favorites-tags .tag-icon.active {
+    display: inline-block;
+}
+
+.favorites-tags .tag-icon.heart.active {
+    stroke: #e74c3c;
+    fill: #e74c3c;
+}
+
+.favorites-tags .tag-icon.star.active {
+    stroke: #f1c40f;
+    fill: #f1c40f;
+}
+
+.favorites-tags .tag-icon.flag.active {
+    stroke: #3498db;
+    fill: #3498db;
+}
+
+/* Hide tags when hover widget appears */
+.col-name:hover .favorites-tags,
+.col-event:hover .favorites-tags {
+    display: none;
+}
+
 /* Favorites inline widget (oval with 3 icons) */
 .favorites-widget {
     cursor: pointer;
@@ -706,34 +762,20 @@ body {
     cursor: pointer;
 }
 
-/* Show widget on row hover */
+/* Inline widget inside table cells is hidden by default (tags show active icons instead) */
+.col-name .favorites-widget,
+.col-event .favorites-widget {
+    display: none;
+}
+
+/* Show widget on row hover (desktop) */
 .col-name:hover .favorites-widget,
 .col-event:hover .favorites-widget {
+    display: inline-flex;
     opacity: 1;
     pointer-events: auto;
     gap: 6px;
-    padding: 4px 10px;
-    margin: -4px 0 -4px 8px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background:
-        linear-gradient(90deg, rgba(231, 76, 60, 0.07), rgba(241, 196, 15, 0.07), rgba(52, 152, 219, 0.07)), var(--bg);
-    box-shadow: 0 2px 10px var(--dropdown-shadow);
-}
-
-/* Active icons are always visible, even without hover */
-.favorites-widget .widget-icon.active {
-    display: inline-block;
-    opacity: 1;
-}
-
-/* When hovering on row, show oval with all icons */
-.col-name:hover .favorites-widget,
-.col-event:hover .favorites-widget {
-    opacity: 1;
-    pointer-events: auto;
-    gap: 6px;
-    padding: 4px 10px;
+    padding: 4px 7px;
     margin: -4px 0 -4px 8px;
     border: 1px solid var(--line);
     border-radius: 16px;
@@ -748,31 +790,9 @@ body {
     display: inline-block;
 }
 
-/* Without hover on row, show only active icons without oval */
-.favorites-widget {
-    opacity: 1;
-    pointer-events: auto;
-    gap: 4px;
-    padding: 0;
-    margin: 0 0 0 8px;
-    border: none;
-    background: transparent;
-}
-
 /* Hide inactive icons when not hovering on row */
 .favorites-widget .widget-icon:not(.active) {
     display: none;
-}
-
-/* By default, show only active icons */
-.favorites-widget .widget-icon:not(.active) {
-    display: none;
-}
-
-/* On row hover, show all icons */
-.col-name:hover .favorites-widget .widget-icon:not(.active),
-.col-event:hover .favorites-widget .widget-icon:not(.active) {
-    display: inline-block;
 }
 
 /* Hover on inactive icon - gray fill */

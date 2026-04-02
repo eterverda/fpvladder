@@ -12,6 +12,9 @@
     <div class="container">
         <header>
             <h1>{{ .Name }}</h1>
+            <div class="event-favorites">
+                {{template "favorites-widget" .Id}}
+            </div>
             <div class="event-date">{{ .Date }}</div>
         </header>
 

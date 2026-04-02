@@ -13,7 +13,7 @@
         <header>
             <h1>{{ .Name }}</h1>
             <div class="event-favorites">
-                {{template "favorites-widget" dict "id" .Id}}
+                {{template "favorites-widget" .Id}}
             </div>
             <div class="event-date">{{ .Date }}</div>
         </header>
@@ -26,7 +26,7 @@
                     <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
                         <td class="col-pos">{{ .Position }}</td>
                         <td class="col-name">
-                            <a href="{{ .Href }}">{{ .Name }} {{template "favorites-widget" dict "id" .Id}}</a>
+                            <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
                         </td>
                         <td class="col-assignment">
                             {{ .Assignment }}

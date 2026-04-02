@@ -256,22 +256,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		Classes:     classes,
 	}
 
-	tmpl, err := template.New("index.tmpl").Funcs(template.FuncMap{
-		"dict": func(values ...interface{}) (map[string]interface{}, error) {
-			if len(values)%2 != 0 {
-				return nil, fmt.Errorf("invalid dict call")
-			}
-			dict := make(map[string]interface{}, len(values)/2)
-			for i := 0; i < len(values); i += 2 {
-				key, ok := values[i].(string)
-				if !ok {
-					return nil, fmt.Errorf("dict keys must be strings")
-				}
-				dict[key] = values[i+1]
-			}
-			return dict, nil
-		},
-	}).ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -333,22 +318,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	}
 
 	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
-	tmpl, err := template.New("pilot.tmpl").Funcs(template.FuncMap{
-		"dict": func(values ...interface{}) (map[string]interface{}, error) {
-			if len(values)%2 != 0 {
-				return nil, fmt.Errorf("invalid dict call")
-			}
-			dict := make(map[string]interface{}, len(values)/2)
-			for i := 0; i < len(values); i += 2 {
-				key, ok := values[i].(string)
-				if !ok {
-					return nil, fmt.Errorf("dict keys must be strings")
-				}
-				dict[key] = values[i+1]
-			}
-			return dict, nil
-		},
-	}).ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -386,22 +356,7 @@ func generateEvent(outDir string, event *model.Event) error {
 		})
 	}
 	path := db.ResolveIdPathExt(outDir, "event", event.Id, "html")
-	tmpl, err := template.New("event.tmpl").Funcs(template.FuncMap{
-		"dict": func(values ...interface{}) (map[string]interface{}, error) {
-			if len(values)%2 != 0 {
-				return nil, fmt.Errorf("invalid dict call")
-			}
-			dict := make(map[string]interface{}, len(values)/2)
-			for i := 0; i < len(values); i += 2 {
-				key, ok := values[i].(string)
-				if !ok {
-					return nil, fmt.Errorf("dict keys must be strings")
-				}
-				dict[key] = values[i+1]
-			}
-			return dict, nil
-		},
-	}).ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -422,6 +377,7 @@ func generateEvent(outDir string, event *model.Event) error {
 
 func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 	var page = &eventPage{
+		Id:          event.Id,
 		Name:        strings.ReplaceAll(event.Name, ">", "⟫"),
 		Description: template.HTML(md2html(event.Description)),
 	}

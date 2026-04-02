@@ -19,7 +19,7 @@
             </div>
             {{ end }}
             <div class="pilot-header-favorites">
-                {{template "favorites-widget" dict "id" .Id}}
+                {{template "favorites-widget" .Id}}
             </div>
         </header>
 
@@ -31,7 +31,7 @@
                 <tbody class="event-group" data-href="{{ .Href }}">
                     <tr class="event-row" data-id="{{ .Id }}">
                         <td class="col-spacer">{{ .Position }}</td>
-                        <td class="col-event"><a href="{{ .Href }}">{{ .Name }} {{template "favorites-widget" dict "id" .Id}}</a></td>
+                        <td class="col-event"><a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a></td>
                         <td class="col-date">{{ .Date }}</td>
                     </tr>
                     <tr class="assignment-row">

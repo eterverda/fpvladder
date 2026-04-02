@@ -504,9 +504,9 @@ function saveClass(classValue) {
     });
 
     // Update empty states for visible class only
-    let tablesSelector = ".pilot-table, .event-table";
+    let tablesSelector = ".pilot-table, .event-table, .future-event-table";
     if (visibleClass) {
-      tablesSelector = `.class-content[data-class="${visibleClass}"] .pilot-table, .class-content[data-class="${visibleClass}"] .event-table`;
+      tablesSelector = `.class-content[data-class="${visibleClass}"] .pilot-table, .class-content[data-class="${visibleClass}"] .event-table, .class-content[data-class="${visibleClass}"] .future-event-table`;
     }
 
     document.querySelectorAll(tablesSelector).forEach((table) => {
@@ -538,6 +538,7 @@ function saveClass(classValue) {
         const id = this.dataset.id;
         const type = this.dataset.type;
         toggleFavorite(id, type);
+        updateFavoritesWidgets();
       });
     });
 
@@ -554,6 +555,7 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "heart");
           this.classList.toggle("active");
+          updateFavoritesWidgets();
         });
       }
 
@@ -565,6 +567,7 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "star");
           this.classList.toggle("active");
+          updateFavoritesWidgets();
         });
       }
 
@@ -576,6 +579,7 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "flag");
           this.classList.toggle("active");
+          updateFavoritesWidgets();
         });
       }
     });
@@ -624,24 +628,24 @@ function saveClass(classValue) {
   function updateFavoritesWidgets() {
     const favorites = getFavorites();
 
-    document.querySelectorAll(".favorites-widget").forEach((widget) => {
+    document.querySelectorAll(".favorites-widget, .favorites-tags").forEach((widget) => {
       const id = widget.dataset.id;
       const tags = favorites[id] || [];
 
       // Update heart
-      const heart = widget.querySelector(".widget-icon.heart");
+      const heart = widget.querySelector(".widget-icon.heart, .tag-icon.heart");
       if (heart) {
         heart.classList.toggle("active", tags.includes("heart"));
       }
 
       // Update star
-      const star = widget.querySelector(".widget-icon.star");
+      const star = widget.querySelector(".widget-icon.star, .tag-icon.star");
       if (star) {
         star.classList.toggle("active", tags.includes("star"));
       }
 
       // Update flag
-      const flag = widget.querySelector(".widget-icon.flag");
+      const flag = widget.querySelector(".widget-icon.flag, .tag-icon.flag");
       if (flag) {
         flag.classList.toggle("active", tags.includes("flag"));
       }
