@@ -110,9 +110,9 @@
         const path = window.location.pathname;
         const isHomePage = document.body.dataset.hasBack === "false" || path === "/" || path.endsWith("/index.html");
         if (isHomePage) {
-          backArrow.style.display = "none";
+          backArrow.style.visibility = "hidden";
         } else {
-          backArrow.style.display = "flex";
+          backArrow.style.visibility = "visible";
           backArrow.href = rootPath;
         }
       }
@@ -223,9 +223,7 @@ function saveClass(classValue) {
     });
 
     // Re-apply favorites filter for visible class only
-    if (typeof window.applyFavoritesFilter === "function") {
-      window.applyFavoritesFilter(classValue);
-    }
+    window.refreshFavoritesUI(classValue);
   }
 
   // Initialize class switching
@@ -304,31 +302,43 @@ function saveClass(classValue) {
   const FAVORITES_KEY = "fpvladder-favorites";
   const FAVORITES_FILTER_KEY = "fpvladder-filters";
 
-  // Three independent filters: heart, star, flag
-  let activeFilters = {
-    heart: false,
-    star: false,
-    flag: false,
-  };
+  // Single active filter: heart, star, flag, or null
+  let activeFilter = null;
 
-  function getActiveFilters() {
+  function getActiveFilter() {
     try {
       const data = localStorage.getItem(FAVORITES_FILTER_KEY);
-      if (data) return JSON.parse(data);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (typeof parsed === "string") return parsed;
+        if (parsed && typeof parsed === "object") {
+          if (parsed.heart) return "heart";
+          if (parsed.star) return "star";
+          if (parsed.flag) return "flag";
+        }
+      }
     } catch (e) {
       // Try cookies
     }
     try {
       const match = document.cookie.match(new RegExp(FAVORITES_FILTER_KEY + "=([^;]+)"));
-      if (match) return JSON.parse(decodeURIComponent(match[1]));
+      if (match) {
+        const parsed = JSON.parse(decodeURIComponent(match[1]));
+        if (typeof parsed === "string") return parsed;
+        if (parsed && typeof parsed === "object") {
+          if (parsed.heart) return "heart";
+          if (parsed.star) return "star";
+          if (parsed.flag) return "flag";
+        }
+      }
     } catch (e) {
       // Ignore
     }
-    return { heart: false, star: false, flag: false };
+    return null;
   }
 
-  function saveActiveFilters(filters) {
-    const data = JSON.stringify(filters);
+  function saveActiveFilter(filter) {
+    const data = JSON.stringify(filter);
     try {
       localStorage.setItem(FAVORITES_FILTER_KEY, data);
     } catch (e) {
@@ -410,28 +420,6 @@ function saveClass(classValue) {
     }
 
     saveFavorites(favorites);
-    updateSearchFiltersVisibility();
-  }
-
-  function isFavorite(id, filterType) {
-    const favorites = getFavorites();
-    return favorites[id] && favorites[id].includes(filterType);
-  }
-
-  function hasFavorites() {
-    const favorites = getFavorites();
-    return Object.keys(favorites).length > 0;
-  }
-
-  function updateFavoriteButtons() {
-    document.querySelectorAll(".favorite-inline").forEach((el) => {
-      const id = el.dataset.id;
-      if (isFavorite(id, "heart")) {
-        el.classList.add("active");
-      } else {
-        el.classList.remove("active");
-      }
-    });
   }
 
   function updateSearchFiltersVisibility() {
@@ -452,7 +440,7 @@ function saveClass(classValue) {
     searchFilters.forEach((filterBtn) => {
       const filterType = filterBtn.dataset.filter;
       const hasItems = Object.values(favorites).some((tags) => tags.includes(filterType));
-      const isActive = activeFilters[filterType];
+      const isActive = activeFilter === filterType;
 
       if (hasItems || isActive) {
         filterBtn.classList.add("visible");
@@ -479,24 +467,15 @@ function saveClass(classValue) {
       const id = row.dataset.id;
       const itemTags = favorites[id] || [];
 
-      // Check which filters are active
-      const activeFilterTypes = [];
-      if (activeFilters.heart) activeFilterTypes.push("heart");
-      if (activeFilters.star) activeFilterTypes.push("star");
-      if (activeFilters.flag) activeFilterTypes.push("flag");
-
-      // If no filters active, show all (unless search is active)
-      if (activeFilterTypes.length === 0) {
+      // If no filter active, show all (unless search is active)
+      if (!activeFilter) {
         if (!isSearchActive) {
           row.style.display = "";
         }
         return;
       }
 
-      // Check if item has ALL active filters (AND logic)
-      const hasAllActiveFilters = activeFilterTypes.every((filter) => itemTags.includes(filter));
-
-      if (hasAllActiveFilters && !isSearchActive) {
+      if (itemTags.includes(activeFilter) && !isSearchActive) {
         row.style.display = "";
       } else {
         row.style.display = "none";
@@ -525,27 +504,14 @@ function saveClass(classValue) {
     });
   }
 
-  // Expose to global scope for class switching
-  window.applyFavoritesFilter = applyFavoritesFilter;
-  window.updateSearchFiltersVisibility = updateSearchFiltersVisibility;
+  // Expose to global scope for class switching and search
+  window.refreshFavoritesUI = refreshFavoritesUI;
 
   function initFavorites() {
-    // Setup favorite inline icons (legacy)
-    document.querySelectorAll(".favorite-inline").forEach((el) => {
-      el.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = this.dataset.id;
-        const type = this.dataset.type;
-        toggleFavorite(id, type);
-        updateFavoritesWidgets();
-      });
-    });
-
     // Setup favorites widget (oval with 3 icons)
     document.querySelectorAll(".favorites-widget").forEach((widget) => {
       const id = widget.dataset.id;
-      const row = widget.closest(".data-row, .event-row");
+      const row = widget.closest(".data-row");
 
       // Heart icon
       const heart = widget.querySelector(".widget-icon.heart");
@@ -555,7 +521,7 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "heart");
           this.classList.toggle("active");
-          updateFavoritesWidgets();
+          refreshFavoritesUI();
         });
       }
 
@@ -567,7 +533,7 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "star");
           this.classList.toggle("active");
-          updateFavoritesWidgets();
+          refreshFavoritesUI();
         });
       }
 
@@ -579,17 +545,13 @@ function saveClass(classValue) {
           e.stopPropagation();
           toggleFavorite(id, "flag");
           this.classList.toggle("active");
-          updateFavoritesWidgets();
+          refreshFavoritesUI();
         });
       }
     });
 
-    // Setup favorites filter
-    const filterBtns = document.querySelectorAll(".favorites-filter");
-
     // Restore saved filter state
-    // Initialize active filters from storage
-    activeFilters = getActiveFilters();
+    activeFilter = getActiveFilter();
 
     // Setup search filters (heart, star, flag)
     const searchFilters = document.querySelectorAll(".search-filter");
@@ -604,51 +566,42 @@ function saveClass(classValue) {
       }
 
       // Set initial active state
-      if (activeFilters[filterType]) {
+      if (activeFilter === filterType) {
         filterBtn.classList.add("active");
       }
 
       filterBtn.addEventListener("click", function () {
-        activeFilters[filterType] = !activeFilters[filterType];
-        saveActiveFilters(activeFilters);
-        this.classList.toggle("active", activeFilters[filterType]);
-        applyFavoritesFilter();
-        updateSearchFiltersVisibility();
+        const wasActive = activeFilter === filterType;
+        // Deactivate all filters visually
+        searchFilters.forEach((btn) => btn.classList.remove("active"));
+        if (wasActive) {
+          activeFilter = null;
+        } else {
+          activeFilter = filterType;
+          this.classList.add("active");
+        }
+        saveActiveFilter(activeFilter);
+        refreshFavoritesUI();
       });
     });
 
-    applyFavoritesFilter();
-
-    // Initial update
-    updateFavoriteButtons();
-    updateSearchFiltersVisibility();
-    updateFavoritesWidgets();
+    refreshFavoritesUI();
   }
 
-  function updateFavoritesWidgets() {
-    const favorites = getFavorites();
+  function refreshFavoritesUI(visibleClass) {
+    applyFavoritesFilter(visibleClass);
+    updateSearchFiltersVisibility();
 
+    const favorites = getFavorites();
     document.querySelectorAll(".favorites-widget, .favorites-tags").forEach((widget) => {
       const id = widget.dataset.id;
       const tags = favorites[id] || [];
-
-      // Update heart
       const heart = widget.querySelector(".widget-icon.heart, .tag-icon.heart");
-      if (heart) {
-        heart.classList.toggle("active", tags.includes("heart"));
-      }
-
-      // Update star
+      if (heart) heart.classList.toggle("active", tags.includes("heart"));
       const star = widget.querySelector(".widget-icon.star, .tag-icon.star");
-      if (star) {
-        star.classList.toggle("active", tags.includes("star"));
-      }
-
-      // Update flag
+      if (star) star.classList.toggle("active", tags.includes("star"));
       const flag = widget.querySelector(".widget-icon.flag, .tag-icon.flag");
-      if (flag) {
-        flag.classList.toggle("active", tags.includes("flag"));
-      }
+      if (flag) flag.classList.toggle("active", tags.includes("flag"));
     });
   }
 
@@ -658,6 +611,38 @@ function saveClass(classValue) {
   } else {
     initFavorites();
   }
+
+  // Update widgets when page is restored from bfcache (back button)
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      refreshFavoritesUI();
+    }
+  });
+})();
+
+// Future event countdowns (computed client-side)
+(function updateFutureEventCountdowns() {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  document.querySelectorAll(".future-event-countdown").forEach((cell) => {
+    const dateStr = cell.dataset.date;
+    if (!dateStr) return;
+
+    const [year, month, day] = dateStr.split("-").map(Number);
+    const eventDay = new Date(year, month - 1, day);
+    const diffDays = Math.round((eventDay - today) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) {
+      cell.textContent = "было";
+    } else if (diffDays < 7) {
+      cell.textContent = diffDays + " дн.";
+    } else if (diffDays < 28) {
+      cell.textContent = Math.floor(diffDays / 7) + " нед.";
+    } else {
+      cell.textContent = Math.ceil(diffDays / 30) + " мес.";
+    }
+  });
 })();
 
 // Row click handler for data-href - just navigate, class is in storage
@@ -666,7 +651,7 @@ document.addEventListener("click", (e) => {
   if (
     target &&
     !e.target.closest("a") &&
-    !e.target.closest(".favorite-inline") &&
+    !e.target.closest(".favorites-widget") &&
     !e.target.closest(".favorites-widget")
   ) {
     window.location.href = target.dataset.href;

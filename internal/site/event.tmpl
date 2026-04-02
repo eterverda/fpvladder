@@ -6,30 +6,30 @@
     <title>{{ .Name }}</title>
     <link rel="stylesheet" href="../../../styles.css">
 </head>
-<body class="event-page">
+<body>
     {{template "header"}}
 
     <div class="container">
         <header>
             <h1>{{ .Name }}</h1>
+            <div class="event-date">{{ .Date }}</div>
             <div class="event-favorites">
                 {{template "favorites-widget" .Id}}
             </div>
-            <div class="event-date">{{ .Date }}</div>
         </header>
 
         <section>
-            <h2 class="table-header">Результаты</h2>
+            <h2>Результаты</h2>
             <table class="data-table">
                 <tbody>
                     {{ range .Results }}
                     <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
-                        <td class="col-pos">{{ .Position }}</td>
+                        <td class="col-info">{{ .Position }}</td>
                         <td class="col-name">
-                            <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
-                        </td>
-                        <td class="col-assignment">
-                            {{ .Assignment }}
+                            <div class="event-row-content">
+                                <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
+                                <span class="meta-value">{{ .Assignment }}</span>
+                            </div>
                         </td>
                     </tr>
                     {{ end }}

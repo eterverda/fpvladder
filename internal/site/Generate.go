@@ -52,7 +52,7 @@ type indexClassData struct {
 type pilotRecord struct {
 	Id       model.Id
 	Href     string
-	Position int
+	Position model.Position
 	Name     string
 	Rating   int
 }
@@ -191,9 +191,14 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 			return ord
 		})
 		for i, pilotRecord := range pilotRecords {
-			pilotRecord.Position = i + 1
+			pilotRecord.Position.Int = i + 1
+
+			// tie
 			if i > 0 && pilotRecord.Rating == pilotRecords[i-1].Rating {
 				pilotRecord.Position = pilotRecords[i-1].Position
+				for j := 0; pilotRecords[i-j].Position.Int == pilotRecord.Position.Int; j++ {
+					pilotRecords[i-j].Position.TieCount += 1
+				}
 			}
 		}
 		classData.Pilots = pilotRecords
@@ -256,7 +261,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		Classes:     classes,
 	}
 
-	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("index.tmpl").ParseFiles("internal/site/index.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -318,7 +323,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 	}
 
 	path := db.ResolveIdPathExt(outDir, "pilot", pilot.Id, "html")
-	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("pilot.tmpl").ParseFiles("internal/site/pilot.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -340,6 +345,7 @@ func generateEvent(outDir string, event *model.Event) error {
 	var page = &eventPage{
 		Id:   event.Id,
 		Name: strings.ReplaceAll(event.Name, ">", "⟫"),
+		Date: event.Date.String(),
 	}
 	for _, pilot := range event.Pilots {
 		rating := pilot.RatingForClass(event.Class)
@@ -356,7 +362,7 @@ func generateEvent(outDir string, event *model.Event) error {
 		})
 	}
 	path := db.ResolveIdPathExt(outDir, "event", event.Id, "html")
-	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("event.tmpl").ParseFiles("internal/site/event.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -379,10 +385,11 @@ func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 	var page = &eventPage{
 		Id:          event.Id,
 		Name:        strings.ReplaceAll(event.Name, ">", "⟫"),
+		Date:        event.Date.String(),
 		Description: template.HTML(md2html(event.Description)),
 	}
 	path := db.ResolveIdPathExt(outDir, "future_event", event.Id, "html")
-	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("future_event.tmpl").ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
@@ -402,7 +409,7 @@ func generateFutureEvent(outDir string, event *model.FutureEvent) error {
 }
 
 func generateManifest(outDir string) error {
-	tmpl, err := template.New("manifest.tmpl").ParseFiles("internal/site/manifest.tmpl", "internal/site/header.tmpl", "internal/site/widget.tmpl")
+	tmpl, err := template.New("manifest.tmpl").ParseFiles("internal/site/manifest.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
 	if err != nil {
 		return err
 	}
