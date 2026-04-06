@@ -18,6 +18,11 @@
     --manifest-text: #636e72;
     --header-text: #4a5568;
 
+    /* Favorites colors */
+    --fav-heart: #e74c3c;
+    --fav-star: #f1c40f;
+    --fav-flag: #3498db;
+
     --table-first-col-width: 26px;
 }
 
@@ -601,39 +606,23 @@ body {
 }
 
 .favorites-tags .tag-icon.heart.active {
-    color: #e74c3c;
-    fill: #e74c3c;
+    color: var(--fav-heart);
+    fill: var(--fav-heart);
 }
 
 .favorites-tags .tag-icon.star.active {
-    color: #f1c40f;
-    fill: #f1c40f;
+    color: var(--fav-star);
+    fill: var(--fav-star);
 }
 
 .favorites-tags .tag-icon.flag.active {
-    color: #3498db;
-    fill: #3498db;
+    color: var(--fav-flag);
+    fill: var(--fav-flag);
 }
 
-/* Hide tags when hover widget appears */
-.col-name:hover .favorites-tags {
-    display: none;
-}
-
-/* Favorites inline widget (oval with 3 icons) */
+/* Favorites inline widget - base styles */
 .favorites-widget {
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 0;
-    margin: 0 0 0 8px;
-    border: none;
-    background: transparent;
-    pointer-events: none;
+    display: none; /* Hidden by default everywhere */
 }
 
 .favorites-widget .widget-icon {
@@ -642,76 +631,99 @@ body {
     color: var(--muted);
     fill: none;
     transition: all 0.2s;
-    cursor: pointer;
 }
 
-/* Inline widget inside table cells is hidden by default (tags show active icons instead) */
-.col-name .favorites-widget {
-    display: none;
-}
+/* Desktop hover effects */
+@media (hover: hover) {
+    /* Hide tags when hover widget appears */
+    .col-name:hover .favorites-tags {
+        display: none;
+    }
 
-/* Show widget on row hover (desktop) */
-.col-name:hover .favorites-widget {
-    display: inline-flex;
-    opacity: 1;
-    pointer-events: auto;
-    gap: 6px;
-    padding: 4px 7px;
-    margin: -4px 0 -4px 8px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background:
-        linear-gradient(90deg, rgba(231, 76, 60, 0.07), rgba(241, 196, 15, 0.07), rgba(52, 152, 219, 0.07)), var(--bg);
-    box-shadow: 0 2px 10px var(--dropdown-shadow);
-}
+    .favorites-widget {
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 0;
+        margin: 0 0 0 8px;
+        border: none;
+        background: transparent;
+        pointer-events: none;
+    }
 
-/* Show all icons (including inactive) when hovering on row */
-.col-name:hover .favorites-widget .widget-icon {
-    display: inline-block;
-}
+    /* Inline widget inside table cells is hidden by default */
+    .col-name .favorites-widget {
+        display: none;
+    }
 
-/* Hide inactive icons when not hovering on row */
-.favorites-widget .widget-icon:not(.active) {
-    display: none;
-}
+    /* Show widget on row hover */
+    .col-name:hover .favorites-widget {
+        display: inline-flex;
+        opacity: 1;
+        pointer-events: auto;
+        gap: 6px;
+        padding: 4px 7px;
+        margin: -4px 0 -4px 8px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background:
+            linear-gradient(90deg, rgba(231, 76, 60, 0.07), rgba(241, 196, 15, 0.07), rgba(52, 152, 219, 0.07)),
+            var(--bg);
+        box-shadow: 0 2px 10px var(--dropdown-shadow);
+    }
 
-/* Hover on inactive icon - gray fill */
-.col-name:hover .favorites-widget .widget-icon:not(.active):hover {
-    fill: var(--muted);
-}
+    /* Show all icons when hovering on row */
+    .col-name:hover .favorites-widget .widget-icon {
+        display: inline-block;
+    }
 
-/* Active icon hover - keep color */
-.col-name:hover .favorites-widget .widget-icon.heart.active:hover {
-    fill: #e74c3c;
-    color: #e74c3c;
-}
+    /* Hide inactive icons when not hovering on row */
+    .favorites-widget .widget-icon:not(.active) {
+        display: none;
+    }
 
-.col-name:hover .favorites-widget .widget-icon.star.active:hover {
-    fill: #f1c40f;
-    color: #f1c40f;
-}
+    /* Hover on inactive icon - gray fill */
+    .col-name:hover .favorites-widget .widget-icon:not(.active):hover {
+        fill: var(--muted);
+    }
 
-.col-name:hover .favorites-widget .widget-icon.flag.active:hover {
-    fill: #3498db;
-    color: #3498db;
+    /* Active icon hover - keep color */
+    .col-name:hover .favorites-widget .widget-icon.heart.active:hover {
+        fill: var(--fav-heart);
+        color: var(--fav-heart);
+    }
+
+    .col-name:hover .favorites-widget .widget-icon.star.active:hover {
+        fill: var(--fav-star);
+        color: var(--fav-star);
+    }
+
+    .col-name:hover .favorites-widget .widget-icon.flag.active:hover {
+        fill: var(--fav-flag);
+        color: var(--fav-flag);
+    }
 }
 
 /* Active states - colored */
 .favorites-widget .widget-icon.heart.active {
-    fill: #e74c3c;
-    color: #e74c3c;
+    fill: var(--fav-heart);
+    color: var(--fav-heart);
     display: block;
 }
 
 .favorites-widget .widget-icon.star.active {
-    fill: #f1c40f;
-    color: #f1c40f;
+    fill: var(--fav-star);
+    color: var(--fav-star);
     display: block;
 }
 
 .favorites-widget .widget-icon.flag.active {
-    fill: #3498db;
-    color: #3498db;
+    fill: var(--fav-flag);
+    color: var(--fav-flag);
     display: block;
 }
 
@@ -753,18 +765,18 @@ body {
 }
 
 .search-filter.active[data-filter="heart"] svg {
-    fill: #e74c3c;
-    stroke: #e74c3c;
+    fill: var(--fav-heart);
+    stroke: var(--fav-heart);
 }
 
 .search-filter.active[data-filter="star"] svg {
-    fill: #f1c40f;
-    stroke: #f1c40f;
+    fill: var(--fav-star);
+    stroke: var(--fav-star);
 }
 
 .search-filter.active[data-filter="flag"] svg {
-    fill: #3498db;
-    stroke: #3498db;
+    fill: var(--fav-flag);
+    stroke: var(--fav-flag);
 }
 
 /* Dark theme specific enhancements */
@@ -810,20 +822,20 @@ body {
 
     .pilot-header-favorites .favorites-widget .widget-icon.heart.active:hover,
     .event-favorites .favorites-widget .widget-icon.heart.active:hover {
-        fill: #e74c3c;
-        color: #e74c3c;
+        fill: var(--fav-heart);
+        color: var(--fav-heart);
     }
 
     .pilot-header-favorites .favorites-widget .widget-icon.star.active:hover,
     .event-favorites .favorites-widget .widget-icon.star.active:hover {
-        fill: #f1c40f;
-        color: #f1c40f;
+        fill: var(--fav-star);
+        color: var(--fav-star);
     }
 
     .pilot-header-favorites .favorites-widget .widget-icon.flag.active:hover,
     .event-favorites .favorites-widget .widget-icon.flag.active:hover {
-        fill: #3498db;
-        color: #3498db;
+        fill: var(--fav-flag);
+        color: var(--fav-flag);
     }
 }
 
