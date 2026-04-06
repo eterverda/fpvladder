@@ -1,0 +1,13 @@
+id: 2026/03-29/129
+name: Синельников Владислав
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 23/28
+        delta: -82
+        value: 1118

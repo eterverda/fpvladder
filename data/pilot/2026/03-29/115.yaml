@@ -1,0 +1,61 @@
+id: 2026/03-29/115
+name: Камаров Хуршед
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 2/28
+        delta: 128
+        value: 1328
+      - num: 2
+        event:
+          id: 2026/03-29/15
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы ЛЗ
+        position: 3/16
+        delta: 43
+        value: 1371
+      - num: 3
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 2/5
+        delta: 10
+        value: 1381
+      - num: 4
+        event:
+          id: 2026/03-29/17
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы КЗ
+        position: 1/4
+        delta: 24
+        value: 1405
+      - num: 5
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 7/21
+        delta: 12
+        value: 1417
+      - num: 6
+        event:
+          id: 2026/04-05/19
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+        position: 14/16
+        delta: -68
+        value: 1349
+      - num: 7
+        event:
+          id: 2026/04-05/20
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации КЗ
+        position: 6/7
+        delta: -46
+        value: 1303

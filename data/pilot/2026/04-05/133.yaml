@@ -1,0 +1,13 @@
+id: 2026/04-05/133
+name: Галкина Евдокия
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 21/21
+        delta: -75
+        value: 1125

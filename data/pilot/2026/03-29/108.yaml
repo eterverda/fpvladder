@@ -1,0 +1,29 @@
+id: 2026/03-29/108
+name: Аксенов Константин
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 9/28
+        delta: 58
+        value: 1258
+      - num: 2
+        event:
+          id: 2026/03-29/15
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы ЛЗ
+        position: 13/16
+        delta: -41
+        value: 1217
+      - num: 3
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 5/5
+        delta: -30
+        value: 1187

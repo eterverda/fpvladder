@@ -1,0 +1,238 @@
+id: 2026/03-29/14
+date: 2026-03-29
+name: Первенство ЛО > 75мм > Квалификации ЛЗ
+organizer:
+  name: Федерация гонок дронов Ленинградской области
+  link: https://t.me/fgdlenobl
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1587
+        algorithm: elo > k-10
+        delta: 26
+        new_value: 1613
+  - position: 2
+    id: 2026/03-29/115
+    name: Камаров Хуршед
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 128
+        new_value: 1328
+  - position: 3
+    id: 2026/03-29/121
+    name: Луковицкий Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 118
+        new_value: 1318
+  - position: 4
+    id: 2026/03-29/128
+    name: Рыжко Павел
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 108
+        new_value: 1308
+  - position: 5
+    id: 2026/03-29/119
+    name: Линин Александр
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 98
+        new_value: 1298
+  - position: 6
+    id: 2025/12-28/16
+    name: Формагей Виктория
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/03-28/8
+        old_value: 1217
+        algorithm: elo > k-10
+        delta: 82
+        new_value: 1299
+  - position: 7
+    id: 2026/03-29/111
+    name: Загайденко Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 78
+        new_value: 1278
+  - position: 8
+    id: 2026/03-29/117
+    name: Кочанов Максим
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 68
+        new_value: 1268
+  - position: 9
+    id: 2026/03-29/108
+    name: Аксенов Константин
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 58
+        new_value: 1258
+  - position: 10
+    id: 2026/03-29/123
+    name: Макаров Владислав
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 48
+        new_value: 1248
+  - position: 11
+    id: 2026/03-29/132
+    name: Шумарин Александр
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 38
+        new_value: 1238
+  - position: 12
+    id: 2026/03-29/125
+    name: Попов Даниил
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 28
+        new_value: 1228
+  - position: 13
+    id: 2026/03-29/127
+    name: Рахманов Лев
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: 18
+        new_value: 1218
+  - position: 14
+    id: 2026/02-21/28
+    name: Панарин Кирилл
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/02-21/3
+        old_value: 1142
+        algorithm: elo > k-10
+        delta: 31
+        new_value: 1173
+  - position: 15
+    id: 2026/03-29/114
+    name: Казанцев Вячеслав
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -2
+        new_value: 1198
+  - position: 16
+    id: 2026/03-29/124
+    name: Мастицкий Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -12
+        new_value: 1188
+  - position: 17
+    id: 2026/03-29/116
+    name: Карасев Елисей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -22
+        new_value: 1178
+  - position: 18
+    id: 2026/03-29/110
+    name: Афанасьев Аркадий
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -32
+        new_value: 1168
+  - position: 19
+    id: 2026/03-29/113
+    name: Ишанин Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -42
+        new_value: 1158
+  - position: 20
+    id: 2026/03-29/130
+    name: Федяков Алексей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -52
+        new_value: 1148
+  - position: 21
+    id: 2026/03-29/126
+    name: Потапович Сергей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -62
+        new_value: 1138
+  - position: 22
+    id: 2026/03-29/120
+    name: Линин Михаил
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -72
+        new_value: 1128
+  - position: 23
+    id: 2026/03-29/129
+    name: Синельников Владислав
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -82
+        new_value: 1118
+  - position: 24
+    id: 2026/03-29/118
+    name: Кундиков Алексей
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -92
+        new_value: 1108
+  - position: 25
+    id: 2026/03-29/131
+    name: Хриенко Максим
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -102
+        new_value: 1098
+  - position: 26
+    id: 2026/03-29/122
+    name: Лытаева Варвара
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -112
+        new_value: 1088
+  - position: 27
+    id: 2026/03-29/112
+    name: Иванов Николай
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -122
+        new_value: 1078
+  - position: 28
+    id: 2026/03-29/109
+    name: Андрюнин Григорий
+    ratings:
+      - class: drone-racing > 75mm
+        algorithm: elo > k-10
+        delta: -132
+        new_value: 1068

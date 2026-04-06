@@ -1,0 +1,96 @@
+id: 2026/04-05/21
+date: 2026-04-05
+name: Чемпионат ЛО > 75мм > Финалы КЗ
+organizer:
+  name: Федерация гонок дронов Ленинградской области
+  link: https://t.me/fgdlenobl
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    team: 1
+    id: 2026/02-21/41
+    name: Прончаков Георгий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1520
+        algorithm: elo > k-10
+        delta: 17
+        new_value: 1537
+  - position: 1
+    team: 1
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1649
+        algorithm: elo > k-10
+        delta: 10
+        new_value: 1659
+  - position: 2
+    team: 2
+    id: 2025/12-28/6
+    name: Егоров Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1313
+        algorithm: elo > k-10
+        delta: 19
+        new_value: 1332
+  - position: 2
+    team: 2
+    id: 2026/03-28/102
+    name: Толкунов Иван
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1284
+        algorithm: elo > k-10
+        delta: 21
+        new_value: 1305
+  - position: 3
+    team: 3
+    id: 2025/12-28/2
+    name: Асанов Александр
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1202
+        algorithm: elo > k-10
+        delta: 7
+        new_value: 1209
+  - position: 3
+    team: 3
+    id: 2026/02-21/24
+    name: Казаков Игорь
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1309
+        algorithm: elo > k-10
+        delta: 0
+        new_value: 1309
+  - position: 4
+    team: 4
+    id: 2025/12-28/1
+    name: Аверин Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1350
+        algorithm: elo > k-10
+        delta: -28
+        new_value: 1322
+  - position: 4
+    team: 4
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/20
+        old_value: 1605
+        algorithm: elo > k-10
+        delta: -45
+        new_value: 1560

@@ -1,0 +1,168 @@
+id: 2026/04-05/19
+date: 2026-04-05
+name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+organizer:
+  name: Федерация гонок дронов Ленинградской области
+  link: https://t.me/fgdlenobl
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    id: 2026/04-05/136
+    name: Миронов Григорий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1325
+        algorithm: elo > k-10
+        delta: 80
+        new_value: 1405
+  - position: 2
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1615
+        algorithm: elo > k-10
+        delta: 18
+        new_value: 1633
+  - position: 3
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1594
+        algorithm: elo > k-10
+        delta: 11
+        new_value: 1605
+  - position: 4
+    id: 2025/12-28/17
+    name: Фомина Алёна
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1376
+        algorithm: elo > k-10
+        delta: 40
+        new_value: 1416
+  - position: 5
+    id: 2026/02-21/41
+    name: Прончаков Георгий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1482
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1491
+  - position: 6
+    id: 2025/12-28/8
+    name: Котоман Семён
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1461
+        algorithm: elo > k-10
+        delta: 3
+        new_value: 1464
+  - position: 7
+    id: 2025/12-28/6
+    name: Егоров Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1256
+        algorithm: elo > k-10
+        delta: 34
+        new_value: 1290
+  - position: 8
+    id: 2026/04-05/135
+    name: Лукин Даниил
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1235
+        algorithm: elo > k-10
+        delta: 28
+        new_value: 1263
+  - position: 9
+    id: 2026/03-28/102
+    name: Толкунов Иван
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1238
+        algorithm: elo > k-10
+        delta: 18
+        new_value: 1256
+  - position: 10
+    id: 2026/02-21/24
+    name: Казаков Игорь
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1315
+        algorithm: elo > k-10
+        delta: -8
+        new_value: 1307
+  - position: 11
+    id: 2025/12-28/2
+    name: Асанов Александр
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1174
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1183
+  - position: 12
+    id: 2026/04-05/134
+    name: Илькаева Анастасия
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1255
+        algorithm: elo > k-10
+        delta: -16
+        new_value: 1239
+  - position: 13
+    id: 2026/04-05/137
+    name: Шувалов Роман
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1175
+        algorithm: elo > k-10
+        delta: -11
+        new_value: 1164
+  - position: 14
+    id: 2026/03-29/115
+    name: Камаров Хуршед
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1417
+        algorithm: elo > k-10
+        delta: -68
+        new_value: 1349
+  - position: 15
+    id: 2025/12-28/1
+    name: Аверин Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1387
+        algorithm: elo > k-10
+        delta: -72
+        new_value: 1315
+  - position: 16
+    id: 2026/03-29/121
+    name: Луковицкий Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/04-05/18
+        old_value: 1359
+        algorithm: elo > k-10
+        delta: -77
+        new_value: 1282

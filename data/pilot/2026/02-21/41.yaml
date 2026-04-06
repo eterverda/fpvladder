@@ -19,3 +19,35 @@ careers:
         position: 6/16
         delta: 14
         value: 1476
+      - num: 3
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 6/21
+        delta: 6
+        value: 1482
+      - num: 4
+        event:
+          id: 2026/04-05/19
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+        position: 5/16
+        delta: 9
+        value: 1491
+      - num: 5
+        event:
+          id: 2026/04-05/20
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации КЗ
+        position: 1/7
+        delta: 29
+        value: 1520
+      - num: 6
+        event:
+          id: 2026/04-05/21
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы КЗ
+        position: 1/4
+        delta: 17
+        value: 1537

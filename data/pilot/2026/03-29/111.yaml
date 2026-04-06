@@ -1,0 +1,37 @@
+id: 2026/03-29/111
+name: Загайденко Матвей
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 7/28
+        delta: 78
+        value: 1278
+      - num: 2
+        event:
+          id: 2026/03-29/15
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы ЛЗ
+        position: 9/16
+        delta: -6
+        value: 1272
+      - num: 3
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 4/5
+        delta: -18
+        value: 1254
+      - num: 4
+        event:
+          id: 2026/03-29/17
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы КЗ
+        position: 4/4
+        delta: -23
+        value: 1231

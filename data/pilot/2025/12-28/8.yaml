@@ -43,6 +43,22 @@ careers:
         position: 2/4
         delta: 16
         value: 1423
+      - num: 6
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 4/21
+        delta: 38
+        value: 1461
+      - num: 7
+        event:
+          id: 2026/04-05/19
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+        position: 6/16
+        delta: 3
+        value: 1464
   - class: drone-racing > 200mm
     ratings:
       - num: 1

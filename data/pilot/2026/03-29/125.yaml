@@ -1,0 +1,37 @@
+id: 2026/03-29/125
+name: Попов Даниил
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 12/28
+        delta: 28
+        value: 1228
+      - num: 2
+        event:
+          id: 2026/03-29/15
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы ЛЗ
+        position: 15/16
+        delta: -55
+        value: 1173
+      - num: 3
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 3/5
+        delta: 15
+        value: 1188
+      - num: 4
+        event:
+          id: 2026/03-29/17
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы КЗ
+        position: 3/4
+        delta: 3
+        value: 1191

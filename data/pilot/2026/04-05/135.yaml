@@ -1,0 +1,29 @@
+id: 2026/04-05/135
+name: Лукин Даниил
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 10/21
+        delta: 35
+        value: 1235
+      - num: 2
+        event:
+          id: 2026/04-05/19
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+        position: 8/16
+        delta: 28
+        value: 1263
+      - num: 3
+        event:
+          id: 2026/04-05/20
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации КЗ
+        position: 5/7
+        delta: -11
+        value: 1252

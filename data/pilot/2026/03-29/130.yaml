@@ -1,0 +1,21 @@
+id: 2026/03-29/130
+name: Федяков Алексей
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 20/28
+        delta: -52
+        value: 1148
+      - num: 2
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 5/5
+        delta: -23
+        value: 1125

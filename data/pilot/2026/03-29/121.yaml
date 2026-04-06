@@ -1,0 +1,61 @@
+id: 2026/03-29/121
+name: Луковицкий Владимир
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/03-29/14
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации ЛЗ
+        position: 3/28
+        delta: 118
+        value: 1318
+      - num: 2
+        event:
+          id: 2026/03-29/15
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы ЛЗ
+        position: 2/16
+        delta: 56
+        value: 1374
+      - num: 3
+        event:
+          id: 2026/03-29/16
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Квалификации КЗ
+        position: 2/5
+        delta: 9
+        value: 1383
+      - num: 4
+        event:
+          id: 2026/03-29/17
+          date: 2026-03-29
+          name: Первенство ЛО > 75мм > Финалы КЗ
+        position: 1/4
+        delta: 24
+        value: 1407
+      - num: 5
+        event:
+          id: 2026/04-05/18
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации ЛЗ
+        position: 13/21
+        delta: -48
+        value: 1359
+      - num: 6
+        event:
+          id: 2026/04-05/19
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Финалы ЛЗ
+        position: 16/16
+        delta: -77
+        value: 1282
+      - num: 7
+        event:
+          id: 2026/04-05/20
+          date: 2026-04-05
+          name: Чемпионат ЛО > 75мм > Квалификации КЗ
+        position: 6/7
+        delta: -37
+        value: 1245
