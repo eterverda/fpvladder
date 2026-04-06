@@ -1,6 +1,10 @@
 package model
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/eterverda/fpvladder/internal/util"
+)
 
 const ClassSeparator = ">"
 
@@ -41,4 +45,10 @@ func (c *Class) UnmarshalText(text []byte) error {
 	// Тут в будущем можно добавить проверку формата регуляркой
 	*c = Class(string(text))
 	return nil
+}
+
+// Compare сравнивает Class с использованием natural order.
+// Возвращает -1 если c < other, 0 если равны, 1 если c > other.
+func (c Class) Compare(other Class) int {
+	return util.NaturalCompare(string(c), string(other))
 }

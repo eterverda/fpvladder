@@ -386,6 +386,19 @@ func recalculateRatings(event *model.Event) error {
 		}
 	}
 
+	// Дозагружаем всех пилотов для генерации полного индекса
+	allPilots, err := db.ReadAllPilots(DbPath)
+	if err != nil {
+		return fmt.Errorf("ошибка чтения пилотов: %w", err)
+	}
+
+	// Генерируем index.yaml в data/pilot/
+	indexPath := filepath.Join(DbPath, "pilot", "index.yaml")
+	if err := db.GenerateIndex(allPilots, indexPath); err != nil {
+		return fmt.Errorf("ошибка генерации индекса: %w", err)
+	}
+	fmt.Printf("[✓] Индекс обновлен: %s\n", indexPath)
+
 	return nil
 }
 

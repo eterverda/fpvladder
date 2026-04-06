@@ -113,31 +113,48 @@ func ListIds(baseDir, dataType string) ([]model.Id, error) {
 
 	typeDir := ResolveTypePath(baseDir, dataType)
 
-	err := filepath.WalkDir(
-		typeDir,
-		func(path string, d os.DirEntry, err error) error {
+	// Читаем годы (первый уровень: YYYY/)
+	yearEntries, err := os.ReadDir(typeDir)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, yearEntry := range yearEntries {
+		if !yearEntry.IsDir() {
+			continue
+		}
+		yearDir := filepath.Join(typeDir, yearEntry.Name())
+
+		// Читаем месяцы-дни (второй уровень: YYYY/MM-DD/)
+		monthDayEntries, err := os.ReadDir(yearDir)
+		if err != nil {
+			continue
+		}
+
+		for _, monthDayEntry := range monthDayEntries {
+			if !monthDayEntry.IsDir() {
+				continue
+			}
+			monthDayDir := filepath.Join(yearDir, monthDayEntry.Name())
+
+			// Читаем файлы (третий уровень: YYYY/MM-DD/N.yaml)
+			files, err := os.ReadDir(monthDayDir)
 			if err != nil {
-				return err
+				continue
 			}
 
-			// Пропускаем директории, нам нужны только файлы .yaml
-			if !d.IsDir() && strings.HasSuffix(d.Name(), ".yaml") {
-				id := path
-				// Отрезаем расширение .yaml
-				id = strings.TrimSuffix(id, ".yaml")
+			for _, file := range files {
+				if file.IsDir() || !strings.HasSuffix(file.Name(), ".yaml") {
+					continue
+				}
 
-				// Отрезаем путь
-				id = strings.TrimPrefix(id, typeDir)
-				id = strings.TrimPrefix(id, "/")
-
-				// Нормализуем разделители (актуально для Windows, чтобы всегда был '/')
-				id = filepath.ToSlash(id)
-
+				// Формируем ID: YYYY/MM-DD/N
+				num := strings.TrimSuffix(file.Name(), ".yaml")
+				id := filepath.ToSlash(filepath.Join(yearEntry.Name(), monthDayEntry.Name(), num))
 				ids = append(ids, model.Id(id))
 			}
-			return nil
-		},
-	)
+		}
+	}
 
-	return ids, err
+	return ids, nil
 }

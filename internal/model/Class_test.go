@@ -1,6 +1,9 @@
 package model
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestClass_Parent(t *testing.T) {
 	tests := []struct {
@@ -36,5 +39,24 @@ func TestClass_Parent(t *testing.T) {
 				t.Errorf("Class.Parent() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestClass_Compare_Sort(t *testing.T) {
+	// Проверяем сортировку классов используя KnownClasses
+	// Создаём перевернутый слайс
+	input := make([]Class, len(KnownClasses))
+	for i := 0; i < len(KnownClasses); i++ {
+		input[i] = KnownClasses[len(KnownClasses)-1-i]
+	}
+
+	// Сортируем используя Compare
+	slices.SortFunc(input, Class.Compare)
+
+	// Проверяем, что отсортировалось как KnownClasses
+	for i, v := range input {
+		if v != KnownClasses[i] {
+			t.Errorf("Sort position %d: got %q, want %q", i, v, KnownClasses[i])
+		}
 	}
 }

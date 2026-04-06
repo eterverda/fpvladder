@@ -3,6 +3,8 @@ package model
 import (
 	"fmt"
 	"time"
+
+	"github.com/eterverda/fpvladder/internal/util"
 )
 
 type Id string
@@ -32,4 +34,11 @@ func (i *Id) UnmarshalText(text []byte) error {
 // String для удобного вывода
 func (i Id) String() string {
 	return string(i)
+}
+
+// Compare сравнивает Id с использованием natural order.
+// Формат Id: YYYY/MM-DD/N
+// Возвращает -1 если i < other, 0 если равны, 1 если i > other.
+func (i Id) Compare(other Id) int {
+	return util.NaturalCompare(string(i), string(other))
 }

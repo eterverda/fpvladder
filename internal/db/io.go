@@ -69,3 +69,20 @@ func ReadFutureEventPath(eventPath string) (*model.FutureEvent, error) {
 	}
 	return &dbEvent, nil
 }
+
+// ReadAllPilots читает всех пилотов из базы данных
+func ReadAllPilots(baseDir string) ([]*model.Pilot, error) {
+	pilotIds, err := ListIds(baseDir, "pilot")
+	if err != nil {
+		return nil, err
+	}
+	pilots := make([]*model.Pilot, 0, len(pilotIds))
+	for _, pilotId := range pilotIds {
+		pilot, err := ReadPilot(baseDir, pilotId)
+		if err != nil {
+			return nil, err
+		}
+		pilots = append(pilots, pilot)
+	}
+	return pilots, nil
+}

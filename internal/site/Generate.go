@@ -120,7 +120,7 @@ func Generate(baseDir, outDir string) error {
 	if err != nil {
 		return err
 	}
-	pilots, err := readAllPilots(baseDir)
+	pilots, err := db.ReadAllPilots(baseDir)
 	if err != nil {
 		return err
 	}
@@ -159,6 +159,13 @@ func Generate(baseDir, outDir string) error {
 	if err != nil {
 		return err
 	}
+
+	// Генерируем index.yaml в build/pilot/
+	indexPath := filepath.Join(outDir, "pilot", "index.yaml")
+	if err := db.GenerateIndex(pilots, indexPath); err != nil {
+		return fmt.Errorf("ошибка генерации индекса: %w", err)
+	}
+
 	fmt.Printf("[✓] Сайт сгенерирован: file://%s/index.html\n", outDir)
 	return nil
 }
@@ -224,7 +231,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 		slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
 			ord := -cmp.Compare(a.Date, b.Date)
 			if ord == 0 {
-				ord = -cmp.Compare(a.Id, b.Id)
+				ord = -a.Id.Compare(b.Id)
 			}
 			return ord
 		})
@@ -458,22 +465,6 @@ func readAllFutureEvents(baseDir string) ([]*model.FutureEvent, error) {
 		events = append(events, event)
 	}
 	return events, nil
-}
-
-func readAllPilots(baseDir string) ([]*model.Pilot, error) {
-	pilotIds, err := db.ListIds(baseDir, "pilot")
-	if err != nil {
-		return nil, err
-	}
-	pilots := make([]*model.Pilot, 0, len(pilotIds))
-	for _, pilotId := range pilotIds {
-		pilot, err := db.ReadPilot(baseDir, pilotId)
-		if err != nil {
-			return nil, err
-		}
-		pilots = append(pilots, pilot)
-	}
-	return pilots, nil
 }
 
 func copyFile(src, dst string) error {
