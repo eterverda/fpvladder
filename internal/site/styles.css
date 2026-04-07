@@ -85,6 +85,91 @@ header {
     margin-bottom: 60px;
 }
 
+/* Future events section - moved up */
+.future-events-section {
+    margin-top: -10px;
+}
+
+/* Future events toggle */
+.future-events-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.future-events-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.calendar-link {
+    color: var(--muted);
+    text-decoration: none;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.calendar-link:hover {
+    color: var(--accent);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn:hover {
+    color: var(--text);
+}
+
+.toggle-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s;
+}
+
+.future-events-section.collapsed .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.future-events-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 2000px;
+}
+
+.future-events-section.collapsed .future-events-content {
+    max-height: 0;
+}
+
+/* Events section toggle */
+.events-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.events-section.collapsed .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.events-section.collapsed .events-content {
+    max-height: 0;
+}
+
+.events-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 5000px;
+}
+
 /* Class tabs - pill style centered */
 .class-tabs {
     display: flex;
@@ -202,6 +287,16 @@ header {
     display: block;
 }
 
+/* Regular links - accent color (exclude table rows) */
+.container a:not([class]):not(.data-row a) {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.container a:not([class]):not(.data-row a):hover {
+    text-decoration: underline;
+}
+
 @media (hover: none) {
     .data-row:active {
         background-color: #f2f2f2;
@@ -212,13 +307,14 @@ header {
 td.col-info {
     text-align: right;
     width: var(--table-first-col-width);
-    min-width: var(--table-first-col-width);
-    max-width: var(--table-first-col-width);
     font-size: 0.75rem;
     color: var(--muted);
     white-space: nowrap;
-    vertical-align: top;
-    padding-top: 17px;
+}
+
+/* Wider first column for pilot page (position numbers) */
+.pilot-page .col-info {
+    width: calc(var(--table-first-col-width) + 3ch);
 }
 
 .event-row-content {
@@ -254,6 +350,33 @@ td.col-info {
     white-space: nowrap;
 }
 
+/* Scale rating for top pilots without affecting row height */
+.meta-value[data-rank="1"] {
+    transform: scale(1.5);
+    transform-origin: right center;
+}
+
+.meta-value[data-rank="2"] {
+    transform: scale(1.33);
+    transform-origin: right center;
+}
+
+.meta-value[data-rank="3"] {
+    transform: scale(1.2);
+    transform-origin: right center;
+}
+
+.meta-value[data-rank="4"],
+.meta-value[data-rank="5"],
+.meta-value[data-rank="6"],
+.meta-value[data-rank="7"],
+.meta-value[data-rank="8"],
+.meta-value[data-rank="9"],
+.meta-value[data-rank="10"] {
+    transform: scale(1.1);
+    transform-origin: right center;
+}
+
 .pilot-event-meta {
     display: flex;
     flex-direction: column;
@@ -276,11 +399,6 @@ td.col-info {
 }
 
 /* Pilot page: wider spacer column for position (3 chars more) */
-.pilot-page .col-info {
-    width: calc(var(--table-first-col-width) + 3ch);
-    min-width: calc(var(--table-first-col-width) + 3ch);
-    max-width: calc(var(--table-first-col-width) + 3ch);
-}
 
 .col-name {
     font-weight: 400;

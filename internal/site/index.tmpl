@@ -43,19 +43,27 @@
         <div class="class-content" data-class="{{ .ParamValue }}">
 
             <section class="future-events-section" data-has-events="{{ if .FutureEvents }}true{{ else }}false{{ end }}">
-                <h2>
-                    Предстоящие
-                    <nobr>
-                        события
-                        <a href="webcal://fpvladder.ru/calendar.ics" type="text/calendar" style="text-decoration: none; margin-left: 8px;" title="Подписаться на календарь">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; color: var(--muted);">
-                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                            </svg>
-                        </a>
-                    </nobr>
+                <h2 class="future-events-toggle">
+                    <span class="future-events-title">
+                        Предстоящие
+                        <nobr>
+                            события
+                            <a href="webcal://fpvladder.ru/calendar.ics" type="text/calendar" class="calendar-link" title="Подписаться на календарь">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                </svg>
+                            </a>
+                        </nobr>
+                    </span>
+                    <button class="toggle-btn" aria-label="Свернуть/развернуть" aria-expanded="true">
+                        <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
                 </h2>
-                <table class="data-table future-event-table">
+                <div class="future-events-content">
+                    <table class="data-table future-event-table">
                     <tbody class="future-event-table-body">
                         {{ range .FutureEvents }}
                         <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
@@ -71,6 +79,7 @@
                     </tbody>
                 </table>
                 <div class="future-events-empty empty-state">Предстоящие события не найдены</div>
+                </div>
             </section>
 
             <section>
@@ -78,12 +87,12 @@
                 <table class="data-table pilot-table">
                     <tbody class="pilot-table-body">
                         {{ range .Pilots }}
-                        <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
+                        <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}" data-position="{{ .Position.Int }}">
                             <td class="col-info">{{ if le .Position.Int 10 }}{{ .Position }}{{ end }}</td>
                             <td class="col-name">
                                 <div class="event-row-content">
                                     <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
-                                    <span class="meta-value">{{ .Rating }}</span>
+                                    <span class="meta-value" data-rank="{{ .Position.Int }}">{{ .Rating }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -93,26 +102,35 @@
                 <div class="pilots-empty empty-state">Пилоты не найдены</div>
             </section>
 
-            <section>
-                <h2>События</h2>
-                <table class="data-table event-table">
-                    <tbody class="event-table-body">
-                        {{ range .Events }}
-                        <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
-                            <td class="col-info">
-                                {{ .NumPilots }}<svg class="user-icon"><use href="#icon-user"></use></svg>
-                            </td>
-                            <td class="col-name">
-                                <div class="event-row-content">
-                                    <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
-                                    <span class="event-date">{{ .Date }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        {{ end }}
-                    </tbody>
-                </table>
-                <div class="events-empty empty-state">События не найдены</div>
+            <section class="events-section">
+                <h2 class="events-toggle">
+                    <span>События</span>
+                    <button class="toggle-btn" aria-label="Свернуть/развернуть" aria-expanded="true">
+                        <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                </h2>
+                <div class="events-content">
+                    <table class="data-table event-table">
+                        <tbody class="event-table-body">
+                            {{ range .Events }}
+                            <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
+                                <td class="col-info">
+                                    {{ .NumPilots }}<svg class="user-icon"><use href="#icon-user"></use></svg>
+                                </td>
+                                <td class="col-name">
+                                    <div class="event-row-content">
+                                        <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
+                                        <span class="event-date">{{ .Date }}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                    <div class="events-empty empty-state">События не найдены</div>
+                </div>
             </section>
         </div>
         {{ end }}

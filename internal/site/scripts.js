@@ -742,8 +742,101 @@ function saveClass(classValue) {
     } else if (diffDays < 28) {
       cell.textContent = Math.floor(diffDays / 7) + " нед.";
     } else {
-      cell.textContent = Math.ceil(diffDays / 30) + " мес.";
+      const months = Math.floor(diffDays / 30);
+      const remainingDays = diffDays % 30;
+      const hasExtraWeeks = remainingDays >= 7;
+      cell.textContent = months + (hasExtraWeeks ? "+" : "") + " мес.";
     }
+  });
+})();
+
+// Future events toggle with localStorage persistence (shared across all classes)
+(function () {
+  const STORAGE_KEY = "fpvladder-future-events-collapsed";
+  const sections = document.querySelectorAll(".future-events-section");
+  const buttons = document.querySelectorAll(".future-events-toggle .toggle-btn");
+
+  if (!sections.length || !buttons.length) return;
+
+  // Restore state from localStorage
+  let isCollapsed = false;
+  try {
+    isCollapsed = localStorage.getItem(STORAGE_KEY) === "true";
+  } catch (e) {
+    // Ignore localStorage errors
+  }
+
+  // Apply state to all sections
+  sections.forEach((section) => {
+    if (isCollapsed) {
+      section.classList.add("collapsed");
+    }
+  });
+
+  // Add click handlers to all toggle buttons
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+
+      const newCollapsed = !sections[0].classList.contains("collapsed");
+
+      // Toggle all sections
+      sections.forEach((section) => {
+        section.classList.toggle("collapsed", newCollapsed);
+      });
+
+      // Save state
+      try {
+        localStorage.setItem(STORAGE_KEY, newCollapsed);
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    });
+  });
+})();
+
+// Events section toggle with localStorage persistence (shared across all classes)
+(function () {
+  const STORAGE_KEY = "fpvladder-events-collapsed";
+  const sections = document.querySelectorAll(".events-section");
+  const buttons = document.querySelectorAll(".events-toggle .toggle-btn");
+
+  if (!sections.length || !buttons.length) return;
+
+  // Restore state from localStorage
+  let isCollapsed = false;
+  try {
+    isCollapsed = localStorage.getItem(STORAGE_KEY) === "true";
+  } catch (e) {
+    // Ignore localStorage errors
+  }
+
+  // Apply state to all sections
+  sections.forEach((section) => {
+    if (isCollapsed) {
+      section.classList.add("collapsed");
+    }
+  });
+
+  // Add click handlers to all toggle buttons
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+
+      const newCollapsed = !sections[0].classList.contains("collapsed");
+
+      // Toggle all sections
+      sections.forEach((section) => {
+        section.classList.toggle("collapsed", newCollapsed);
+      });
+
+      // Save state
+      try {
+        localStorage.setItem(STORAGE_KEY, newCollapsed);
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    });
   });
 })();
 
