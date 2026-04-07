@@ -189,7 +189,7 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 			}
 			pilotRecords = append(pilotRecords, &pilotRecord{
 				Id:     pilot.Id,
-				Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html"),
+				Href:   db.ResolveIdPathExt("", "pilot", pilot.Id, "html") + "#" + ClassParamValues[class],
 				Name:   pilot.Name,
 				Rating: career.Ratings[len(career.Ratings)-1].Value,
 			})

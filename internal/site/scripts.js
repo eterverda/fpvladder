@@ -197,6 +197,25 @@ function saveClass(classValue) {
     return Array.from(classes);
   }
 
+  // Get class from URL hash (e.g., #75mm)
+  function getClassFromHash() {
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      return hash.slice(1); // remove # prefix
+    }
+    return null;
+  }
+
+  // Update URL hash with class value
+  function setClassHash(classValue) {
+    if (classValue) {
+      window.location.hash = classValue;
+    } else {
+      // Remove hash if no class
+      history.replaceState(null, null, " ");
+    }
+  }
+
   // Show content for specific class, hide others
   function showClassContent(classValue) {
     // Show/hide content sections
@@ -258,11 +277,12 @@ function saveClass(classValue) {
 
     if (available.length === 0) return;
 
-    // Priority: saved class > first available
+    // Priority: hash > saved class > first available
+    const hashClass = getClassFromHash();
     const savedClass = getSavedClass();
-    let targetClass = savedClass;
+    let targetClass = hashClass || savedClass;
 
-    // If saved class is not available, pick first available
+    // If target class is not available, pick first available
     if (!targetClass || !available.includes(targetClass)) {
       targetClass = available[0];
     }
@@ -270,7 +290,12 @@ function saveClass(classValue) {
     // Show target class
     showClassContent(targetClass);
 
-    // Save class (in case we picked first available)
+    // Update hash if it was different or empty
+    if (hashClass !== targetClass) {
+      setClassHash(targetClass);
+    }
+
+    // Save class (in case we picked first available or from hash)
     saveClass(targetClass);
 
     // Setup class option clicks
@@ -283,11 +308,21 @@ function saveClass(classValue) {
         if (classValue && available.includes(classValue)) {
           showClassContent(classValue);
           saveClass(classValue);
+          setClassHash(classValue);
           // Close dropdown
           const dropdown = document.getElementById("settingsDropdown");
           if (dropdown) dropdown.classList.remove("active");
         }
       });
+    });
+
+    // Listen for hash changes (back/forward buttons)
+    window.addEventListener("hashchange", function () {
+      const newClass = getClassFromHash();
+      if (newClass && available.includes(newClass)) {
+        showClassContent(newClass);
+        saveClass(newClass);
+      }
     });
   }
 
