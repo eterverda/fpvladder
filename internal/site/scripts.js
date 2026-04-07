@@ -320,25 +320,39 @@ function saveClass(classValue) {
     function updateNavButtons(currentIdx) {
       // Update prev buttons (desktop + mobile) - only update text if visible
       const hasPrev = currentIdx > 0;
-      const prevLabelText = hasPrev ? classNames[available[currentIdx - 1]] || available[currentIdx - 1] : "";
+      const prevClass = hasPrev ? available[currentIdx - 1] : "";
+      const prevLabelText = hasPrev ? classNames[prevClass] || prevClass : "";
       if (prevBtn && prevLabel) {
         prevBtn.style.visibility = hasPrev ? "visible" : "hidden";
-        if (hasPrev) prevLabel.textContent = prevLabelText;
+        if (hasPrev) {
+          prevLabel.textContent = prevLabelText;
+          prevBtn.dataset.targetClass = prevClass;
+        }
       }
       if (prevBtnMobile && prevLabelMobile) {
         prevBtnMobile.style.visibility = hasPrev ? "visible" : "hidden";
-        if (hasPrev) prevLabelMobile.textContent = prevLabelText;
+        if (hasPrev) {
+          prevLabelMobile.textContent = prevLabelText;
+          prevBtnMobile.dataset.targetClass = prevClass;
+        }
       }
       // Update next buttons (desktop + mobile) - only update text if visible
       const hasNext = currentIdx < available.length - 1;
-      const nextLabelText = hasNext ? classNames[available[currentIdx + 1]] || available[currentIdx + 1] : "";
+      const nextClass = hasNext ? available[currentIdx + 1] : "";
+      const nextLabelText = hasNext ? classNames[nextClass] || nextClass : "";
       if (nextBtn && nextLabel) {
         nextBtn.style.visibility = hasNext ? "visible" : "hidden";
-        if (hasNext) nextLabel.textContent = nextLabelText;
+        if (hasNext) {
+          nextLabel.textContent = nextLabelText;
+          nextBtn.dataset.targetClass = nextClass;
+        }
       }
       if (nextBtnMobile && nextLabelMobile) {
         nextBtnMobile.style.visibility = hasNext ? "visible" : "hidden";
-        if (hasNext) nextLabelMobile.textContent = nextLabelText;
+        if (hasNext) {
+          nextLabelMobile.textContent = nextLabelText;
+          nextBtnMobile.dataset.targetClass = nextClass;
+        }
       }
     }
 
@@ -740,7 +754,9 @@ function saveClass(classValue) {
     } else if (diffDays < 7) {
       cell.textContent = diffDays + " дн.";
     } else if (diffDays < 28) {
-      cell.textContent = Math.floor(diffDays / 7) + " нед.";
+      const weeks = Math.floor(diffDays / 7);
+      const remainingDays = diffDays % 7;
+      cell.textContent = weeks + (remainingDays > 0 ? "+" : "") + " нед.";
     } else {
       const months = Math.floor(diffDays / 30);
       const remainingDays = diffDays % 30;

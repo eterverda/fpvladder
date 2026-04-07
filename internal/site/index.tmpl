@@ -36,6 +36,12 @@
                         <line x1="4" y1="22" x2="4" y2="15"></line>
                     </svg>
                 </button>
+                <button class="search-clear" title="Очистить поиск" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -149,6 +155,10 @@
 
     <script src="scripts.js?v={{ now }}"></script>
     <script>
+        // Search clear button and input
+        const searchClearBtn = document.querySelector('.search-clear');
+        const searchInput = document.querySelector('.search-input');
+
         // Search functionality for all class contents
         function performSearch(query) {
             query = query.toLowerCase();
@@ -173,7 +183,7 @@
             });
         }
 
-        document.querySelector('.search-input').addEventListener('input', (e) => {
+        searchInput.addEventListener('input', (e) => {
             performSearch(e.target.value);
         });
 
@@ -192,6 +202,26 @@
             if (table) table.style.display = foundAny ? 'table' : 'none';
             if (emptyState) emptyState.style.display = foundAny ? 'none' : 'block';
         }
+
+        if (searchClearBtn && searchInput) {
+            searchClearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                searchClearBtn.style.display = 'none';
+                performSearch('');
+                searchInput.focus();
+            });
+        }
+
+        // Wrap performSearch to show/hide clear button and mark search active
+        const originalPerformSearch = performSearch;
+        performSearch = function(query) {
+            originalPerformSearch(query);
+            if (searchClearBtn) {
+                searchClearBtn.style.display = query.length > 0 ? 'flex' : 'none';
+            }
+            // Mark body as having search active for CSS to hide collapsed headers
+            document.body.classList.toggle('search-active', query.length > 0);
+        };
     </script>
 </body>
 </html>

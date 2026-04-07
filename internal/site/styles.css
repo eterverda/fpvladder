@@ -7,6 +7,13 @@
     --hover-bg: #fcfcfc;
     --input-border: #dfe6e9;
     --accent: #0088cc;
+
+    /* Class colors */
+    --class-75: #e67e22; /* Orange */
+    --class-125: #27ae60; /* Green */
+    --class-200: #00bcd4; /* Cyan */
+    --class-330: #2980b9; /* Blue */
+
     --header-bg: #ffffff;
     --header-border: #eee;
     --dropdown-bg: #ffffff;
@@ -34,13 +41,12 @@
     --line: #30363d;
     --hover-bg: #161b22;
     --input-border: #30363d;
-    --accent: #00f0ff;
     --header-bg: #161b22;
     --header-border: #30363d;
     --dropdown-bg: #1c2128;
-    --dropdown-shadow: rgba(0, 240, 255, 0.15);
+    --dropdown-shadow: rgba(255, 255, 255, 0.05);
     --theme-btn-bg: #21262d;
-    --theme-btn-active: #00f0ff;
+    --theme-btn-active: var(--muted);
     --theme-btn-active-text: #0d1117;
     --manifest-bg: #161b22;
     --manifest-text: #8b949e;
@@ -80,6 +86,48 @@ h2 {
     margin: 40px 0 10px 0;
 }
 
+/* Class-specific colors for h2 headings */
+.class-content[data-class="75mm"] h2 {
+    color: var(--class-75);
+}
+
+.class-content[data-class="125mm"] h2 {
+    color: var(--class-125);
+}
+
+.class-content[data-class="200mm"] h2 {
+    color: var(--class-200);
+}
+
+.class-content[data-class="330mm"] h2 {
+    color: var(--class-330);
+}
+
+/* Class-specific colors for h2 icons (calendar, toggle) */
+.class-content[data-class="75mm"] h2 svg,
+.class-content[data-class="75mm"] h2 .toggle-icon {
+    color: var(--class-75);
+    stroke: var(--class-75);
+}
+
+.class-content[data-class="125mm"] h2 svg,
+.class-content[data-class="125mm"] h2 .toggle-icon {
+    color: var(--class-125);
+    stroke: var(--class-125);
+}
+
+.class-content[data-class="200mm"] h2 svg,
+.class-content[data-class="200mm"] h2 .toggle-icon {
+    color: var(--class-200);
+    stroke: var(--class-200);
+}
+
+.class-content[data-class="330mm"] h2 svg,
+.class-content[data-class="330mm"] h2 .toggle-icon {
+    color: var(--class-330);
+    stroke: var(--class-330);
+}
+
 header {
     text-align: center;
     margin-bottom: 60px;
@@ -111,7 +159,7 @@ header {
 }
 
 .calendar-link:hover {
-    color: var(--accent);
+    color: var(--text);
 }
 
 .toggle-btn {
@@ -143,6 +191,13 @@ header {
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     max-height: 2000px;
+    padding: 0 20px;
+    margin: 0 -20px;
+}
+
+.future-events-content .data-table {
+    width: calc(100% + 40px);
+    margin: 0 -20px;
 }
 
 .future-events-section.collapsed .future-events-content {
@@ -168,6 +223,19 @@ header {
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     max-height: 5000px;
+    padding: 0 20px;
+    margin: 0 -20px;
+}
+
+/* Hide section headers when collapsed and search is active */
+body.search-active .future-events-section.collapsed .future-events-toggle,
+body.search-active .events-section.collapsed .events-toggle {
+    display: none;
+}
+
+.events-content .data-table {
+    width: calc(100% + 40px);
+    margin: 0 -20px;
 }
 
 /* Class tabs - pill style centered */
@@ -188,32 +256,83 @@ header {
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 136, 204, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.class-tab.active {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: linear-gradient(90deg, rgba(0, 136, 204, 0.08), rgba(0, 240, 255, 0.08)), var(--bg);
-    box-shadow: 0 2px 12px rgba(0, 136, 204, 0.25);
+/* Class-specific active tab colors - 75mm Orange */
+.class-tab[data-class="75mm"].active {
+    color: var(--class-75);
+    border-color: var(--class-75);
+    background: linear-gradient(90deg, rgba(230, 126, 34, 0.08), rgba(243, 156, 18, 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(230, 126, 34, 0.25);
 }
 
-/* Dark theme neon glow - always on, balanced with favorites */
-[data-theme="dark"] .class-tab {
-    box-shadow: 0 2px 10px rgba(0, 240, 255, 0.15);
+/* Class-specific active tab colors - 125mm Green */
+.class-tab[data-class="125mm"].active {
+    color: var(--class-125);
+    border-color: var(--class-125);
+    background: linear-gradient(90deg, rgba(39, 174, 96, 0.08), rgba(46, 204, 113, 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(39, 174, 96, 0.25);
 }
 
-[data-theme="dark"] .class-tab.active {
-    background: linear-gradient(90deg, rgba(0, 240, 255, 0.12), rgba(0, 136, 204, 0.12)), var(--bg);
+/* Class-specific active tab colors - 200mm Cyan */
+.class-tab[data-class="200mm"].active {
+    color: var(--class-200);
+    border-color: var(--class-200);
+    background: linear-gradient(90deg, rgba(0, 188, 212, 0.08), rgba(38, 198, 218, 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(0, 188, 212, 0.25);
+}
+
+/* Class-specific active tab colors - 330mm Blue */
+.class-tab[data-class="330mm"].active {
+    color: var(--class-330);
+    border-color: var(--class-330);
+    background: linear-gradient(90deg, rgba(41, 128, 185, 0.08), rgba(52, 152, 219, 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(41, 128, 185, 0.25);
+}
+
+/* Dark theme neon glow - class specific */
+[data-theme="dark"] .class-tab[data-class="75mm"].active {
+    background: linear-gradient(90deg, rgba(230, 126, 34, 0.12), rgba(243, 156, 18, 0.12)), var(--bg);
     box-shadow:
-        0 2px 16px rgba(0, 240, 255, 0.3),
-        0 0 12px rgba(0, 240, 255, 0.25);
+        0 2px 16px rgba(230, 126, 34, 0.3),
+        0 0 12px rgba(230, 126, 34, 0.25);
 }
 
-/* Hover - active color text, desktop only */
+[data-theme="dark"] .class-tab[data-class="125mm"].active {
+    background: linear-gradient(90deg, rgba(39, 174, 96, 0.12), rgba(46, 204, 113, 0.12)), var(--bg);
+    box-shadow:
+        0 2px 16px rgba(39, 174, 96, 0.3),
+        0 0 12px rgba(39, 174, 96, 0.25);
+}
+
+[data-theme="dark"] .class-tab[data-class="200mm"].active {
+    background: linear-gradient(90deg, rgba(0, 188, 212, 0.12), rgba(38, 198, 218, 0.12)), var(--bg);
+    box-shadow:
+        0 2px 16px rgba(0, 188, 212, 0.3),
+        0 0 12px rgba(0, 188, 212, 0.25);
+}
+
+[data-theme="dark"] .class-tab[data-class="330mm"].active {
+    background: linear-gradient(90deg, rgba(41, 128, 185, 0.12), rgba(52, 152, 219, 0.12)), var(--bg);
+    box-shadow:
+        0 2px 16px rgba(41, 128, 185, 0.3),
+        0 0 12px rgba(41, 128, 185, 0.25);
+}
+
+/* Hover - class specific colors, desktop only */
 @media (hover: hover) {
-    .class-tab:hover {
-        color: var(--accent);
+    .class-tab[data-class="75mm"]:hover {
+        color: var(--class-75);
+    }
+    .class-tab[data-class="125mm"]:hover {
+        color: var(--class-125);
+    }
+    .class-tab[data-class="200mm"]:hover {
+        color: var(--class-200);
+    }
+    .class-tab[data-class="330mm"]:hover {
+        color: var(--class-330);
     }
 }
 
@@ -267,10 +386,12 @@ header {
 .data-row td {
     padding: 12px 8px;
     -webkit-tap-highlight-color: transparent;
+    vertical-align: top;
 }
 
 .data-row td:first-child {
     padding-left: 20px;
+    padding-top: 16px;
 }
 
 .data-row td:last-child {
@@ -287,14 +408,14 @@ header {
     display: block;
 }
 
-/* Regular links - accent color (exclude table rows) */
+/* Regular links - neutral color with underline (exclude table rows) */
 .container a:not([class]):not(.data-row a) {
-    color: var(--accent);
-    text-decoration: none;
+    color: var(--text);
+    text-decoration: underline;
 }
 
 .container a:not([class]):not(.data-row a):hover {
-    text-decoration: underline;
+    color: var(--muted);
 }
 
 @media (hover: none) {
@@ -312,9 +433,10 @@ td.col-info {
     white-space: nowrap;
 }
 
-/* Wider first column for pilot page (position numbers) */
+/* Wider first column for pilot page (position numbers) - same alignment as main page */
 .pilot-page .col-info {
-    width: calc(var(--table-first-col-width) + 3ch);
+    min-width: calc(var(--table-first-col-width) + 2ch);
+    text-align: right;
 }
 
 .event-row-content {
@@ -466,7 +588,7 @@ header .event-date {
     font-weight: 500;
     min-width: 90px;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 136, 204, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .class-nav-btn svg {
@@ -481,21 +603,65 @@ header .event-date {
     text-align: center;
 }
 
-/* Always on glow for dark theme - balanced with favorites */
-[data-theme="dark"] .class-nav-btn {
-    box-shadow:
-        0 2px 10px rgba(0, 240, 255, 0.15),
-        0 0 12px rgba(0, 240, 255, 0.2);
+/* Light theme glow for nav buttons based on target class */
+.class-nav-btn[data-target-class="75mm"] {
+    box-shadow: 0 2px 10px rgba(230, 126, 34, 0.15);
 }
 
-/* Hover - active color text, desktop only */
-@media (hover: hover) {
-    .class-nav-btn:hover {
-        color: var(--accent);
-    }
+.class-nav-btn[data-target-class="125mm"] {
+    box-shadow: 0 2px 10px rgba(39, 174, 96, 0.15);
+}
 
-    .class-nav-btn:hover .class-nav-label {
-        color: var(--accent);
+.class-nav-btn[data-target-class="200mm"] {
+    box-shadow: 0 2px 10px rgba(0, 188, 212, 0.15);
+}
+
+.class-nav-btn[data-target-class="330mm"] {
+    box-shadow: 0 2px 10px rgba(41, 128, 185, 0.15);
+}
+
+/* Dark theme glow for nav buttons based on target class */
+[data-theme="dark"] .class-nav-btn[data-target-class="75mm"] {
+    box-shadow:
+        0 2px 10px rgba(230, 126, 34, 0.15),
+        0 0 12px rgba(230, 126, 34, 0.2);
+}
+
+[data-theme="dark"] .class-nav-btn[data-target-class="125mm"] {
+    box-shadow:
+        0 2px 10px rgba(39, 174, 96, 0.15),
+        0 0 12px rgba(39, 174, 96, 0.2);
+}
+
+[data-theme="dark"] .class-nav-btn[data-target-class="200mm"] {
+    box-shadow:
+        0 2px 10px rgba(0, 188, 212, 0.15),
+        0 0 12px rgba(0, 188, 212, 0.2);
+}
+
+[data-theme="dark"] .class-nav-btn[data-target-class="330mm"] {
+    box-shadow:
+        0 2px 10px rgba(41, 128, 185, 0.15),
+        0 0 12px rgba(41, 128, 185, 0.2);
+}
+
+/* Hover - target class specific colors, desktop only */
+@media (hover: hover) {
+    .class-nav-btn[data-target-class="75mm"]:hover,
+    .class-nav-btn[data-target-class="75mm"]:hover .class-nav-label {
+        color: var(--class-75);
+    }
+    .class-nav-btn[data-target-class="125mm"]:hover,
+    .class-nav-btn[data-target-class="125mm"]:hover .class-nav-label {
+        color: var(--class-125);
+    }
+    .class-nav-btn[data-target-class="200mm"]:hover,
+    .class-nav-btn[data-target-class="200mm"]:hover .class-nav-label {
+        color: var(--class-200);
+    }
+    .class-nav-btn[data-target-class="330mm"]:hover,
+    .class-nav-btn[data-target-class="330mm"]:hover .class-nav-label {
+        color: var(--class-330);
     }
 }
 
@@ -527,13 +693,13 @@ header .event-date {
 /* Pilot Card - визитная карточка пилота */
 .pilot-card {
     background: linear-gradient(135deg, var(--header-bg) 0%, var(--manifest-bg) 100%);
-    border: 2px solid var(--accent);
+    border: 2px solid var(--line);
     border-radius: 16px;
     padding: 28px;
     margin: 0;
     box-shadow:
         0 4px 20px var(--dropdown-shadow),
-        0 0 0 1px rgba(0, 136, 204, 0.1);
+        0 0 0 1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -543,30 +709,144 @@ header .event-date {
     box-sizing: border-box;
 }
 
-[data-theme="dark"] .pilot-card {
-    border-color: #00f0ff;
+/* Light theme class-specific border colors */
+.pilot-card[data-class="75mm"] {
+    border-color: var(--class-75);
     box-shadow:
         0 4px 20px var(--dropdown-shadow),
-        0 0 16px rgba(0, 240, 255, 0.25),
-        inset 0 0 24px rgba(0, 240, 255, 0.05);
-    animation: pilotCardGlow 3s ease-in-out infinite;
+        0 0 0 1px rgba(230, 126, 34, 0.1);
 }
 
-@keyframes pilotCardGlow {
+.pilot-card[data-class="125mm"] {
+    border-color: var(--class-125);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 0 1px rgba(39, 174, 96, 0.1);
+}
+
+.pilot-card[data-class="200mm"] {
+    border-color: var(--class-200);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 0 1px rgba(0, 188, 212, 0.1);
+}
+
+.pilot-card[data-class="330mm"] {
+    border-color: var(--class-330);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 0 1px rgba(41, 128, 185, 0.1);
+}
+
+/* Class-specific pilot card colors - 75mm Orange (dark theme) */
+[data-theme="dark"] .pilot-card[data-class="75mm"] {
+    border-color: var(--class-75);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 16px rgba(230, 126, 34, 0.25),
+        inset 0 0 24px rgba(230, 126, 34, 0.05);
+    animation: pilotCardGlow75 3s ease-in-out infinite;
+}
+
+@keyframes pilotCardGlow75 {
     0%,
     100% {
-        border-color: #00f0ff;
+        border-color: var(--class-75);
         box-shadow:
             0 4px 20px var(--dropdown-shadow),
-            0 0 16px rgba(0, 240, 255, 0.25),
-            inset 0 0 24px rgba(0, 240, 255, 0.05);
+            0 0 16px rgba(230, 126, 34, 0.25),
+            inset 0 0 24px rgba(230, 126, 34, 0.05);
     }
     50% {
-        border-color: #00a8ff;
+        border-color: #f39c12;
         box-shadow:
             0 4px 24px var(--dropdown-shadow),
-            0 0 28px rgba(0, 168, 255, 0.35),
-            inset 0 0 32px rgba(0, 168, 255, 0.08);
+            0 0 28px rgba(243, 156, 18, 0.35),
+            inset 0 0 32px rgba(243, 156, 18, 0.08);
+    }
+}
+
+/* Class-specific pilot card colors - 125mm Green */
+[data-theme="dark"] .pilot-card[data-class="125mm"] {
+    border-color: var(--class-125);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 16px rgba(39, 174, 96, 0.25),
+        inset 0 0 24px rgba(39, 174, 96, 0.05);
+    animation: pilotCardGlow125 3s ease-in-out infinite;
+}
+
+@keyframes pilotCardGlow125 {
+    0%,
+    100% {
+        border-color: var(--class-125);
+        box-shadow:
+            0 4px 20px var(--dropdown-shadow),
+            0 0 16px rgba(39, 174, 96, 0.25),
+            inset 0 0 24px rgba(39, 174, 96, 0.05);
+    }
+    50% {
+        border-color: #2ecc71;
+        box-shadow:
+            0 4px 24px var(--dropdown-shadow),
+            0 0 28px rgba(46, 204, 113, 0.35),
+            inset 0 0 32px rgba(46, 204, 113, 0.08);
+    }
+}
+
+/* Class-specific pilot card colors - 200mm Cyan */
+[data-theme="dark"] .pilot-card[data-class="200mm"] {
+    border-color: var(--class-200);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 16px rgba(0, 188, 212, 0.25),
+        inset 0 0 24px rgba(0, 188, 212, 0.05);
+    animation: pilotCardGlow200 3s ease-in-out infinite;
+}
+
+@keyframes pilotCardGlow200 {
+    0%,
+    100% {
+        border-color: var(--class-200);
+        box-shadow:
+            0 4px 20px var(--dropdown-shadow),
+            0 0 16px rgba(0, 188, 212, 0.25),
+            inset 0 0 24px rgba(0, 188, 212, 0.05);
+    }
+    50% {
+        border-color: #26c6da;
+        box-shadow:
+            0 4px 24px var(--dropdown-shadow),
+            0 0 28px rgba(38, 198, 218, 0.35),
+            inset 0 0 32px rgba(38, 198, 218, 0.08);
+    }
+}
+
+/* Class-specific pilot card colors - 330mm Blue */
+[data-theme="dark"] .pilot-card[data-class="330mm"] {
+    border-color: var(--class-330);
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 16px rgba(41, 128, 185, 0.25),
+        inset 0 0 24px rgba(41, 128, 185, 0.05);
+    animation: pilotCardGlow330 3s ease-in-out infinite;
+}
+
+@keyframes pilotCardGlow330 {
+    0%,
+    100% {
+        border-color: var(--class-330);
+        box-shadow:
+            0 4px 20px var(--dropdown-shadow),
+            0 0 16px rgba(41, 128, 185, 0.25),
+            inset 0 0 24px rgba(41, 128, 185, 0.05);
+    }
+    50% {
+        border-color: #3498db;
+        box-shadow:
+            0 4px 24px var(--dropdown-shadow),
+            0 0 28px rgba(52, 152, 219, 0.35),
+            inset 0 0 32px rgba(52, 152, 219, 0.08);
     }
 }
 
@@ -586,6 +866,23 @@ header .event-date {
     letter-spacing: 2px;
     margin-top: 16px;
     margin-bottom: 4px;
+}
+
+/* Class-specific colors for pilot card label */
+.pilot-card[data-class="75mm"] .pilot-card-label {
+    color: var(--class-75);
+}
+
+.pilot-card[data-class="125mm"] .pilot-card-label {
+    color: var(--class-125);
+}
+
+.pilot-card[data-class="200mm"] .pilot-card-label {
+    color: var(--class-200);
+}
+
+.pilot-card[data-class="330mm"] .pilot-card-label {
+    color: var(--class-330);
 }
 
 .pilot-card-rating {
@@ -695,7 +992,7 @@ header .event-date {
 }
 
 .back-arrow:hover {
-    color: var(--accent);
+    color: var(--text);
 }
 
 .logo {
@@ -727,7 +1024,7 @@ header .event-date {
 
 .settings-btn:hover {
     background: var(--hover-bg);
-    color: var(--accent);
+    color: var(--text);
 }
 
 .settings-icon {
@@ -1058,6 +1355,29 @@ header .event-date {
 .search-filter.active[data-filter="flag"] svg {
     fill: var(--fav-flag);
     stroke: var(--fav-flag);
+}
+
+/* Search clear button (X) */
+.search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--muted);
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-clear:hover {
+    color: var(--text);
+}
+
+.search-clear svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
 }
 
 /* Dark theme specific enhancements */
