@@ -10,14 +10,42 @@
     {{template "header"}}
 
     <div class="container">
-        <header>
-            {{ range .Classes }}
-            <div class="pilot-card class-content" data-class="{{ .ParamValue }}">
-                <div class="pilot-card-name">{{ $.Name }}</div>
-                <div class="pilot-card-label">Рейтинг <span style="text-transform: none;">{{ .ClassName }}</span></div>
-                <div class="pilot-card-rating">{{ .Rating }}</div>
+        <header class="pilot-header">
+            <div class="pilot-header-row">
+                <button class="class-nav-btn class-nav-prev" aria-label="Предыдущий класс" style="visibility: hidden;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                    <span class="class-nav-label class-nav-prev-label"></span>
+                </button>
+                {{ range .Classes }}
+                <div class="pilot-card class-content" data-class="{{ .ParamValue }}">
+                    <div class="pilot-card-name">{{ $.Name }}</div>
+                    <div class="pilot-card-label">Рейтинг <span style="text-transform: none;">{{ .ClassName }}</span></div>
+                    <div class="pilot-card-rating">{{ .Rating }}</div>
+                </div>
+                {{ end }}
+                <button class="class-nav-btn class-nav-next" aria-label="Следующий класс" style="visibility: hidden;">
+                    <span class="class-nav-label class-nav-next-label"></span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
             </div>
-            {{ end }}
+            <div class="pilot-header-nav-mobile">
+                <button class="class-nav-btn class-nav-prev-mobile" aria-label="Предыдущий класс" style="visibility: hidden;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                    <span class="class-nav-label class-nav-prev-mobile-label"></span>
+                </button>
+                <button class="class-nav-btn class-nav-next-mobile" aria-label="Следующий класс" style="visibility: hidden;">
+                    <span class="class-nav-label class-nav-next-mobile-label"></span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
             <div class="pilot-header-favorites">
                 {{template "favorites-widget" .Id}}
             </div>

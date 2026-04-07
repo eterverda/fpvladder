@@ -241,6 +241,11 @@ function saveClass(classValue) {
       }
     });
 
+    // Update active state in tabs
+    document.querySelectorAll(".class-tab").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.class === classValue);
+    });
+
     // Re-apply favorites filter for visible class only
     window.refreshFavoritesUI(classValue);
   }
@@ -248,32 +253,6 @@ function saveClass(classValue) {
   // Initialize class switching
   function initClassSwitching() {
     const available = getAvailableClasses();
-
-    // Hide class options that are not available on this page (skip theme options)
-    let visibleClassCount = 0;
-    document.querySelectorAll(".menu-option").forEach((btn) => {
-      const value = btn.dataset.value;
-      // Skip theme options
-      if (value === "light" || value === "dark") return;
-
-      if (value && !available.includes(value)) {
-        btn.style.display = "none";
-      } else {
-        visibleClassCount++;
-      }
-    });
-
-    // Hide class section title and divider if no classes available
-    const classTitle = document.querySelector(".settings-title");
-    if (classTitle && classTitle.textContent === "Класс" && visibleClassCount === 0) {
-      classTitle.style.display = "none";
-    }
-
-    // Hide divider if no classes (divider is between class and theme sections)
-    const divider = document.getElementById("classThemeDivider");
-    if (divider && visibleClassCount === 0) {
-      divider.style.display = "none";
-    }
 
     if (available.length === 0) return;
 
@@ -298,23 +277,105 @@ function saveClass(classValue) {
     // Save class (in case we picked first available or from hash)
     saveClass(targetClass);
 
-    // Setup class option clicks
-    document.querySelectorAll(".menu-option").forEach((btn) => {
-      // Skip theme options (light/dark)
-      if (btn.dataset.value === "light" || btn.dataset.value === "dark") return;
-
+    // Setup class tab clicks
+    document.querySelectorAll(".class-tab").forEach((btn) => {
       btn.addEventListener("click", function () {
-        const classValue = this.dataset.value;
+        const classValue = this.dataset.class;
         if (classValue && available.includes(classValue)) {
           showClassContent(classValue);
           saveClass(classValue);
           setClassHash(classValue);
-          // Close dropdown
-          const dropdown = document.getElementById("settingsDropdown");
-          if (dropdown) dropdown.classList.remove("active");
         }
       });
     });
+
+    // Setup navigation buttons (prev/next) - hide when no more classes
+    const prevBtn = document.querySelector(".class-nav-prev");
+    const nextBtn = document.querySelector(".class-nav-next");
+    const prevLabel = document.querySelector(".class-nav-prev-label");
+    const nextLabel = document.querySelector(".class-nav-next-label");
+
+    // Mobile nav buttons
+    const prevBtnMobile = document.querySelector(".class-nav-prev-mobile");
+    const nextBtnMobile = document.querySelector(".class-nav-next-mobile");
+    const prevLabelMobile = document.querySelector(".class-nav-prev-mobile-label");
+    const nextLabelMobile = document.querySelector(".class-nav-next-mobile-label");
+
+    // Map class values to display names
+    const classNames = {};
+    document.querySelectorAll(".class-content[data-class]").forEach((el) => {
+      const classValue = el.dataset.class;
+      const cardLabel = el.querySelector(".pilot-card-label span");
+      if (cardLabel) {
+        classNames[classValue] = cardLabel.textContent;
+      }
+    });
+
+    function getCurrentIndex() {
+      const hashClass = getClassFromHash();
+      const currentClass = hashClass && available.includes(hashClass) ? hashClass : available[0];
+      return available.indexOf(currentClass);
+    }
+
+    function updateNavButtons(currentIdx) {
+      // Update prev buttons (desktop + mobile) - only update text if visible
+      const hasPrev = currentIdx > 0;
+      const prevLabelText = hasPrev ? classNames[available[currentIdx - 1]] || available[currentIdx - 1] : "";
+      if (prevBtn && prevLabel) {
+        prevBtn.style.visibility = hasPrev ? "visible" : "hidden";
+        if (hasPrev) prevLabel.textContent = prevLabelText;
+      }
+      if (prevBtnMobile && prevLabelMobile) {
+        prevBtnMobile.style.visibility = hasPrev ? "visible" : "hidden";
+        if (hasPrev) prevLabelMobile.textContent = prevLabelText;
+      }
+      // Update next buttons (desktop + mobile) - only update text if visible
+      const hasNext = currentIdx < available.length - 1;
+      const nextLabelText = hasNext ? classNames[available[currentIdx + 1]] || available[currentIdx + 1] : "";
+      if (nextBtn && nextLabel) {
+        nextBtn.style.visibility = hasNext ? "visible" : "hidden";
+        if (hasNext) nextLabel.textContent = nextLabelText;
+      }
+      if (nextBtnMobile && nextLabelMobile) {
+        nextBtnMobile.style.visibility = hasNext ? "visible" : "hidden";
+        if (hasNext) nextLabelMobile.textContent = nextLabelText;
+      }
+    }
+
+    function handleNavClick(direction) {
+      const currentIdx = getCurrentIndex();
+      const newIdx = direction === "prev" ? currentIdx - 1 : currentIdx + 1;
+      if (newIdx >= 0 && newIdx < available.length) {
+        const newClass = available[newIdx];
+        showClassContent(newClass);
+        saveClass(newClass);
+        setClassHash(newClass);
+        // updateNavButtons will be called by hashchange event
+      }
+    }
+
+    if (available.length > 1) {
+      const currentIdx = getCurrentIndex();
+      updateNavButtons(currentIdx);
+
+      // Desktop buttons
+      if (prevBtn) prevBtn.addEventListener("click", () => handleNavClick("prev"));
+      if (nextBtn) nextBtn.addEventListener("click", () => handleNavClick("next"));
+
+      // Mobile buttons
+      if (prevBtnMobile) prevBtnMobile.addEventListener("click", () => handleNavClick("prev"));
+      if (nextBtnMobile) nextBtnMobile.addEventListener("click", () => handleNavClick("next"));
+
+      // Update buttons on hash change
+      window.addEventListener("hashchange", function () {
+        updateNavButtons(getCurrentIndex());
+      });
+    } else {
+      // Hide nav buttons if only one class
+      [prevBtn, nextBtn, prevBtnMobile, nextBtnMobile].forEach((btn) => {
+        if (btn) btn.style.display = "none";
+      });
+    }
 
     // Listen for hash changes (back/forward buttons)
     window.addEventListener("hashchange", function () {
@@ -324,6 +385,12 @@ function saveClass(classValue) {
         saveClass(newClass);
       }
     });
+
+    // Hide class tabs if only one class available
+    const tabsContainer = document.querySelector(".class-tabs");
+    if (tabsContainer && available.length <= 1) {
+      tabsContainer.style.display = "none";
+    }
   }
 
   // Run on DOM ready

@@ -52,13 +52,13 @@ body {
     background-color: var(--bg);
     color: var(--text);
     margin: 0;
-    padding: 40px 0 80px 0;
+    padding: 80px 0 80px 0;
     line-height: 1.6;
 }
 
 .container {
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
@@ -83,6 +83,53 @@ h2 {
 header {
     text-align: center;
     margin-bottom: 60px;
+}
+
+/* Class tabs - pill style centered */
+.class-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.class-tab {
+    padding: 8px 20px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 136, 204, 0.1);
+}
+
+.class-tab.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: linear-gradient(90deg, rgba(0, 136, 204, 0.08), rgba(0, 240, 255, 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(0, 136, 204, 0.25);
+}
+
+/* Dark theme neon glow - always on, balanced with favorites */
+[data-theme="dark"] .class-tab {
+    box-shadow: 0 2px 10px rgba(0, 240, 255, 0.15);
+}
+
+[data-theme="dark"] .class-tab.active {
+    background: linear-gradient(90deg, rgba(0, 240, 255, 0.12), rgba(0, 136, 204, 0.12)), var(--bg);
+    box-shadow:
+        0 2px 16px rgba(0, 240, 255, 0.3),
+        0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+/* Hover - active color text, desktop only */
+@media (hover: hover) {
+    .class-tab:hover {
+        color: var(--accent);
+    }
 }
 
 .search-wrapper {
@@ -269,20 +316,140 @@ header .event-date {
     margin-bottom: 16px;
 }
 
+/* Pilot Header with navigation */
+.pilot-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0 40px 0;
+    gap: 16px;
+}
+
+.pilot-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.class-nav-btn {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 90px;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 136, 204, 0.1);
+}
+
+.class-nav-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.class-nav-label {
+    color: var(--muted);
+    min-width: 5ch;
+    text-align: center;
+}
+
+/* Always on glow for dark theme - balanced with favorites */
+[data-theme="dark"] .class-nav-btn {
+    box-shadow:
+        0 2px 10px rgba(0, 240, 255, 0.15),
+        0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+/* Hover - active color text, desktop only */
+@media (hover: hover) {
+    .class-nav-btn:hover {
+        color: var(--accent);
+    }
+
+    .class-nav-btn:hover .class-nav-label {
+        color: var(--accent);
+    }
+}
+
+/* Mobile navigation - hidden by default, shown on small screens */
+.pilot-header-nav-mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+    .pilot-header-row .class-nav-btn {
+        display: none;
+    }
+
+    .pilot-header-nav-mobile {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        width: 360px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 /* Pilot Card - визитная карточка пилота */
 .pilot-card {
     background: linear-gradient(135deg, var(--header-bg) 0%, var(--manifest-bg) 100%);
-    border: 1px solid var(--line);
+    border: 2px solid var(--accent);
     border-radius: 16px;
     padding: 28px;
-    margin: 20px auto 40px auto;
-    box-shadow: 0 4px 20px var(--dropdown-shadow);
+    margin: 0;
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 0 1px rgba(0, 136, 204, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     aspect-ratio: 1.75 / 1;
-    max-width: 360px;
+    width: 360px;
+    flex-shrink: 0;
     box-sizing: border-box;
+}
+
+[data-theme="dark"] .pilot-card {
+    border-color: #00f0ff;
+    box-shadow:
+        0 4px 20px var(--dropdown-shadow),
+        0 0 16px rgba(0, 240, 255, 0.25),
+        inset 0 0 24px rgba(0, 240, 255, 0.05);
+    animation: pilotCardGlow 3s ease-in-out infinite;
+}
+
+@keyframes pilotCardGlow {
+    0%,
+    100% {
+        border-color: #00f0ff;
+        box-shadow:
+            0 4px 20px var(--dropdown-shadow),
+            0 0 16px rgba(0, 240, 255, 0.25),
+            inset 0 0 24px rgba(0, 240, 255, 0.05);
+    }
+    50% {
+        border-color: #00a8ff;
+        box-shadow:
+            0 4px 24px var(--dropdown-shadow),
+            0 0 28px rgba(0, 168, 255, 0.35),
+            inset 0 0 32px rgba(0, 168, 255, 0.08);
+    }
 }
 
 .pilot-card-name {
@@ -324,6 +491,7 @@ header .event-date {
     padding: 20px 25px;
     border: 1px solid var(--line);
     border-radius: 12px;
+    text-align: justify;
     font-size: 0.85rem;
     color: var(--manifest-text);
     background: var(--manifest-bg);
@@ -370,7 +538,7 @@ header .event-date {
 
 .header-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 0 20px;
     height: 100%;
@@ -509,11 +677,6 @@ header .event-date {
     letter-spacing: 1px;
     line-height: 1;
     padding: 0 8px 8px 38px;
-}
-
-/* Adjust body padding for fixed header */
-body {
-    padding-top: 90px;
 }
 
 /* Dropdown menu options */
@@ -786,7 +949,7 @@ body {
 .event-favorites {
     display: flex;
     justify-content: center;
-    margin: 12px 0;
+    margin: 8px 0;
 }
 
 .pilot-header-favorites .favorites-widget,
@@ -804,6 +967,16 @@ body {
         linear-gradient(90deg, rgba(231, 76, 60, 0.07), rgba(241, 196, 15, 0.07), rgba(52, 152, 219, 0.07)), var(--bg);
     cursor: pointer;
     box-shadow: 0 3px 14px var(--dropdown-shadow);
+}
+
+/* Always on multi-color glow for dark theme - scaled to match pills */
+[data-theme="dark"] .pilot-header-favorites .favorites-widget,
+[data-theme="dark"] .event-favorites .favorites-widget {
+    box-shadow:
+        0 3px 14px var(--dropdown-shadow),
+        0 0 12px rgba(231, 76, 60, 0.12),
+        0 0 16px rgba(241, 196, 15, 0.08),
+        0 0 20px rgba(52, 152, 219, 0.06);
 }
 
 .pilot-header-favorites .favorites-widget .widget-icon,

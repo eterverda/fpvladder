@@ -10,6 +10,12 @@
     {{template "header"}}
 
     <div class="container">
+        <div class="class-tabs">
+            {{ range .Classes }}
+            <button class="class-tab" data-class="{{ .ParamValue }}">{{ .ClassName }}</button>
+            {{ end }}
+        </div>
+
         <div class="search-wrapper">
             <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm10 2l-4.35-4.35"/></svg>
             <input type="text" class="search-input" placeholder="Поиск" autocomplete="off">
