@@ -11,14 +11,14 @@
     /* Class colors */
     --class-75: #e67e22; /* Orange */
     --class-125: #27ae60; /* Green */
-    --class-200: #00bcd4; /* Cyan */
-    --class-330: #2980b9; /* Blue */
+    --class-200: #4a7fd4; /* Blue with cyan tint */
+    --class-330: #8e24aa; /* Purple */
 
     /* Class colors RGB for opacity */
     --class-75-rgb: 230, 126, 34;
     --class-125-rgb: 39, 174, 96;
-    --class-200-rgb: 0, 188, 212;
-    --class-330-rgb: 41, 128, 185;
+    --class-200-rgb: 74, 127, 212;
+    --class-330-rgb: 142, 36, 170;
 
     --header-bg: #ffffff;
     --header-border: #eee;
