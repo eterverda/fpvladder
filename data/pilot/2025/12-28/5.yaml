@@ -101,3 +101,19 @@ careers:
         position: 7/8
         delta: -22
         value: 1173
+      - num: 3
+        event:
+          id: 2026/04-12/22
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Квалификации
+        position: 6/11
+        delta: 3
+        value: 1176
+      - num: 4
+        event:
+          id: 2026/04-12/23
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Финалы
+        position: 4/8
+        delta: 9
+        value: 1185

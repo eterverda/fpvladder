@@ -35,3 +35,21 @@ careers:
         position: 4/16
         delta: 40
         value: 1416
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-12/22
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Квалификации
+        position: 4/11
+        delta: 19
+        value: 1219
+      - num: 2
+        event:
+          id: 2026/04-12/23
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Финалы
+        position: 3/8
+        delta: 14
+        value: 1233

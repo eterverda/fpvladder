@@ -1,0 +1,21 @@
+id: 2026/04-12/138
+name: Волок Даниил
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-12/22
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Квалификации
+        position: 3/11
+        delta: 29
+        value: 1229
+      - num: 2
+        event:
+          id: 2026/04-12/23
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Финалы
+        position: 6/8
+        delta: -17
+        value: 1212

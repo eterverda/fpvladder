@@ -77,3 +77,11 @@ careers:
         position: 10/12
         delta: -35
         value: 1165
+      - num: 2
+        event:
+          id: 2026/04-12/22
+          date: 2026-04-12
+          name: Гонки ко Дню космонавтики > Квалификации
+        position: 10/11
+        delta: -36
+        value: 1129

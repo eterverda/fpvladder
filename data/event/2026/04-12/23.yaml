@@ -1,0 +1,87 @@
+id: 2026/04-12/23
+date: 2026-04-12
+name: Гонки ко Дню космонавтики > Финалы
+organizer:
+  name: Политех Петра
+class: drone-racing > 200mm
+pilots:
+  - position: 1
+    id: 2025/12-28/11
+    name: Садовников Матвей
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1304
+        algorithm: elo > k-10
+        delta: 25
+        new_value: 1329
+  - position: 2
+    id: 2026/04-05/136
+    name: Миронов Григорий
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1249
+        algorithm: elo > k-10
+        delta: 21
+        new_value: 1270
+  - position: 3
+    id: 2025/12-28/17
+    name: Фомина Алена
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1219
+        algorithm: elo > k-10
+        delta: 14
+        new_value: 1233
+  - position: 4
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1176
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1185
+  - position: 5
+    id: 2026/04-12/139
+    name: Луденков Данил
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1179
+        algorithm: elo > k-10
+        delta: -1
+        new_value: 1178
+  - position: 6
+    id: 2026/04-12/138
+    name: Волок Даниил
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1229
+        algorithm: elo > k-10
+        delta: -17
+        new_value: 1212
+  - position: 7
+    id: 2026/03-29/106
+    name: Пронин Александр
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1167
+        algorithm: elo > k-10
+        delta: -20
+        new_value: 1147
+  - position: 8
+    id: 2025/12-28/8
+    name: Котоман Семен
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1193
+        algorithm: elo > k-10
+        delta: -33
+        new_value: 1160
