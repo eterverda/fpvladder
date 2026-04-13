@@ -14,6 +14,12 @@
     --class-200: #00bcd4; /* Cyan */
     --class-330: #2980b9; /* Blue */
 
+    /* Class colors RGB for opacity */
+    --class-75-rgb: 230, 126, 34;
+    --class-125-rgb: 39, 174, 96;
+    --class-200-rgb: 0, 188, 212;
+    --class-330-rgb: 41, 128, 185;
+
     --header-bg: #ffffff;
     --header-border: #eee;
     --dropdown-bg: #ffffff;
@@ -31,6 +37,53 @@
     --fav-flag: #3498db;
 
     --table-first-col-width: 26px;
+}
+
+/* Class color mappings for dynamic RGB usage */
+[data-class="75mm"] {
+    --class-rgb: var(--class-75-rgb);
+}
+[data-class="125mm"] {
+    --class-rgb: var(--class-125-rgb);
+}
+[data-class="200mm"] {
+    --class-rgb: var(--class-200-rgb);
+}
+[data-class="330mm"] {
+    --class-rgb: var(--class-330-rgb);
+}
+
+/* Target class mappings for navigation */
+[data-target-class="75mm"] {
+    --target-rgb: var(--class-75-rgb);
+}
+[data-target-class="125mm"] {
+    --target-rgb: var(--class-125-rgb);
+}
+[data-target-class="200mm"] {
+    --target-rgb: var(--class-200-rgb);
+}
+[data-target-class="330mm"] {
+    --target-rgb: var(--class-330-rgb);
+}
+
+/* Universal glow animation for pilot cards */
+@keyframes pilotCardGlow {
+    0%,
+    100% {
+        border-color: rgb(var(--class-rgb));
+        box-shadow:
+            0 4px 20px var(--dropdown-shadow),
+            0 0 16px rgba(var(--class-rgb), 0.25),
+            inset 0 0 24px rgba(var(--class-rgb), 0.05);
+    }
+    50% {
+        border-color: rgb(var(--class-rgb));
+        box-shadow:
+            0 4px 24px var(--dropdown-shadow),
+            0 0 28px rgba(var(--class-rgb), 0.35),
+            inset 0 0 32px rgba(var(--class-rgb), 0.08);
+    }
 }
 
 /* Dark theme with neon accent */
@@ -86,46 +139,11 @@ h2 {
     margin: 40px 0 10px 0;
 }
 
-/* Class-specific colors for h2 headings */
-.class-content[data-class="75mm"] h2 {
-    color: var(--class-75);
-}
-
-.class-content[data-class="125mm"] h2 {
-    color: var(--class-125);
-}
-
-.class-content[data-class="200mm"] h2 {
-    color: var(--class-200);
-}
-
-.class-content[data-class="330mm"] h2 {
-    color: var(--class-330);
-}
-
-/* Class-specific colors for h2 icons (calendar, toggle) */
-.class-content[data-class="75mm"] h2 svg,
-.class-content[data-class="75mm"] h2 .toggle-icon {
-    color: var(--class-75);
-    stroke: var(--class-75);
-}
-
-.class-content[data-class="125mm"] h2 svg,
-.class-content[data-class="125mm"] h2 .toggle-icon {
-    color: var(--class-125);
-    stroke: var(--class-125);
-}
-
-.class-content[data-class="200mm"] h2 svg,
-.class-content[data-class="200mm"] h2 .toggle-icon {
-    color: var(--class-200);
-    stroke: var(--class-200);
-}
-
-.class-content[data-class="330mm"] h2 svg,
-.class-content[data-class="330mm"] h2 .toggle-icon {
-    color: var(--class-330);
-    stroke: var(--class-330);
+/* Class-specific colors for h2 headings and icons */
+.class-content h2,
+.class-content h2 svg,
+.class-content h2 .toggle-icon {
+    color: rgb(var(--class-rgb));
 }
 
 header {
@@ -259,80 +277,26 @@ body.search-active .events-section.collapsed .events-toggle {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Class-specific active tab colors - 75mm Orange */
-.class-tab[data-class="75mm"].active {
-    color: var(--class-75);
-    border-color: var(--class-75);
-    background: linear-gradient(90deg, rgba(230, 126, 34, 0.08), rgba(243, 156, 18, 0.08)), var(--bg);
-    box-shadow: 0 2px 12px rgba(230, 126, 34, 0.25);
+/* Active tab colors using CSS custom properties */
+.class-tab.active {
+    color: rgb(var(--class-rgb));
+    border-color: rgb(var(--class-rgb));
+    background: linear-gradient(90deg, rgba(var(--class-rgb), 0.08), rgba(var(--class-rgb), 0.08)), var(--bg);
+    box-shadow: 0 2px 12px rgba(var(--class-rgb), 0.25);
 }
 
-/* Class-specific active tab colors - 125mm Green */
-.class-tab[data-class="125mm"].active {
-    color: var(--class-125);
-    border-color: var(--class-125);
-    background: linear-gradient(90deg, rgba(39, 174, 96, 0.08), rgba(46, 204, 113, 0.08)), var(--bg);
-    box-shadow: 0 2px 12px rgba(39, 174, 96, 0.25);
-}
-
-/* Class-specific active tab colors - 200mm Cyan */
-.class-tab[data-class="200mm"].active {
-    color: var(--class-200);
-    border-color: var(--class-200);
-    background: linear-gradient(90deg, rgba(0, 188, 212, 0.08), rgba(38, 198, 218, 0.08)), var(--bg);
-    box-shadow: 0 2px 12px rgba(0, 188, 212, 0.25);
-}
-
-/* Class-specific active tab colors - 330mm Blue */
-.class-tab[data-class="330mm"].active {
-    color: var(--class-330);
-    border-color: var(--class-330);
-    background: linear-gradient(90deg, rgba(41, 128, 185, 0.08), rgba(52, 152, 219, 0.08)), var(--bg);
-    box-shadow: 0 2px 12px rgba(41, 128, 185, 0.25);
-}
-
-/* Dark theme neon glow - class specific */
-[data-theme="dark"] .class-tab[data-class="75mm"].active {
-    background: linear-gradient(90deg, rgba(230, 126, 34, 0.12), rgba(243, 156, 18, 0.12)), var(--bg);
+/* Dark theme neon glow */
+[data-theme="dark"] .class-tab.active {
+    background: linear-gradient(90deg, rgba(var(--class-rgb), 0.12), rgba(var(--class-rgb), 0.12)), var(--bg);
     box-shadow:
-        0 2px 16px rgba(230, 126, 34, 0.3),
-        0 0 12px rgba(230, 126, 34, 0.25);
-}
-
-[data-theme="dark"] .class-tab[data-class="125mm"].active {
-    background: linear-gradient(90deg, rgba(39, 174, 96, 0.12), rgba(46, 204, 113, 0.12)), var(--bg);
-    box-shadow:
-        0 2px 16px rgba(39, 174, 96, 0.3),
-        0 0 12px rgba(39, 174, 96, 0.25);
-}
-
-[data-theme="dark"] .class-tab[data-class="200mm"].active {
-    background: linear-gradient(90deg, rgba(0, 188, 212, 0.12), rgba(38, 198, 218, 0.12)), var(--bg);
-    box-shadow:
-        0 2px 16px rgba(0, 188, 212, 0.3),
-        0 0 12px rgba(0, 188, 212, 0.25);
-}
-
-[data-theme="dark"] .class-tab[data-class="330mm"].active {
-    background: linear-gradient(90deg, rgba(41, 128, 185, 0.12), rgba(52, 152, 219, 0.12)), var(--bg);
-    box-shadow:
-        0 2px 16px rgba(41, 128, 185, 0.3),
-        0 0 12px rgba(41, 128, 185, 0.25);
+        0 2px 16px rgba(var(--class-rgb), 0.3),
+        0 0 12px rgba(var(--class-rgb), 0.25);
 }
 
 /* Hover - class specific colors, desktop only */
 @media (hover: hover) {
-    .class-tab[data-class="75mm"]:hover {
-        color: var(--class-75);
-    }
-    .class-tab[data-class="125mm"]:hover {
-        color: var(--class-125);
-    }
-    .class-tab[data-class="200mm"]:hover {
-        color: var(--class-200);
-    }
-    .class-tab[data-class="330mm"]:hover {
-        color: var(--class-330);
+    .class-tab:hover {
+        color: rgb(var(--class-rgb));
     }
 }
 
@@ -603,65 +567,23 @@ header .event-date {
     text-align: center;
 }
 
-/* Light theme glow for nav buttons based on target class */
-.class-nav-btn[data-target-class="75mm"] {
-    box-shadow: 0 2px 10px rgba(230, 126, 34, 0.15);
+/* Glow for nav buttons based on target class */
+.class-nav-btn {
+    box-shadow: 0 2px 10px rgba(var(--target-rgb), 0.15);
 }
 
-.class-nav-btn[data-target-class="125mm"] {
-    box-shadow: 0 2px 10px rgba(39, 174, 96, 0.15);
-}
-
-.class-nav-btn[data-target-class="200mm"] {
-    box-shadow: 0 2px 10px rgba(0, 188, 212, 0.15);
-}
-
-.class-nav-btn[data-target-class="330mm"] {
-    box-shadow: 0 2px 10px rgba(41, 128, 185, 0.15);
-}
-
-/* Dark theme glow for nav buttons based on target class */
-[data-theme="dark"] .class-nav-btn[data-target-class="75mm"] {
+/* Dark theme glow for nav buttons */
+[data-theme="dark"] .class-nav-btn {
     box-shadow:
-        0 2px 10px rgba(230, 126, 34, 0.15),
-        0 0 12px rgba(230, 126, 34, 0.2);
-}
-
-[data-theme="dark"] .class-nav-btn[data-target-class="125mm"] {
-    box-shadow:
-        0 2px 10px rgba(39, 174, 96, 0.15),
-        0 0 12px rgba(39, 174, 96, 0.2);
-}
-
-[data-theme="dark"] .class-nav-btn[data-target-class="200mm"] {
-    box-shadow:
-        0 2px 10px rgba(0, 188, 212, 0.15),
-        0 0 12px rgba(0, 188, 212, 0.2);
-}
-
-[data-theme="dark"] .class-nav-btn[data-target-class="330mm"] {
-    box-shadow:
-        0 2px 10px rgba(41, 128, 185, 0.15),
-        0 0 12px rgba(41, 128, 185, 0.2);
+        0 2px 10px rgba(var(--target-rgb), 0.15),
+        0 0 12px rgba(var(--target-rgb), 0.2);
 }
 
 /* Hover - target class specific colors, desktop only */
 @media (hover: hover) {
-    .class-nav-btn[data-target-class="75mm"]:hover,
-    .class-nav-btn[data-target-class="75mm"]:hover .class-nav-label {
-        color: var(--class-75);
-    }
-    .class-nav-btn[data-target-class="125mm"]:hover,
-    .class-nav-btn[data-target-class="125mm"]:hover .class-nav-label {
-        color: var(--class-125);
-    }
-    .class-nav-btn[data-target-class="200mm"]:hover,
-    .class-nav-btn[data-target-class="200mm"]:hover .class-nav-label {
-        color: var(--class-200);
-    }
-    .class-nav-btn[data-target-class="330mm"]:hover,
-    .class-nav-btn[data-target-class="330mm"]:hover .class-nav-label {
-        color: var(--class-330);
+    .class-nav-btn:hover,
+    .class-nav-btn:hover .class-nav-label {
+        color: rgb(var(--target-rgb));
     }
 }
 
@@ -738,116 +660,9 @@ header .event-date {
         0 0 0 1px rgba(41, 128, 185, 0.1);
 }
 
-/* Class-specific pilot card colors - 75mm Orange (dark theme) */
-[data-theme="dark"] .pilot-card[data-class="75mm"] {
-    border-color: var(--class-75);
-    box-shadow:
-        0 4px 20px var(--dropdown-shadow),
-        0 0 16px rgba(230, 126, 34, 0.25),
-        inset 0 0 24px rgba(230, 126, 34, 0.05);
-    animation: pilotCardGlow75 3s ease-in-out infinite;
-}
-
-@keyframes pilotCardGlow75 {
-    0%,
-    100% {
-        border-color: var(--class-75);
-        box-shadow:
-            0 4px 20px var(--dropdown-shadow),
-            0 0 16px rgba(230, 126, 34, 0.25),
-            inset 0 0 24px rgba(230, 126, 34, 0.05);
-    }
-    50% {
-        border-color: #f39c12;
-        box-shadow:
-            0 4px 24px var(--dropdown-shadow),
-            0 0 28px rgba(243, 156, 18, 0.35),
-            inset 0 0 32px rgba(243, 156, 18, 0.08);
-    }
-}
-
-/* Class-specific pilot card colors - 125mm Green */
-[data-theme="dark"] .pilot-card[data-class="125mm"] {
-    border-color: var(--class-125);
-    box-shadow:
-        0 4px 20px var(--dropdown-shadow),
-        0 0 16px rgba(39, 174, 96, 0.25),
-        inset 0 0 24px rgba(39, 174, 96, 0.05);
-    animation: pilotCardGlow125 3s ease-in-out infinite;
-}
-
-@keyframes pilotCardGlow125 {
-    0%,
-    100% {
-        border-color: var(--class-125);
-        box-shadow:
-            0 4px 20px var(--dropdown-shadow),
-            0 0 16px rgba(39, 174, 96, 0.25),
-            inset 0 0 24px rgba(39, 174, 96, 0.05);
-    }
-    50% {
-        border-color: #2ecc71;
-        box-shadow:
-            0 4px 24px var(--dropdown-shadow),
-            0 0 28px rgba(46, 204, 113, 0.35),
-            inset 0 0 32px rgba(46, 204, 113, 0.08);
-    }
-}
-
-/* Class-specific pilot card colors - 200mm Cyan */
-[data-theme="dark"] .pilot-card[data-class="200mm"] {
-    border-color: var(--class-200);
-    box-shadow:
-        0 4px 20px var(--dropdown-shadow),
-        0 0 16px rgba(0, 188, 212, 0.25),
-        inset 0 0 24px rgba(0, 188, 212, 0.05);
-    animation: pilotCardGlow200 3s ease-in-out infinite;
-}
-
-@keyframes pilotCardGlow200 {
-    0%,
-    100% {
-        border-color: var(--class-200);
-        box-shadow:
-            0 4px 20px var(--dropdown-shadow),
-            0 0 16px rgba(0, 188, 212, 0.25),
-            inset 0 0 24px rgba(0, 188, 212, 0.05);
-    }
-    50% {
-        border-color: #26c6da;
-        box-shadow:
-            0 4px 24px var(--dropdown-shadow),
-            0 0 28px rgba(38, 198, 218, 0.35),
-            inset 0 0 32px rgba(38, 198, 218, 0.08);
-    }
-}
-
-/* Class-specific pilot card colors - 330mm Blue */
-[data-theme="dark"] .pilot-card[data-class="330mm"] {
-    border-color: var(--class-330);
-    box-shadow:
-        0 4px 20px var(--dropdown-shadow),
-        0 0 16px rgba(41, 128, 185, 0.25),
-        inset 0 0 24px rgba(41, 128, 185, 0.05);
-    animation: pilotCardGlow330 3s ease-in-out infinite;
-}
-
-@keyframes pilotCardGlow330 {
-    0%,
-    100% {
-        border-color: var(--class-330);
-        box-shadow:
-            0 4px 20px var(--dropdown-shadow),
-            0 0 16px rgba(41, 128, 185, 0.25),
-            inset 0 0 24px rgba(41, 128, 185, 0.05);
-    }
-    50% {
-        border-color: #3498db;
-        box-shadow:
-            0 4px 24px var(--dropdown-shadow),
-            0 0 28px rgba(52, 152, 219, 0.35),
-            inset 0 0 32px rgba(52, 152, 219, 0.08);
-    }
+/* Dark theme glow for all pilot cards using universal animation */
+[data-theme="dark"] .pilot-card {
+    animation: pilotCardGlow 3s ease-in-out infinite;
 }
 
 .pilot-card-name {
