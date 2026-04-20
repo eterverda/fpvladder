@@ -4,6 +4,7 @@ name: Открытый Кубок ИТМО > 125мм и 200мм
 organizer:
   name: ИТМО
 classes:
+  - drone-racing > 125mm
   - drone-racing > 200mm
 description: |
   Открытый Кубок ИТМО по гонкам дронов 💙
