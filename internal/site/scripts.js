@@ -759,9 +759,15 @@ function saveClass(classValue) {
       cell.textContent = weeks + (remainingDays > 0 ? "+" : "") + " нед.";
     } else {
       const months = Math.floor(diffDays / 30);
-      const remainingDays = diffDays % 30;
-      const hasExtraWeeks = remainingDays >= 7;
-      cell.textContent = months + (hasExtraWeeks ? "+" : "") + " мес.";
+      if (months === 0) {
+        const weeks = Math.floor(diffDays / 7);
+        const remainingDays = diffDays % 7;
+        cell.textContent = weeks + (remainingDays > 0 ? "+" : "") + " нед.";
+      } else {
+        const remainingDays = diffDays % 30;
+        const hasExtraWeeks = remainingDays >= 7;
+        cell.textContent = months + (hasExtraWeeks ? "+" : "") + " мес.";
+      }
     }
   });
 })();
