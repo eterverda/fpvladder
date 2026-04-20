@@ -7,7 +7,7 @@ careers:
         event:
           id: 2026/02-21/3
           date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Квалификации
+          name: Гонка ГУАП > Квалификации
         position: 13/33
         delta: 82
         value: 1282
@@ -15,7 +15,7 @@ careers:
         event:
           id: 2026/02-21/4
           date: 2026-02-21
-          name: Гонка ГУАП 75 ЛЗ > Финалы
+          name: Гонка ГУАП > Финалы
         position: 13/16
         delta: -52
         value: 1230
