@@ -1,24 +1,6 @@
-id: 2026/02-28/58
-name: Куракова Арина
+id: 2026/04-19/141
+name: Журавлёв Кирилл
 careers:
-  - class: drone-racing > 75mm
-    ratings:
-      - num: 1
-        event:
-          id: 2026/02-28/5
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Квалификации
-        position: 11/42
-        delta: 168
-        value: 1368
-      - num: 2
-        event:
-          id: 2026/02-28/6
-          date: 2026-02-28
-          name: Вупомания > S2T1 > Финалы
-        position: 7/16
-        delta: 38
-        value: 1406
   - class: drone-racing > 200mm
     ratings:
       - num: 1
@@ -26,17 +8,17 @@ careers:
           id: 2026/04-19/24
           date: 2026-04-19
           name: Первенство и Чемпионат ЛО > 200мм > Квалификации
-        position: 9/30
-        delta: 67
-        value: 1267
+        position: 4/30
+        delta: 117
+        value: 1317
       - num: 2
         event:
           id: 2026/04-19/25
           date: 2026-04-19
           name: Первенство и Чемпионат ЛО > 200мм > Финалы
-        position: 8/16
-        delta: 9
-        value: 1276
+        position: 7/16
+        delta: 7
+        value: 1324
   - class: drone-racing > 330mm
     ratings:
       - num: 1
@@ -44,14 +26,14 @@ careers:
           id: 2026/04-19/26
           date: 2026-04-19
           name: Первенство и Чемпионат ЛО > 330мм > Квалификации
-        position: 14/23
-        delta: -20
-        value: 1180
+        position: 8/23
+        delta: 40
+        value: 1240
       - num: 2
         event:
           id: 2026/04-19/27
           date: 2026-04-19
           name: Первенство и Чемпионат ЛО > 330мм > Финалы
-        position: 6/16
-        delta: 35
-        value: 1215
+        position: 9/16
+        delta: -8
+        value: 1232

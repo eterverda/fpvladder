@@ -1,0 +1,272 @@
+id: 2026/04-19/24
+date: 2026-04-19
+name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+organizer:
+  name: Федерация гонок дронов Ленинградской области
+  link: https://t.me/fgdlenobl
+class: drone-racing > 200mm
+pilots:
+  - position: 1
+    id: 2026/04-19/147
+    name: Черемных Платон Андреевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 147
+        new_value: 1347
+  - position: 2
+    id: 2026/04-19/144
+    name: Савиновский Дмитрий Антонович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 137
+        new_value: 1337
+  - position: 3
+    id: 2026/04-05/136
+    name: Миронов Григорий Максимович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1270
+        algorithm: elo > k-10
+        delta: 97
+        new_value: 1367
+  - position: 4
+    id: 2026/04-19/141
+    name: Журавлёв Кирилл Евгеньевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 117
+        new_value: 1317
+  - position: 5
+    id: 2026/02-28/50
+    name: Зубков Андрей Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 107
+        new_value: 1307
+  - position: 6
+    id: 2026/04-19/146
+    name: Черемных Мирон Андреевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 97
+        new_value: 1297
+  - position: 7
+    id: 2026/03-29/107
+    name: Якубовский Николай Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/03-29/11
+        old_value: 1258
+        algorithm: elo > k-10
+        delta: 62
+        new_value: 1320
+  - position: 8
+    id: 2025/12-28/11
+    name: Садовников Матвей Романович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1329
+        algorithm: elo > k-10
+        delta: 24
+        new_value: 1353
+  - position: 9
+    id: 2026/02-28/58
+    name: Куракова Арина Станиславовна
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 67
+        new_value: 1267
+  - position: 10
+    id: 2026/04-19/145
+    name: Струговцов Кирилл Игоревич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 57
+        new_value: 1257
+  - position: 11
+    id: 2026/04-12/138
+    name: Волок Даниил Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1212
+        algorithm: elo > k-10
+        delta: 42
+        new_value: 1254
+  - position: 12
+    id: 2025/12-28/10
+    name: Руденко Владимир Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/03-29/11
+        old_value: 1246
+        algorithm: elo > k-10
+        delta: 17
+        new_value: 1263
+  - position: 13
+    id: 2025/12-28/17
+    name: Фомина Алёна Владимировна
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1233
+        algorithm: elo > k-10
+        delta: 13
+        new_value: 1246
+  - position: 14
+    id: 2026/04-19/148
+    name: Шустин Иван Максимович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: 17
+        new_value: 1217
+  - position: 15
+    id: 2025/12-28/5
+    name: Губанов Илья Андреевич
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1185
+        algorithm: elo > k-10
+        delta: 13
+        new_value: 1198
+  - position: 16
+    id: 2025/12-28/13
+    name: Саламатов Марк Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -3
+        new_value: 1197
+  - position: 17
+    id: 2026/03-29/106
+    name: Пронин Александр Сергеевич
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1147
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1156
+  - position: 18
+    id: 2026/04-19/142
+    name: Журавлёв Тимофей Евгеньевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -23
+        new_value: 1177
+  - position: 19
+    id: 2026/03-28/93
+    name: Петров Григорий Михайлович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/03-29/11
+        old_value: 1239
+        algorithm: elo > k-10
+        delta: -50
+        new_value: 1189
+  - position: 20
+    id: 2025/12-28/16
+    name: Формагей Виктория Алексеевна
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -43
+        new_value: 1157
+  - position: 21
+    id: 2025/12-28/8
+    name: Котоман Семён Олегович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/23
+        old_value: 1160
+        algorithm: elo > k-10
+        delta: -36
+        new_value: 1124
+  - position: 22
+    id: 2026/04-05/134
+    name: Илькаева Анастасия Евгеньевна
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -63
+        new_value: 1137
+  - position: 23
+    id: 2026/02-21/27
+    name: Мельников Егор Олегович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -73
+        new_value: 1127
+  - position: 24
+    id: 2025/12-28/1
+    name: Аверин Дмитрий Александрович
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1129
+        algorithm: elo > k-10
+        delta: -54
+        new_value: 1075
+  - position: 25
+    id: 2025/12-28/6
+    name: Егоров Дмитрий Владимирович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -93
+        new_value: 1107
+  - position: 26
+    id: 2025/12-28/2
+    name: Асанов Александр Валерьевич
+    ratings:
+      - class: drone-racing > 200mm
+        origin_id: 2026/04-12/22
+        old_value: 1111
+        algorithm: elo > k-10
+        delta: -66
+        new_value: 1045
+  - position: 27
+    id: 2026/04-19/140
+    name: Грошев Михаил Иванович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -113
+        new_value: 1087
+  - position: 28
+    id: 2026/02-21/41
+    name: Прончаков Георгий Артемович
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -123
+        new_value: 1077
+  - position: 29
+    id: 2026/03-28/102
+    name: Толкунов Иван Сергеевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -133
+        new_value: 1067
+  - position: 30
+    id: 2026/04-19/143
+    name: Мелицарик Богдан Евгеньевич
+    ratings:
+      - class: drone-racing > 200mm
+        algorithm: elo > k-10
+        delta: -143
+        new_value: 1057

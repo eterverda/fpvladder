@@ -1,0 +1,31 @@
+id: 2026/04-19/145
+name: Струговцов Кирилл
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 10/30
+        delta: 57
+        value: 1257
+      - num: 2
+        event:
+          id: 2026/04-19/25
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Финалы
+        position: 9/16
+        delta: 1
+        value: 1258
+  - class: drone-racing > 330mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/26
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 330мм > Квалификации
+        position: 15/23
+        delta: -30
+        value: 1170

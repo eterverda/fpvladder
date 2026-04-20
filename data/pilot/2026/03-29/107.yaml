@@ -19,6 +19,22 @@ careers:
         position: 2/8
         delta: 23
         value: 1258
+      - num: 3
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 7/30
+        delta: 62
+        value: 1320
+      - num: 4
+        event:
+          id: 2026/04-19/25
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Финалы
+        position: 13/16
+        delta: -53
+        value: 1267
   - class: drone-racing > 330mm
     ratings:
       - num: 1
@@ -37,3 +53,19 @@ careers:
         position: 2/6
         delta: 13
         value: 1238
+      - num: 3
+        event:
+          id: 2026/04-19/26
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 330мм > Квалификации
+        position: 9/23
+        delta: 18
+        value: 1256
+      - num: 4
+        event:
+          id: 2026/04-19/27
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 330мм > Финалы
+        position: 10/16
+        delta: -22
+        value: 1234

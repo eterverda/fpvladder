@@ -109,3 +109,11 @@ careers:
         position: 11/11
         delta: -44
         value: 1111
+      - num: 3
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 26/30
+        delta: -66
+        value: 1045

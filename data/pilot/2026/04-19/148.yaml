@@ -1,0 +1,31 @@
+id: 2026/04-19/148
+name: Шустин Иван
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 14/30
+        delta: 17
+        value: 1217
+      - num: 2
+        event:
+          id: 2026/04-19/25
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Финалы
+        position: 15/16
+        delta: -50
+        value: 1167
+  - class: drone-racing > 330mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/26
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 330мм > Квалификации
+        position: 23/23
+        delta: -110
+        value: 1090

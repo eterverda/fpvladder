@@ -1,0 +1,13 @@
+id: 2026/04-19/140
+name: Грошев Михаил
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 27/30
+        delta: -113
+        value: 1087

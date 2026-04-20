@@ -75,3 +75,13 @@ careers:
         position: 2/4
         delta: 4
         value: 1356
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/04-19/24
+          date: 2026-04-19
+          name: Первенство и Чемпионат ЛО > 200мм > Квалификации
+        position: 20/30
+        delta: -43
+        value: 1157
