@@ -88,7 +88,8 @@
                 </div>
             </section>
 
-            <section>
+            {{ if .Pilots }}
+            <section class="pilots-section">
                 <h2>Пилоты</h2>
                 <table class="data-table pilot-table">
                     <tbody class="pilot-table-body">
@@ -107,7 +108,9 @@
                 </table>
                 <div class="pilots-empty empty-state">Пилоты не найдены</div>
             </section>
+            {{ end }}
 
+            {{ if .Events }}
             <section class="events-section">
                 <h2 class="events-toggle">
                     <span>События</span>
@@ -138,6 +141,7 @@
                     <div class="events-empty empty-state">События не найдены</div>
                 </div>
             </section>
+            {{ end }}
         </div>
         {{ end }}
 
