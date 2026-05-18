@@ -1,0 +1,13 @@
+id: 2026/05-16/155
+name: Крылов Святослав
+careers:
+  - class: drone-racing > 125mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-16/30
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 125мм > Квалификации
+        position: 15-16/16
+        delta: -70
+        value: 1130

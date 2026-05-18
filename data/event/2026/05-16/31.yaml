@@ -1,0 +1,87 @@
+id: 2026/05-16/31
+date: 2026-05-16
+name: Открытый Кубок ИТМО > 125мм > Финалы
+organizer:
+  name: ГУАП + ИТМО
+class: drone-racing > 125mm
+pilots:
+  - position: 1
+    id: 2026/04-19/147
+    name: Черемных Платон
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1265
+        algorithm: elo > k-10
+        delta: 32
+        new_value: 1297
+  - position: 2
+    id: 2026/02-28/44
+    name: Воронин Арсений
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1225
+        algorithm: elo > k-10
+        delta: 27
+        new_value: 1252
+  - position: 3
+    id: 2026/02-28/58
+    name: Куракова Арина
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1255
+        algorithm: elo > k-10
+        delta: 13
+        new_value: 1268
+  - position: 4
+    id: 2026/02-28/69
+    name: Сакун Владимир
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1235
+        algorithm: elo > k-10
+        delta: 6
+        new_value: 1241
+  - position: 5
+    id: 2026/04-19/146
+    name: Черемных Мирон
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1275
+        algorithm: elo > k-10
+        delta: -9
+        new_value: 1266
+  - position: 6
+    id: 2026/02-28/57
+    name: Кунилов Теодор
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1245
+        algorithm: elo > k-10
+        delta: -16
+        new_value: 1229
+  - position: 7
+    id: 2026/02-28/72
+    name: Тестов Максим
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1205
+        algorithm: elo > k-10
+        delta: -21
+        new_value: 1184
+  - position: 8
+    id: 2026/04-05/136
+    name: Григорий Миронов
+    ratings:
+      - class: drone-racing > 125mm
+        origin_id: 2026/05-16/30
+        old_value: 1215
+        algorithm: elo > k-10
+        delta: -32
+        new_value: 1183
