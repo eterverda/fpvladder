@@ -1,0 +1,167 @@
+id: 2026/05-17/33
+date: 2026-05-17
+name: Открытый Кубок ИТМО > 75мм > Финалы ЛЗ
+organizer:
+  name: ГУАП + ИТМО
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    id: 2026/02-28/58
+    name: Куракова Арина
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1534
+        algorithm: elo > k-10
+        delta: 70
+        new_value: 1604
+  - position: 2
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1533
+        algorithm: elo > k-10
+        delta: 60
+        new_value: 1593
+  - position: 3
+    id: 2026/05-16/152
+    name: Хромцов Ростислав
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1455
+        algorithm: elo > k-10
+        delta: 67
+        new_value: 1522
+  - position: 4
+    id: 2026/05-16/154
+    name: Шатохин Николай
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1485
+        algorithm: elo > k-10
+        delta: 50
+        new_value: 1535
+  - position: 5
+    id: 2026/02-28/44
+    name: Воронин Арсений
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1536
+        algorithm: elo > k-10
+        delta: 29
+        new_value: 1565
+  - position: 6
+    id: 2025/12-28/8
+    name: Котоман Семён
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1471
+        algorithm: elo > k-10
+        delta: 33
+        new_value: 1504
+  - position: 7
+    id: 2025/12-28/11
+    name: Садовников Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1829
+        algorithm: elo > k-10
+        delta: -40
+        new_value: 1789
+  - position: 8
+    id: 2026/04-19/146
+    name: Черемных Мирон
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1425
+        algorithm: elo > k-10
+        delta: 23
+        new_value: 1448
+  - position: 9
+    id: 2026/02-28/57
+    name: Кунилов Теодор
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1470
+        algorithm: elo > k-10
+        delta: 4
+        new_value: 1474
+  - position: 10
+    id: 2026/02-28/72
+    name: Тестов Максим
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1552
+        algorithm: elo > k-10
+        delta: -24
+        new_value: 1528
+  - position: 11
+    id: 2026/04-19/147
+    name: Черемных Платон
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1405
+        algorithm: elo > k-10
+        delta: -3
+        new_value: 1402
+  - position: 12
+    id: 2026/04-05/136
+    name: Миронов Григорий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1424
+        algorithm: elo > k-10
+        delta: -17
+        new_value: 1407
+  - position: 13
+    id: 2026/02-28/69
+    name: Сакун Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1517
+        algorithm: elo > k-10
+        delta: -47
+        new_value: 1470
+  - position: 14
+    id: 2025/12-28/10
+    name: Руденко Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1610
+        algorithm: elo > k-10
+        delta: -76
+        new_value: 1534
+  - position: 15
+    id: 2026/05-16/151
+    name: Радюкевич Кирилл
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1395
+        algorithm: elo > k-10
+        delta: -41
+        new_value: 1354
+  - position: 16
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/32
+        old_value: 1579
+        algorithm: elo > k-10
+        delta: -90
+        new_value: 1489

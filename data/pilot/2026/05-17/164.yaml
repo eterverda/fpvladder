@@ -1,0 +1,13 @@
+id: 2026/05-17/164
+name: Павлов Егор
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-17/32
+          date: 2026-05-17
+          name: Открытый Кубок ИТМО > 75мм > Квалификации ЛЗ
+        position: 39/56
+        delta: -75
+        value: 1125
