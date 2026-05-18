@@ -53,3 +53,11 @@ careers:
         position: 9/11
         delta: -28
         value: 1147
+      - num: 3
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 21/24
+        delta: -65
+        value: 1082

@@ -1,0 +1,21 @@
+id: 2026/05-16/151
+name: Радюкевич Кирилл
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 9/24
+        delta: 38
+        value: 1238
+      - num: 2
+        event:
+          id: 2026/05-16/29
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Финалы
+        position: 16/16
+        delta: -68
+        value: 1170

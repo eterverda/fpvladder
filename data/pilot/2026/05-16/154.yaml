@@ -1,0 +1,21 @@
+id: 2026/05-16/154
+name: Шатохин Николай
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 8/24
+        delta: 48
+        value: 1248
+      - num: 2
+        event:
+          id: 2026/05-16/29
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Финалы
+        position: 7/16
+        delta: 20
+        value: 1268

@@ -53,6 +53,22 @@ careers:
         position: 3/16
         delta: 36
         value: 1403
+      - num: 5
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 2/24
+        delta: 47
+        value: 1450
+      - num: 6
+        event:
+          id: 2026/05-16/29
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Финалы
+        position: 6/16
+        delta: -11
+        value: 1439
   - class: drone-racing > 330mm
     ratings:
       - num: 1

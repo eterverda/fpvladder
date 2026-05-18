@@ -1,0 +1,21 @@
+id: 2026/05-16/152
+name: Хромцов Ростислав
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 12/24
+        delta: 8
+        value: 1208
+      - num: 2
+        event:
+          id: 2026/05-16/29
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Финалы
+        position: 4/16
+        delta: 59
+        value: 1267

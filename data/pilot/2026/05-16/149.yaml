@@ -1,0 +1,13 @@
+id: 2026/05-16/149
+name: Кураков Станислав
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-16/28
+          date: 2026-05-16
+          name: Открытый Кубок ИТМО > 200мм > Квалификации
+        position: 18/24
+        delta: -52
+        value: 1148
