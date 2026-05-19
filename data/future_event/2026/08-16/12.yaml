@@ -1,0 +1,17 @@
+id: 2026/08-16/11
+date: 2026-08-16
+date-to: 2026-08-21
+name: Первенство и кубок СЗФО
+organizer:
+  name: Федерация гонок дронов Санкт-Петербурга
+  link: http://t.me/fgdSPb
+classes:
+  - drone-racing > 75mm
+  - drone-racing > 200mm
+  - drone-racing > 330mm
+description: |
+  Класс 75 мм ЛЗ, КЗ
+
+  Класс 200 мм ЛЗ, КЗ
+
+  Класс 330 мм ЛЗ, КЗ
