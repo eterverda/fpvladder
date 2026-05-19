@@ -43,3 +43,11 @@ careers:
         position: 42/56
         delta: -93
         value: 1089
+      - num: 6
+        event:
+          id: 2026/05-17/34
+          date: 2026-05-17
+          name: Открытый Кубок ИТМО > 75мм > Квалификации КЗ
+        position: 14/16
+        delta: -14
+        value: 1075

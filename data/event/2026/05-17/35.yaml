@@ -1,0 +1,95 @@
+id: 2026/05-17/35
+date: 2026-05-17
+name: Открытый Кубок ИТМО > 75мм > Финалы КЗ
+organizer:
+  name: ГУАП + ИТМО
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    team: 1
+    id: 2026/02-28/44
+    name: Воронин Арсений
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1648
+        algorithm: elo > k-10
+        delta: 21
+        new_value: 1669
+  - position: 1
+    team: 1
+    id: 2026/05-16/154
+    name: Шатохин Николай
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1627
+        algorithm: elo > k-10
+        delta: 23
+        new_value: 1650
+  - position: 2
+    team: 2
+    id: 2026/02-28/57
+    name: Кунилов Теодор
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1568
+        algorithm: elo > k-10
+        delta: 10
+        new_value: 1578
+  - position: 2
+    team: 2
+    id: 2026/04-19/147
+    name: Черемных Платон
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1521
+        algorithm: elo > k-10
+        delta: 14
+        new_value: 1535
+  - position: 3
+    team: 3
+    id: 2026/03-29/115
+    name: Камаров Хуршед
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1394
+        algorithm: elo > k-10
+        delta: 5
+        new_value: 1399
+  - position: 3
+    team: 3
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1560
+        algorithm: elo > k-10
+        delta: -8
+        new_value: 1552
+  - position: 4
+    team: 4
+    id: 2025/12-28/8
+    name: Котоман Семен
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1545
+        algorithm: elo > k-10
+        delta: -29
+        new_value: 1516
+  - position: 4
+    team: 4
+    id: 2025/12-28/14
+    name: Сойгалов Степан
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1625
+        algorithm: elo > k-10
+        delta: -36
+        new_value: 1589

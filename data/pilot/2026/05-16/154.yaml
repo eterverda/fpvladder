@@ -47,3 +47,19 @@ careers:
         position: 4/16
         delta: 50
         value: 1535
+      - num: 3
+        event:
+          id: 2026/05-17/34
+          date: 2026-05-17
+          name: Открытый Кубок ИТМО > 75мм > Квалификации КЗ
+        position: 1/16
+        delta: 92
+        value: 1627
+      - num: 4
+        event:
+          id: 2026/05-17/35
+          date: 2026-05-17
+          name: Открытый Кубок ИТМО > 75мм > Финалы КЗ
+        position: 1/4
+        delta: 23
+        value: 1650
