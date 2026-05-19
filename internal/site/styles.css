@@ -425,6 +425,7 @@ td.col-info {
     font-size: 0.75rem;
     color: var(--text);
     white-space: nowrap;
+    text-align: right;
 }
 
 .event-row-content .meta-value {
@@ -475,6 +476,7 @@ td.col-info {
     font-size: 0.75rem;
     color: var(--text);
     white-space: nowrap;
+    text-align: right;
 }
 
 .pilot-event-meta .meta-value {

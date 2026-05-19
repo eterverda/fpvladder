@@ -12,7 +12,7 @@
     <div class="container">
         <header>
             <h1>{{ .Name }}</h1>
-            <div class="event-date">{{ .Date }}</div>
+            <div class="event-date">{{ if .DateTo }}от {{ .Date }} до {{ .DateTo }}{{ else }}{{ .Date }}{{ end }}</div>
             <div class="event-favorites">
                 {{template "favorites-widget" .Id}}
             </div>

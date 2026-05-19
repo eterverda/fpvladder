@@ -43,3 +43,7 @@ func (d Date) MarshalYAML() (interface{}, error) {
 func (d Date) String() string {
 	return time.Time(d).Format(dateFormat)
 }
+
+func (d Date) IsZero() bool {
+	return time.Time(d).IsZero()
+}

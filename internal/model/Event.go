@@ -37,6 +37,7 @@ func (p *PilotEntry) RatingForClass(class Class) *RatingAssignment {
 type Event struct {
 	Id          Id           `yaml:"id,omitempty"`
 	Date        Date         `yaml:"date"`
+	DateTo      Date         `yaml:"date-to,omitempty"`
 	Name        string       `yaml:"name"`
 	Description string       `yaml:"description,omitempty"`
 	Link        Link         `yaml:"link,omitempty"`
@@ -48,6 +49,7 @@ type Event struct {
 type FutureEvent struct {
 	Id          Id        `yaml:"id"`
 	Date        Date      `yaml:"date"`
+	DateTo      Date      `yaml:"date-to,omitempty"`
 	Name        string    `yaml:"name"`
 	Description string    `yaml:"description,omitempty"`
 	Link        Link      `yaml:"link,omitempty"`

@@ -63,7 +63,7 @@
                             <div class="event-row-content">
                                 <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
                                 <div class="pilot-event-meta">
-                                    <span class="event-date">{{ .Date }}</span>
+                                    <span class="event-date">{{ if .DateTo }}от {{ .Date }}<br>до {{ .DateTo }}{{ else }}{{ .Date }}{{ end }}</span>
                                     <span class="meta-value">{{ .Assignment }}</span>
                                 </div>
                             </div>

@@ -73,11 +73,11 @@
                     <tbody class="future-event-table-body">
                         {{ range .FutureEvents }}
                         <tr class="data-row" data-href="{{ .Href }}" data-id="{{ .Id }}">
-                            <td class="col-info future-event-countdown" data-date="{{ .Date }}"></td>
+                            <td class="col-info future-event-countdown" data-date="{{ .Date }}"{{ if .DateTo }} data-date-to="{{ .DateTo }}"{{ end }}></td>
                             <td class="col-name">
                                 <div class="event-row-content">
                                     <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
-                                    <span class="event-date">{{ .Date }}</span>
+                                    <span class="event-date">{{ if .DateTo }}от {{ .Date }}<br>до {{ .DateTo }}{{ else }}{{ .Date }}{{ end }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -131,7 +131,7 @@
                                 <td class="col-name">
                                     <div class="event-row-content">
                                         <a href="{{ .Href }}">{{ .Name }} {{template "favorites-tags" .Id}}{{template "favorites-widget" .Id}}</a>
-                                        <span class="event-date">{{ .Date }}</span>
+                                        <span class="event-date">{{ if .DateTo }}от {{ .Date }}<br>до {{ .DateTo }}{{ else }}{{ .Date }}{{ end }}</span>
                                     </div>
                                 </td>
                             </tr>

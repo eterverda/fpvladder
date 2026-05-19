@@ -67,6 +67,7 @@ type eventRecord struct {
 	NumPilots        int
 	Name             string
 	Date             string
+	DateTo           string
 	RatingAssignment string
 }
 
@@ -91,6 +92,7 @@ type assignmentRecord struct {
 	Position   string
 	Name       string
 	Date       string
+	DateTo     string
 	Assignment string
 }
 
@@ -98,6 +100,7 @@ type eventPage struct {
 	Id          model.Id
 	Name        string
 	Date        string
+	DateTo      string
 	Description template.HTML
 	Rating      int
 	Results     []*resultRecord
@@ -220,13 +223,17 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 			if event.Class != class {
 				continue
 			}
-			eventRecords = append(eventRecords, &eventRecord{
+			rec := &eventRecord{
 				Id:        event.Id,
 				Href:      db.ResolveIdPathExt("", "event", event.Id, "html"),
 				NumPilots: len(event.Pilots),
 				Name:      strings.ReplaceAll(event.Name, ">", "⟫"),
 				Date:      event.Date.String(),
-			})
+			}
+			if !event.DateTo.IsZero() && event.DateTo != event.Date {
+				rec.DateTo = event.DateTo.String()
+			}
+			eventRecords = append(eventRecords, rec)
 		}
 		slices.SortFunc(eventRecords, func(a, b *eventRecord) int {
 			ord := -cmp.Compare(a.Date, b.Date)
@@ -251,12 +258,16 @@ func generateIndex(outDir string, events []*model.Event, futureEvents []*model.F
 			if !hasClass {
 				continue
 			}
-			futureEventRecords = append(futureEventRecords, &eventRecord{
+			rec := &eventRecord{
 				Id:   event.Id,
 				Href: db.ResolveIdPathExt("", "future_event", event.Id, "html"),
 				Name: strings.ReplaceAll(event.Name, ">", "⟫"),
 				Date: event.Date.String(),
-			})
+			}
+			if !event.DateTo.IsZero() && event.DateTo != event.Date {
+				rec.DateTo = event.DateTo.String()
+			}
+			futureEventRecords = append(futureEventRecords, rec)
 		}
 		classData.FutureEvents = futureEventRecords
 
@@ -307,7 +318,7 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 		}
 		for _, rating := range career.Ratings {
 			name := strings.ReplaceAll(rating.Event.Name, ">", "⟫")
-			pc.Assignments = append(pc.Assignments, &assignmentRecord{
+			ar := &assignmentRecord{
 				num:        rating.Num,
 				Id:         rating.Event.Id,
 				Href:       db.ResolveIdPathExt("../../../", "event", rating.Event.Id, "html"),
@@ -315,7 +326,11 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 				Name:       name,
 				Date:       rating.Event.Date.String(),
 				Assignment: strings.ReplaceAll(fmt.Sprintf("%+d → %d", rating.Delta, rating.Value), "-", "−"),
-			})
+			}
+			if !rating.Event.DateTo.IsZero() && rating.Event.DateTo != rating.Event.Date {
+				ar.DateTo = rating.Event.DateTo.String()
+			}
+			pc.Assignments = append(pc.Assignments, ar)
 		}
 		slices.SortFunc(pc.Assignments, func(a, b *assignmentRecord) int {
 			return -cmp.Compare(a.num, b.num)
@@ -353,10 +368,13 @@ func generatePilot(outDir string, pilot *model.Pilot) error {
 }
 
 func generateEvent(outDir string, event *model.Event) error {
-	var page = &eventPage{
+	page := &eventPage{
 		Id:   event.Id,
 		Name: strings.ReplaceAll(event.Name, ">", "⟫"),
 		Date: event.Date.String(),
+	}
+	if !event.DateTo.IsZero() && event.DateTo != event.Date {
+		page.DateTo = event.DateTo.String()
 	}
 	for _, pilot := range event.Pilots {
 		rating := pilot.RatingForClass(event.Class)
@@ -393,11 +411,14 @@ func generateEvent(outDir string, event *model.Event) error {
 }
 
 func generateFutureEvent(outDir string, event *model.FutureEvent) error {
-	var page = &eventPage{
+	page := &eventPage{
 		Id:          event.Id,
 		Name:        strings.ReplaceAll(event.Name, ">", "⟫"),
 		Date:        event.Date.String(),
 		Description: template.HTML(md2html(event.Description)),
+	}
+	if !event.DateTo.IsZero() && event.DateTo != event.Date {
+		page.DateTo = event.DateTo.String()
 	}
 	path := db.ResolveIdPathExt(outDir, "future_event", event.Id, "html")
 	tmpl, err := template.New("future_event.tmpl").Funcs(templateFuncs).ParseFiles("internal/site/future_event.tmpl", "internal/site/header.tmpl", "internal/site/symbols.tmpl", "internal/site/widget.tmpl")
@@ -491,6 +512,10 @@ func generateICS(outDir string, events []*model.Event, futureEvents []*model.Fut
 	for _, e := range events {
 		event := cal.AddEvent(icsId(e.Id))
 		event.SetAllDayStartAt(time.Time(e.Date))
+		if !e.DateTo.IsZero() && e.DateTo != e.Date {
+			// DTEND для all-day событий exclusive — прибавляем 1 день
+			event.SetAllDayEndAt(time.Time(e.DateTo).AddDate(0, 0, 1))
+		}
 		event.SetSummary(e.Name)
 		event.SetDescription(e.Description)
 
@@ -505,6 +530,10 @@ func generateICS(outDir string, events []*model.Event, futureEvents []*model.Fut
 	for _, e := range futureEvents {
 		event := cal.AddEvent(icsId(e.Id))
 		event.SetAllDayStartAt(time.Time(e.Date))
+		if !e.DateTo.IsZero() && e.DateTo != e.Date {
+			// DTEND для all-day событий exclusive — прибавляем 1 день
+			event.SetAllDayEndAt(time.Time(e.DateTo).AddDate(0, 0, 1))
+		}
 		event.SetSummary(e.Name)
 		event.SetDescription(e.Description)
 

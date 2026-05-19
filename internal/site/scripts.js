@@ -748,11 +748,28 @@ function saveClass(classValue) {
 
   document.querySelectorAll(".future-event-countdown").forEach((cell) => {
     const dateStr = cell.dataset.date;
+    const dateToStr = cell.dataset.dateTo;
     if (!dateStr) return;
 
     const [year, month, day] = dateStr.split("-").map(Number);
     const eventDay = new Date(year, month - 1, day);
     const diffDays = Math.round((eventDay - today) / (1000 * 60 * 60 * 24));
+
+    // If event spans multiple days, show range indicator
+    if (dateToStr && dateToStr !== dateStr) {
+      const [toYear, toMonth, toDay] = dateToStr.split("-").map(Number);
+      const eventEndDay = new Date(toYear, toMonth - 1, toDay);
+      const diffEndDays = Math.round((eventEndDay - today) / (1000 * 60 * 60 * 24));
+
+      if (diffEndDays < 0) {
+        cell.textContent = "было";
+        return;
+      }
+      if (diffDays < 0 && diffEndDays >= 0) {
+        cell.textContent = "идёт";
+        return;
+      }
+    }
 
     if (diffDays < 0) {
       cell.textContent = "было";
