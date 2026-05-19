@@ -11,7 +11,8 @@
   "use strict";
 
   const STORAGE_KEY = "fpvladder-theme";
-  const DEFAULT_THEME = "light";
+  const DEFAULT_THEME = "dark";
+  const VALID_THEMES = ["dark", "white"];
 
   // Calculate relative path from current page to index.html
   function getRelativePathToRoot() {
@@ -41,15 +42,19 @@
   }
 
   function getSavedTheme() {
+    let theme = null;
     try {
-      const theme = localStorage.getItem(STORAGE_KEY);
-      if (theme) return theme;
+      theme = localStorage.getItem(STORAGE_KEY);
     } catch (e) {
       // localStorage not available, try cookies
     }
-    // Try cookies as fallback (for file:// protocol in Firefox)
-    const match = document.cookie.match(new RegExp(STORAGE_KEY + "=([^;]+)"));
-    return match ? match[1] : DEFAULT_THEME;
+    if (!theme) {
+      // Try cookies as fallback (for file:// protocol in Firefox)
+      const match = document.cookie.match(new RegExp(STORAGE_KEY + "=([^;]+)"));
+      if (match) theme = match[1];
+    }
+    if (!theme || !VALID_THEMES.includes(theme)) return DEFAULT_THEME;
+    return theme;
   }
 
   function saveTheme(theme) {
