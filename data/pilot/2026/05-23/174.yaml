@@ -1,0 +1,13 @@
+id: 2026/05-23/174
+name: Якупов Линар Эльдарович
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-23/36
+          date: 2026-05-23
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 24/26
+        delta: -80
+        value: 1120

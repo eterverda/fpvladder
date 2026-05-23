@@ -1,0 +1,21 @@
+id: 2026/05-23/170
+name: Захаров Егор Олегович
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-23/36
+          date: 2026-05-23
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 9/26
+        delta: 70
+        value: 1270
+      - num: 2
+        event:
+          id: 2026/05-23/37
+          date: 2026-05-23
+          name: Гонка ГУАП > Финалы
+        position: 13/16
+        delta: -24
+        value: 1246

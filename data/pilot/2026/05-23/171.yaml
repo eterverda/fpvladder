@@ -1,0 +1,21 @@
+id: 2026/05-23/171
+name: Привалов Никита Вадимович
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-23/36
+          date: 2026-05-23
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 16/26
+        delta: 0
+        value: 1200
+      - num: 2
+        event:
+          id: 2026/05-23/37
+          date: 2026-05-23
+          name: Гонка ГУАП > Финалы
+        position: 12/16
+        delta: -2
+        value: 1198
