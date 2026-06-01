@@ -1,0 +1,21 @@
+id: 2026/05-31/190
+name: Шумарин Иван
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 12/33
+        delta: 42
+        value: 1242
+      - num: 2
+        event:
+          id: 2026/05-31/40
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Финады
+        position: 12/16
+        delta: -26
+        value: 1216

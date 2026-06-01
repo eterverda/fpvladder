@@ -1,0 +1,21 @@
+id: 2026/05-31/185
+name: Крылов Леон
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 4/33
+        delta: 122
+        value: 1322
+      - num: 2
+        event:
+          id: 2026/05-31/40
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Финады
+        position: 2/16
+        delta: 58
+        value: 1380

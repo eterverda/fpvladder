@@ -11,3 +11,19 @@ careers:
         position: 17/26
         delta: -10
         value: 1190
+      - num: 2
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 5/33
+        delta: 117
+        value: 1307
+      - num: 3
+        event:
+          id: 2026/05-31/40
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Финады
+        position: 4/16
+        delta: 41
+        value: 1348

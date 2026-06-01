@@ -1,0 +1,13 @@
+id: 2026/05-31/187
+name: Новиков Тимофей
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 23/33
+        delta: -68
+        value: 1132

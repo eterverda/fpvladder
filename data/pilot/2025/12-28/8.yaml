@@ -107,6 +107,22 @@ careers:
         position: 6/16
         delta: -7
         value: 1548
+      - num: 14
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 2/33
+        delta: 30
+        value: 1578
+      - num: 15
+        event:
+          id: 2026/05-31/40
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Финады
+        position: 1/16
+        delta: 27
+        value: 1605
   - class: drone-racing > 200mm
     ratings:
       - num: 1

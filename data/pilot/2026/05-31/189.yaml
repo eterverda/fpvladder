@@ -1,0 +1,21 @@
+id: 2026/05-31/189
+name: Сторожилов Всеволод
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/39
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Квалификации
+        position: 13/33
+        delta: 32
+        value: 1232
+      - num: 2
+        event:
+          id: 2026/05-31/40
+          date: 2026-05-31
+          name: Елагин слёт > 75мм > Финады
+        position: 13/16
+        delta: -34
+        value: 1198
