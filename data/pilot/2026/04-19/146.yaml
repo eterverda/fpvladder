@@ -35,6 +35,14 @@ careers:
         position: 2/16
         delta: 43
         value: 1419
+      - num: 5
+        event:
+          id: 2026/05-31/38
+          date: 2026-05-31
+          name: Елагин слёт > 200мм
+        position: 10/16
+        delta: -51
+        value: 1368
   - class: drone-racing > 330mm
     ratings:
       - num: 1

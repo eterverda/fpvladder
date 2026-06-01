@@ -1,0 +1,13 @@
+id: 2026/05-31/177
+name: Холодных Александр
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/38
+          date: 2026-05-31
+          name: Елагин слёт > 200мм
+        position: 13-14/16
+        delta: -42
+        value: 1158

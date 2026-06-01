@@ -23,9 +23,9 @@ rating_value: 1288
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/1
 pilot_name: Аверин Дмитрий
-event_date: 2026-05-16
-rating_num: 4
-rating_value: 1052
+event_date: 2026-05-31
+rating_num: 5
+rating_value: 1023
 ---
 class: drone-racing > 330mm
 pilot_id: 2025/12-28/1
@@ -149,9 +149,9 @@ rating_value: 1145
 class: drone-racing > 200mm
 pilot_id: 2026/04-12/138
 pilot_name: Волок Даниил
-event_date: 2026-04-19
-rating_num: 4
-rating_value: 1245
+event_date: 2026-05-31
+rating_num: 5
+rating_value: 1278
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-12/138
@@ -233,9 +233,9 @@ rating_value: 1450
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/5
 pilot_name: Губанов Илья
-event_date: 2026-05-16
-rating_num: 8
-rating_value: 1150
+event_date: 2026-05-31
+rating_num: 9
+rating_value: 1138
 ---
 class: drone-racing > 330mm
 pilot_id: 2025/12-28/5
@@ -300,6 +300,13 @@ event_date: 2026-02-21
 rating_num: 2
 rating_value: 1230
 ---
+class: drone-racing > 200mm
+pilot_id: 2026/05-31/175
+pilot_name: Жернаков Василий
+event_date: 2026-05-31
+rating_num: 1
+rating_value: 1133
+---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/83
 pilot_name: Жупник Степан
@@ -317,9 +324,9 @@ rating_value: 1249
 class: drone-racing > 200mm
 pilot_id: 2026/04-19/141
 pilot_name: Журавлёв Кирилл
-event_date: 2026-04-19
-rating_num: 2
-rating_value: 1324
+event_date: 2026-05-31
+rating_num: 3
+rating_value: 1381
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-19/141
@@ -331,9 +338,9 @@ rating_value: 1232
 class: drone-racing > 200mm
 pilot_id: 2026/04-19/142
 pilot_name: Журавлёв Тимофей
-event_date: 2026-04-19
-rating_num: 2
-rating_value: 1225
+event_date: 2026-05-31
+rating_num: 3
+rating_value: 1242
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-19/142
@@ -499,9 +506,9 @@ rating_value: 1315
 class: drone-racing > 200mm
 pilot_id: 2026/02-28/54
 pilot_name: Кан Денис
-event_date: 2026-05-16
-rating_num: 3
-rating_value: 1082
+event_date: 2026-05-31
+rating_num: 4
+rating_value: 1083
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-29/116
@@ -874,6 +881,13 @@ event_date: 2026-04-19
 rating_num: 1
 rating_value: 1127
 ---
+class: drone-racing > 200mm
+pilot_id: 2026/05-31/176
+pilot_name: Мендельсон Михаил
+event_date: 2026-05-31
+rating_num: 1
+rating_value: 1243
+---
 class: drone-racing > 75mm
 pilot_id: 2026/02-28/63
 pilot_name: Меньшиков Владислав
@@ -898,9 +912,9 @@ rating_value: 1183
 class: drone-racing > 200mm
 pilot_id: 2026/04-05/136
 pilot_name: Миронов Григорий
-event_date: 2026-05-16
-rating_num: 6
-rating_value: 1439
+event_date: 2026-05-31
+rating_num: 7
+rating_value: 1455
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-05/136
@@ -975,9 +989,9 @@ rating_value: 1368
 class: drone-racing > 200mm
 pilot_id: 2026/03-28/93
 pilot_name: Петров Григорий
-event_date: 2026-04-19
-rating_num: 3
-rating_value: 1189
+event_date: 2026-05-31
+rating_num: 4
+rating_value: 1149
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/03-28/93
@@ -1024,9 +1038,9 @@ rating_value: 1065
 class: drone-racing > 200mm
 pilot_id: 2026/03-29/106
 pilot_name: Пронин Александр
-event_date: 2026-04-19
-rating_num: 5
-rating_value: 1156
+event_date: 2026-05-31
+rating_num: 6
+rating_value: 1173
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/03-29/106
@@ -1178,9 +1192,9 @@ rating_value: 1130
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/11
 pilot_name: Садовников Матвей
-event_date: 2026-05-16
-rating_num: 8
-rating_value: 1289
+event_date: 2026-05-31
+rating_num: 9
+rating_value: 1313
 ---
 class: drone-racing > 330mm
 pilot_id: 2025/12-28/11
@@ -1458,9 +1472,9 @@ rating_value: 1490
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/17
 pilot_name: Фомина Алёна
-event_date: 2026-05-16
-rating_num: 6
-rating_value: 1253
+event_date: 2026-05-31
+rating_num: 7
+rating_value: 1250
 ---
 class: drone-racing > 330mm
 pilot_id: 2025/12-28/17
@@ -1489,6 +1503,13 @@ pilot_name: Хмелёв Сергей
 event_date: 2026-03-28
 rating_num: 1
 rating_value: 1080
+---
+class: drone-racing > 200mm
+pilot_id: 2026/05-31/177
+pilot_name: Холодных Александр
+event_date: 2026-05-31
+rating_num: 1
+rating_value: 1158
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-29/131
@@ -1556,9 +1577,9 @@ rating_value: 1266
 class: drone-racing > 200mm
 pilot_id: 2026/04-19/146
 pilot_name: Черемных Мирон
-event_date: 2026-05-16
-rating_num: 4
-rating_value: 1419
+event_date: 2026-05-31
+rating_num: 5
+rating_value: 1368
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-19/146
@@ -1584,9 +1605,9 @@ rating_value: 1297
 class: drone-racing > 200mm
 pilot_id: 2026/04-19/147
 pilot_name: Черемных Платон
-event_date: 2026-05-16
-rating_num: 4
-rating_value: 1381
+event_date: 2026-05-31
+rating_num: 5
+rating_value: 1417
 ---
 class: drone-racing > 330mm
 pilot_id: 2026/04-19/147

@@ -1,0 +1,13 @@
+id: 2026/05-31/175
+name: Жернаков Василий
+careers:
+  - class: drone-racing > 200mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/05-31/38
+          date: 2026-05-31
+          name: Елагин слёт > 200мм
+        position: 16/16
+        delta: -67
+        value: 1133
