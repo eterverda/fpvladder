@@ -225,7 +225,7 @@ pilots:
         new_value: 1132
   - position: 24
     id: 2026/05-31/178
-    name: AMEBA2
+    name: Соловьев Илья
     ratings:
       - class: drone-racing > 75mm
         algorithm: elo > k-10
