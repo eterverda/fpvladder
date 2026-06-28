@@ -1,12 +1,5 @@
 ---
 class: drone-racing > 75mm
-pilot_id: 2026/05-31/178
-pilot_name: Соловьев Илья
-event_date: 2026-05-31
-rating_num: 1
-rating_value: 1122
----
-class: drone-racing > 75mm
 pilot_id: 2026/03-28/78
 pilot_name: Абрамов Михаил Александрович
 event_date: 2026-03-28
@@ -23,9 +16,9 @@ rating_value: 1055
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/1
 pilot_name: Аверин Дмитрий
-event_date: 2026-05-17
-rating_num: 10
-rating_value: 1288
+event_date: 2026-06-27
+rating_num: 12
+rating_value: 1360
 ---
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/1
@@ -72,9 +65,9 @@ rating_value: 1068
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/2
 pilot_name: Асанов Александр
-event_date: 2026-05-17
-rating_num: 13
-rating_value: 1209
+event_date: 2026-06-27
+rating_num: 15
+rating_value: 1265
 ---
 class: drone-racing > 125mm
 pilot_id: 2025/12-28/2
@@ -142,9 +135,9 @@ rating_value: 923
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/4
 pilot_name: Богинский Никита
-event_date: 2026-03-28
-rating_num: 6
-rating_value: 1298
+event_date: 2026-06-27
+rating_num: 8
+rating_value: 1243
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/05-31/180
@@ -156,9 +149,9 @@ rating_value: 1032
 class: drone-racing > 75mm
 pilot_id: 2026/05-23/169
 pilot_name: Бочкарев Максим Максимович
-event_date: 2026-05-31
-rating_num: 3
-rating_value: 1241
+event_date: 2026-06-27
+rating_num: 7
+rating_value: 1222
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/81
@@ -184,9 +177,9 @@ rating_value: 1325
 class: drone-racing > 75mm
 pilot_id: 2026/02-21/20
 pilot_name: Воробьев Артем
-event_date: 2026-05-31
-rating_num: 5
-rating_value: 1192
+event_date: 2026-06-27
+rating_num: 6
+rating_value: 1125
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/02-28/44
@@ -254,9 +247,9 @@ rating_value: 1087
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/5
 pilot_name: Губанов Илья
-event_date: 2026-05-17
-rating_num: 13
-rating_value: 1450
+event_date: 2026-06-27
+rating_num: 15
+rating_value: 1492
 ---
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/5
@@ -292,6 +285,13 @@ pilot_name: Дятлов Андрей
 event_date: 2026-02-28
 rating_num: 1
 rating_value: 1102
+---
+class: drone-racing > 75mm
+pilot_id: 2026/06-27/191
+pilot_name: Егоров Владимир Игоревич
+event_date: 2026-06-27
+rating_num: 3
+rating_value: 1226
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/82
@@ -441,6 +441,13 @@ rating_num: 1
 rating_value: 1260
 ---
 class: drone-racing > 75mm
+pilot_id: 2026/06-27/192
+pilot_name: Иванов Андрей Иванович
+event_date: 2026-06-27
+rating_num: 1
+rating_value: 1151
+---
+class: drone-racing > 75mm
 pilot_id: 2026/05-31/183
 pilot_name: Иванов Артём
 event_date: 2026-05-31
@@ -534,9 +541,9 @@ rating_value: 1300
 class: drone-racing > 75mm
 pilot_id: 2026/03-29/115
 pilot_name: Камаров Хуршед
-event_date: 2026-05-17
-rating_num: 10
-rating_value: 1399
+event_date: 2026-06-27
+rating_num: 13
+rating_value: 1334
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/02-28/54
@@ -590,9 +597,9 @@ rating_value: 1353
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/87
 pilot_name: Козлов Сергей
-event_date: 2026-03-28
-rating_num: 1
-rating_value: 1010
+event_date: 2026-06-27
+rating_num: 2
+rating_value: 960
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/02-28/55
@@ -625,9 +632,9 @@ rating_value: 1506
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/8
 pilot_name: Котоман Семён
-event_date: 2026-05-31
-rating_num: 15
-rating_value: 1605
+event_date: 2026-06-27
+rating_num: 19
+rating_value: 1601
 ---
 class: drone-racing > 125mm
 pilot_id: 2025/12-28/8
@@ -709,9 +716,9 @@ rating_value: 1130
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/89
 pilot_name: Кряжев Алексей
-event_date: 2026-05-31
-rating_num: 2
-rating_value: 1159
+event_date: 2026-06-27
+rating_num: 3
+rating_value: 1090
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-29/118
@@ -793,9 +800,9 @@ rating_value: 1215
 class: drone-racing > 75mm
 pilot_id: 2026/05-17/162
 pilot_name: Куцых Яков
-event_date: 2026-05-31
-rating_num: 5
-rating_value: 1364
+event_date: 2026-06-27
+rating_num: 9
+rating_value: 1359
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/90
@@ -923,6 +930,13 @@ event_date: 2026-03-29
 rating_num: 2
 rating_value: 1172
 ---
+class: drone-racing > 75mm
+pilot_id: 2026/04-19/143
+pilot_name: Мелицарик Богдан
+event_date: 2026-06-27
+rating_num: 2
+rating_value: 1177
+---
 class: drone-racing > 200mm
 pilot_id: 2026/04-19/143
 pilot_name: Мелицарик Богдан
@@ -1045,9 +1059,9 @@ rating_value: 1135
 class: drone-racing > 75mm
 pilot_id: 2026/02-21/29
 pilot_name: Петренко Игорь
-event_date: 2026-05-23
-rating_num: 8
-rating_value: 1090
+event_date: 2026-06-27
+rating_num: 10
+rating_value: 1061
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/93
@@ -1199,9 +1213,9 @@ rating_value: 1521
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/10
 pilot_name: Руденко Владимир
-event_date: 2026-05-23
-rating_num: 12
-rating_value: 1617
+event_date: 2026-06-27
+rating_num: 15
+rating_value: 1569
 ---
 class: drone-racing > 125mm
 pilot_id: 2025/12-28/10
@@ -1255,9 +1269,9 @@ rating_value: 1280
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/11
 pilot_name: Садовников Матвей
-event_date: 2026-05-23
-rating_num: 14
-rating_value: 1657
+event_date: 2026-06-27
+rating_num: 17
+rating_value: 1645
 ---
 class: drone-racing > 125mm
 pilot_id: 2025/12-28/11
@@ -1311,9 +1325,9 @@ rating_value: 952
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/13
 pilot_name: Саламатов Марк
-event_date: 2026-05-23
-rating_num: 20
-rating_value: 1593
+event_date: 2026-06-27
+rating_num: 24
+rating_value: 1608
 ---
 class: drone-racing > 125mm
 pilot_id: 2025/12-28/13
@@ -1388,9 +1402,9 @@ rating_value: 1182
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/14
 pilot_name: Сойгалов Степан
-event_date: 2026-05-31
-rating_num: 13
-rating_value: 1624
+event_date: 2026-06-27
+rating_num: 17
+rating_value: 1631
 ---
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/14
@@ -1398,6 +1412,13 @@ pilot_name: Сойгалов Степан
 event_date: 2026-05-16
 rating_num: 4
 rating_value: 1169
+---
+class: drone-racing > 75mm
+pilot_id: 2026/05-31/178
+pilot_name: Соловьев Илья
+event_date: 2026-05-31
+rating_num: 1
+rating_value: 1122
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/98
@@ -1423,9 +1444,9 @@ rating_value: 1421
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/15
 pilot_name: Старостенков Антон
-event_date: 2026-05-31
-rating_num: 9
-rating_value: 1052
+event_date: 2026-06-27
+rating_num: 11
+rating_value: 1108
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/05-31/189
@@ -1500,23 +1521,23 @@ rating_value: 1062
 class: drone-racing > 75mm
 pilot_id: 2026/02-21/36
 pilot_name: Титоренко Сергей
-event_date: 2026-05-31
-rating_num: 3
-rating_value: 828
+event_date: 2026-06-27
+rating_num: 4
+rating_value: 868
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/02-21/37
 pilot_name: Ткачёв Роман
-event_date: 2026-05-17
-rating_num: 2
-rating_value: 866
+event_date: 2026-06-27
+rating_num: 3
+rating_value: 901
 ---
 class: drone-racing > 75mm
 pilot_id: 2026/03-28/102
 pilot_name: Толкунов Иван
-event_date: 2026-05-17
-rating_num: 7
-rating_value: 1329
+event_date: 2026-06-27
+rating_num: 9
+rating_value: 1236
 ---
 class: drone-racing > 200mm
 pilot_id: 2026/03-28/102
@@ -1549,9 +1570,9 @@ rating_value: 1076
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/17
 pilot_name: Фомина Алёна
-event_date: 2026-05-23
-rating_num: 6
-rating_value: 1490
+event_date: 2026-06-27
+rating_num: 8
+rating_value: 1518
 ---
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/17
@@ -1570,9 +1591,9 @@ rating_value: 1260
 class: drone-racing > 75mm
 pilot_id: 2025/12-28/16
 pilot_name: Формагей Виктория
-event_date: 2026-05-23
-rating_num: 12
-rating_value: 1059
+event_date: 2026-06-27
+rating_num: 15
+rating_value: 1190
 ---
 class: drone-racing > 200mm
 pilot_id: 2025/12-28/16
@@ -1801,9 +1822,9 @@ rating_value: 1090
 class: drone-racing > 75mm
 pilot_id: 2026/02-21/40
 pilot_name: Эйнтроп Евгений
-event_date: 2026-05-31
-rating_num: 4
-rating_value: 1154
+event_date: 2026-06-27
+rating_num: 7
+rating_value: 1237
 ---
 class: drone-racing > 200mm
 pilot_id: 2026/03-29/107

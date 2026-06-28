@@ -232,7 +232,7 @@ pilots:
         new_value: 1109
   - position: 25-26
     id: 2026/03-28/89
-    name: Кряжев Алексей Валерьевичь
+    name: Кряжев Алексей Валерьевич
     ratings:
       - class: drone-racing > 75mm
         algorithm: elo > k-10

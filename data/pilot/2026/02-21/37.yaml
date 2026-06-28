@@ -19,3 +19,11 @@ careers:
         position: 50-56/56
         delta: -56
         value: 866
+      - num: 3
+        event:
+          id: 2026/06-27/41
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 17-18/24
+        delta: 35
+        value: 901

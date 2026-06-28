@@ -15,7 +15,7 @@ careers:
         event:
           id: 2026/05-23/36
           date: 2026-05-23
-          name: Гонка ГУАП > Квалификации ЛЗ
+          name: Гонка ГУАП > Квалификации
         position: 12/26
         delta: 14
         value: 1299
@@ -43,3 +43,35 @@ careers:
         position: 7/16
         delta: 0
         value: 1364
+      - num: 6
+        event:
+          id: 2026/06-27/41
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 10/24
+        delta: 0
+        value: 1364
+      - num: 7
+        event:
+          id: 2026/06-27/42
+          date: 2026-06-27
+          name: Гонка ГУАП > Финалы ЛЗ
+        position: 10/16
+        delta: -14
+        value: 1350
+      - num: 8
+        event:
+          id: 2026/06-27/43
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации КЗ
+        position: 4/7
+        delta: 9
+        value: 1359
+      - num: 9
+        event:
+          id: 2026/06-27/44
+          date: 2026-06-27
+          name: Гонка ГУАП > Финалы КЗ
+        position: 3/4
+        delta: 0
+        value: 1359

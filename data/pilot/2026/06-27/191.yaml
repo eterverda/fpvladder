@@ -1,0 +1,29 @@
+id: 2026/06-27/191
+name: Егоров Владимир Игоревич
+careers:
+  - class: drone-racing > 75mm
+    ratings:
+      - num: 1
+        event:
+          id: 2026/06-27/41
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 9/24
+        delta: 51
+        value: 1251
+      - num: 2
+        event:
+          id: 2026/06-27/42
+          date: 2026-06-27
+          name: Гонка ГУАП > Финалы ЛЗ
+        position: 9/16
+        delta: 16
+        value: 1267
+      - num: 3
+        event:
+          id: 2026/06-27/43
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации КЗ
+        position: 7/7
+        delta: -41
+        value: 1226

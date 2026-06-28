@@ -39,7 +39,7 @@ careers:
         event:
           id: 2026/05-23/36
           date: 2026-05-23
-          name: Гонка ГУАП > Квалификации ЛЗ
+          name: Гонка ГУАП > Квалификации
         position: 5/26
         delta: 45
         value: 1461
@@ -51,6 +51,22 @@ careers:
         position: 4/16
         delta: 29
         value: 1490
+      - num: 7
+        event:
+          id: 2026/06-27/41
+          date: 2026-06-27
+          name: Гонка ГУАП > Квалификации ЛЗ
+        position: 2/24
+        delta: 52
+        value: 1542
+      - num: 8
+        event:
+          id: 2026/06-27/42
+          date: 2026-06-27
+          name: Гонка ГУАП > Финалы ЛЗ
+        position: 8/16
+        delta: -24
+        value: 1518
   - class: drone-racing > 200mm
     ratings:
       - num: 1

@@ -1,0 +1,161 @@
+id: 2026/06-27/43
+date: 2026-06-27
+name: Гонка ГУАП > Квалификации КЗ
+organizer:
+  name: ГУАП
+class: drone-racing > 75mm
+pilots:
+  - position: 1
+    team: 1
+    id: 2025/12-28/8
+    name: Котоман Семён
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1622
+        algorithm: elo > k-10
+        delta: 27
+        new_value: 1649
+  - position: 1
+    team: 1
+    id: 2025/12-28/14
+    name: Сойгалов Степан
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1657
+        algorithm: elo > k-10
+        delta: 24
+        new_value: 1681
+  - position: 2
+    team: 2
+    id: 2025/12-28/1
+    name: Аверин Дмитрий
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1288
+        algorithm: elo > k-10
+        delta: 54
+        new_value: 1342
+  - position: 2
+    team: 2
+    id: 2025/12-28/5
+    name: Губанов Илья
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/05-17/34
+        old_value: 1450
+        algorithm: elo > k-10
+        delta: 33
+        new_value: 1483
+  - position: 3
+    team: 3
+    id: 2026/03-29/115
+    name: Камаров Хуршед
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/41
+        old_value: 1256
+        algorithm: elo > k-10
+        delta: 37
+        new_value: 1293
+  - position: 3
+    team: 3
+    id: 2025/12-28/13
+    name: Саламатов Марк
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1592
+        algorithm: elo > k-10
+        delta: -5
+        new_value: 1587
+  - position: 4
+    team: 4
+    id: 2026/05-23/169
+    name: Бочкарев Максим
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1185
+        algorithm: elo > k-10
+        delta: 28
+        new_value: 1213
+  - position: 4
+    team: 4
+    id: 2026/05-17/162
+    name: Куцых Яков
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1350
+        algorithm: elo > k-10
+        delta: 9
+        new_value: 1359
+  - position: 5
+    team: 5
+    id: 2025/12-28/10
+    name: Руденко Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1623
+        algorithm: elo > k-10
+        delta: -54
+        new_value: 1569
+  - position: 5
+    team: 5
+    id: 2025/12-28/11
+    name: Садовников Матвей
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1706
+        algorithm: elo > k-10
+        delta: -61
+        new_value: 1645
+  - position: 6
+    team: 6
+    id: 2026/02-21/29
+    name: Петренко Игорь
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/41
+        old_value: 1058
+        algorithm: elo > k-10
+        delta: 3
+        new_value: 1061
+  - position: 6
+    team: 6
+    id: 2025/12-28/16
+    name: Формагей Виктория
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1200
+        algorithm: elo > k-10
+        delta: -10
+        new_value: 1190
+  - position: 7
+    team: 7
+    id: 2026/06-27/191
+    name: Егоров Владимир
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1267
+        algorithm: elo > k-10
+        delta: -41
+        new_value: 1226
+  - position: 7
+    team: 7
+    id: 2026/02-21/40
+    name: Эйнтроп Евгений
+    ratings:
+      - class: drone-racing > 75mm
+        origin_id: 2026/06-27/42
+        old_value: 1280
+        algorithm: elo > k-10
+        delta: -43
+        new_value: 1237
