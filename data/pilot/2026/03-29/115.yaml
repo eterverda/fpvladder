@@ -96,9 +96,9 @@ careers:
           id: 2026/06-27/43
           date: 2026-06-27
           name: Гонка ГУАП > Квалификации КЗ
-        position: 3/7
-        delta: 37
-        value: 1293
+        position: 3/6
+        delta: 26
+        value: 1282
       - num: 13
         event:
           id: 2026/06-27/44
@@ -106,4 +106,4 @@ careers:
           name: Гонка ГУАП > Финалы КЗ
         position: 1/4
         delta: 41
-        value: 1334
+        value: 1323

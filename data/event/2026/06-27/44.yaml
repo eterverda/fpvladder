@@ -12,10 +12,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1293
+        old_value: 1282
         algorithm: elo > k-10
         delta: 41
-        new_value: 1334
+        new_value: 1323
   - position: 1
     team: 1
     id: 2025/12-28/13
@@ -23,10 +23,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1587
+        old_value: 1584
         algorithm: elo > k-10
         delta: 21
-        new_value: 1608
+        new_value: 1605
   - position: 2
     team: 2
     id: 2025/12-28/1
@@ -34,10 +34,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1342
+        old_value: 1332
         algorithm: elo > k-10
         delta: 18
-        new_value: 1360
+        new_value: 1350
   - position: 2
     team: 2
     id: 2025/12-28/5
@@ -45,10 +45,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1483
+        old_value: 1478
         algorithm: elo > k-10
         delta: 9
-        new_value: 1492
+        new_value: 1487
   - position: 3
     team: 3
     id: 2026/05-23/169
@@ -56,10 +56,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1213
+        old_value: 1201
         algorithm: elo > k-10
         delta: 9
-        new_value: 1222
+        new_value: 1210
   - position: 3
     team: 3
     id: 2026/05-17/162
@@ -67,10 +67,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1359
+        old_value: 1351
         algorithm: elo > k-10
-        delta: 0
-        new_value: 1359
+        delta: 1
+        new_value: 1352
   - position: 4
     team: 4
     id: 2025/12-28/8
@@ -78,10 +78,10 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1649
+        old_value: 1646
         algorithm: elo > k-10
         delta: -48
-        new_value: 1601
+        new_value: 1598
   - position: 4
     team: 4
     id: 2025/12-28/14
@@ -89,7 +89,7 @@ pilots:
     ratings:
       - class: drone-racing > 75mm
         origin_id: 2026/06-27/43
-        old_value: 1681
+        old_value: 1679
         algorithm: elo > k-10
         delta: -50
-        new_value: 1631
+        new_value: 1629

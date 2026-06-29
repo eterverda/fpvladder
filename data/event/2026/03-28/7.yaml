@@ -292,7 +292,7 @@ pilots:
         new_value: 1145
   - position: 32
     id: 2026/03-28/101
-    name: Татаров Ефим Андреевич
+    name: Татаров Ефим  Андреевич
     ratings:
       - class: drone-racing > 75mm
         algorithm: elo > k-10

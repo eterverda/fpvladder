@@ -14,8 +14,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1622
         algorithm: elo > k-10
-        delta: 27
-        new_value: 1649
+        delta: 24
+        new_value: 1646
   - position: 1
     team: 1
     id: 2025/12-28/14
@@ -25,8 +25,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1657
         algorithm: elo > k-10
-        delta: 24
-        new_value: 1681
+        delta: 22
+        new_value: 1679
   - position: 2
     team: 2
     id: 2025/12-28/1
@@ -36,8 +36,8 @@ pilots:
         origin_id: 2026/05-17/34
         old_value: 1288
         algorithm: elo > k-10
-        delta: 54
-        new_value: 1342
+        delta: 44
+        new_value: 1332
   - position: 2
     team: 2
     id: 2025/12-28/5
@@ -47,8 +47,8 @@ pilots:
         origin_id: 2026/05-17/34
         old_value: 1450
         algorithm: elo > k-10
-        delta: 33
-        new_value: 1483
+        delta: 28
+        new_value: 1478
   - position: 3
     team: 3
     id: 2026/03-29/115
@@ -58,8 +58,8 @@ pilots:
         origin_id: 2026/06-27/41
         old_value: 1256
         algorithm: elo > k-10
-        delta: 37
-        new_value: 1293
+        delta: 26
+        new_value: 1282
   - position: 3
     team: 3
     id: 2025/12-28/13
@@ -69,8 +69,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1592
         algorithm: elo > k-10
-        delta: -5
-        new_value: 1587
+        delta: -8
+        new_value: 1584
   - position: 4
     team: 4
     id: 2026/05-23/169
@@ -80,8 +80,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1185
         algorithm: elo > k-10
-        delta: 28
-        new_value: 1213
+        delta: 16
+        new_value: 1201
   - position: 4
     team: 4
     id: 2026/05-17/162
@@ -91,8 +91,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1350
         algorithm: elo > k-10
-        delta: 9
-        new_value: 1359
+        delta: 1
+        new_value: 1351
   - position: 5
     team: 5
     id: 2025/12-28/10
@@ -102,8 +102,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1623
         algorithm: elo > k-10
-        delta: -54
-        new_value: 1569
+        delta: -56
+        new_value: 1567
   - position: 5
     team: 5
     id: 2025/12-28/11
@@ -113,8 +113,8 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1706
         algorithm: elo > k-10
-        delta: -61
-        new_value: 1645
+        delta: -63
+        new_value: 1643
   - position: 6
     team: 6
     id: 2026/02-21/29
@@ -124,8 +124,8 @@ pilots:
         origin_id: 2026/06-27/41
         old_value: 1058
         algorithm: elo > k-10
-        delta: 3
-        new_value: 1061
+        delta: -12
+        new_value: 1046
   - position: 6
     team: 6
     id: 2025/12-28/16
@@ -135,27 +135,5 @@ pilots:
         origin_id: 2026/06-27/42
         old_value: 1200
         algorithm: elo > k-10
-        delta: -10
-        new_value: 1190
-  - position: 7
-    team: 7
-    id: 2026/06-27/191
-    name: Егоров Владимир
-    ratings:
-      - class: drone-racing > 75mm
-        origin_id: 2026/06-27/42
-        old_value: 1267
-        algorithm: elo > k-10
-        delta: -41
-        new_value: 1226
-  - position: 7
-    team: 7
-    id: 2026/02-21/40
-    name: Эйнтроп Евгений
-    ratings:
-      - class: drone-racing > 75mm
-        origin_id: 2026/06-27/42
-        old_value: 1280
-        algorithm: elo > k-10
-        delta: -43
-        new_value: 1237
+        delta: -22
+        new_value: 1178
